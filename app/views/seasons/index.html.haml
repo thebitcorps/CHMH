@@ -1,0 +1,11 @@
+%h2 Temporadas
+
+%ul.list-group
+  - @seasons.each_with_index do |season, i|
+    - if season == @seasons.first
+      %li.list-group-item.active
+        = "#" + (@seasons.count - i).to_s + " - La temporada activa inició el " + DateWow(season.startdate) + " y terminara el " + DateWow(season.enddate) + ", hay " + season.users.count.to_s + " internos activos en este momento."
+    - else
+      %li.list-group-item
+        = "#" + (@seasons.count - i).to_s + " - Inició el " + DateWow(season.startdate) + " y terminó el " + DateWow(season.enddate) + ", hubo " + season.users.count.to_s + " internos activos."
+= link_to "Regresar", root_path, :class => "btn btn-default"

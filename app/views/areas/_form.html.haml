@@ -1,0 +1,21 @@
+= form_for @area do |f|
+  - if @area.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error", "errores")}:"
+      %ul
+        - @area.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "Nombre: "
+    = f.text_field :name, :autofocus => true, :class => 'form-control' 
+  .form-group
+    = f.label "Descripción: "
+    = f.text_field :description, :class => 'form-control' 
+  .form-group
+    = f.label "Jefe asignado: "
+    %br
+    = f.select :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]}
+  .form-group.btn-group
+    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
+    = f.submit 'Guardar', :class => "btn btn-success"

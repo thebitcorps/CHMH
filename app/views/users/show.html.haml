@@ -1,0 +1,36 @@
+%h2 
+  = @user.name + " " + @user.lastname
+%ul.list-group
+  %li.list-group-item
+    %b Área de pertenencia: 
+    - if @user.role == "Admin"
+      Administrador
+    - else
+      = @user.area.name + " "
+      - if @user.role == "1"
+        (Jefe de área)
+      - if @user.role == "2"
+        (Tutor)
+      - if @user.role == "3"
+        (Interno)
+  %li.list-group-item
+    %b Fecha de nacimiento: 
+    = DateWow(@user.birthday)
+  %li.list-group-item
+    %b Sexo: 
+    - if @user.gender == "0"
+      Masculino
+    - else
+      Femenino
+  %li.list-group-item
+    %b Correo: 
+    = @user.email
+  - if @user.role == "3"
+    %li.list-group-item
+      %b Procedimientos: 
+      = link_to "Ver procedimientos", procedures_path(:user_id => @user.id), :class => 'btn btn-primary'
+.form-group.btn-group
+  -if current_user.role == "Admin" or current_user.role == "1"
+    = link_to "Acualizar", edit_user_path(@user), :class => 'btn btn-primary'
+  -if current_user == @user
+    = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'

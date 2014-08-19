@@ -1,0 +1,19 @@
+= form_for @task do |f|
+  - if @task.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
+      %ul
+        - @task.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "Nombre: "
+    = f.text_field :name, :autofocus => true, :class => 'form-control' 
+  .form-group
+    = f.label "Descripción: "
+    = f.text_field :description, :class => 'form-control' 
+  .form-group
+    = f.text_field :surgery_id, :type => "hidden"
+  .form-group.btn-group
+    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
+    = f.submit 'Guardar', :class => "btn btn-success"

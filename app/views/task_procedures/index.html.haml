@@ -1,0 +1,11 @@
+%h2 
+	Tareas realizadas:
+	%span.label.label-info
+		= @procedure.folio
+%ul.list-group
+	- @procedure.task_procedures.each do |task_procedure|
+		%li.list-group-item
+			= task_procedure.task.name
+
+= link_to "Agregar", new_task_procedure_path(:procedure_id => @procedure.id, :surgery_id => @surgery.id), :class => "btn btn-primary"
+= link_to "Aceptar", @procedure, :class => "btn btn-success"

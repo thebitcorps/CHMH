@@ -1,0 +1,38 @@
+= form_for @procedure do |f|
+  - if @procedure.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@procedure.errors.count, "error")} prohibited this procedure from being saved:"
+      %ul
+        - @procedure.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "Folio: "
+    = f.text_field :folio, :autofocus => true, :class => 'form-control' 
+  .form-group
+    = f.label "Fecha de realizaíón: "
+    %br
+    = f.date_select :donedate, :class => 'form-control' 
+  .form-group
+    = f.label "Tiempo en sirugia: "
+    %br
+    %select{:id => "procedure_hou", :name => "hou"}
+      - (0..30).each do |i|
+        %option{value: i}
+          = i
+    Horas
+    %select{:id => "procedure_min", :name => "min"}
+      - (0..59).each do |i|
+        %option{value: i}
+          = i
+    Minutos
+  .form-group
+    = f.label "Cirugia a participar: "
+    %br
+    = f.select :surgery_id, @surgeries.collect {|surgery| [surgery.name, surgery.id]}
+  .form-group
+    = f.label "Anotaciones: "
+    = f.text_area :notes, :class => 'form-control' 
+  .form-group.btn-group
+    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
+    = f.submit 'Guardar', :class => "btn btn-success"

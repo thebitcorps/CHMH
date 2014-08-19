@@ -1,0 +1,19 @@
+= form_for @season do |f|
+  - if @season.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@season.errors.count, "error")} Debe corregir los errorres siguientes:"
+      %ul
+        - @season.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "Fecha de inicio: "
+    %br
+    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
+  .form-group
+    = f.label "Fecha de termino: "
+    %br
+    = f.date_select :enddate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
+  .form-group.btn-group
+    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
+    = f.submit 'Guardar', :class => "btn btn-success"

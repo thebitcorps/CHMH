@@ -1,0 +1,16 @@
+%h2
+	= @surgery.name
+%p
+	= @surgery.description
+= link_to "Editar", edit_surgery_path(@surgery), :class => "btn btn-primary"
+
+.panel.panel-default
+	.panel-heading
+		%h4 Tareas
+	.panel-body
+		.list-group
+			- @surgery.tasks.each do |task|
+				.list-group-item
+					= task.name
+		.btn-group.btn-group-justified
+			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"
