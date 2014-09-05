@@ -12,10 +12,13 @@ gem 'turbolinks'
 gem "haml-rails"
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
-gem 'bootstrap-sass'
+# gem 'bootstrap-sass'
+gem "less-rails"
+gem "twitter-bootstrap-rails"
 gem 'devise'
+gem 'therubyracer'
 group :development do
+  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'
