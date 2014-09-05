@@ -17,6 +17,7 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'therubyracer'
+gem 'rails_12factor'
 group :development do
   gem 'spring'
   gem 'better_errors'
