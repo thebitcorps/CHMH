@@ -16,7 +16,7 @@
 						%b Usuarios activos: 
 						= Season.last.users.count
 					%li.list-group-item
-						%b Fecha de inicio: 
+						%b Fecha de inicio:
 						= @season.startdate.day.to_s + "/" + NameMonth(@season.startdate.month.to_s) + "/" + @season.startdate.year.to_s
 					%li.list-group-item
 						%b Fecha de termino: 
