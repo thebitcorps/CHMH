@@ -61,8 +61,9 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
+    sugeryass = @task.surgery
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to surgery_path(sugeryass), notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

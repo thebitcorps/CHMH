@@ -3,6 +3,7 @@
 %p
 	= @area.description
 = link_to "Editar", edit_area_path(@area), :class => "btn btn-primary"
+= link_to "Borrar Area", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: 'Desea borrar area'}
 
 .panel.panel-default
 	.panel-heading
@@ -10,6 +11,6 @@
 	.panel-body
 		.list-group
 			- @area.surgeries.each do |surgery|
-				= link_to surgery.name, surgery_path(surgery), :class => "list-group-item"
+				= link_to surgery.name, surgery_path(surgery),  :class => "list-group-item"
 		.btn-group.btn-group-justified
 			= link_to "Crear nueva", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"

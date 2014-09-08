@@ -2,7 +2,10 @@
 	= @surgery.name
 %p
 	= @surgery.description
-= link_to "Editar", edit_surgery_path(@surgery), :class => "btn btn-primary"
+.btn-group.btn-group-justified	
+	= link_to "Editar", edit_surgery_path(@surgery), :class => "btn btn-primary"
+	= link_to "Borrar cirugia", surgery_path,  method: :delete, :class => "btn btn-danger",data: { confirm: 'Desea borrar area'}
+
 
 .panel.panel-default
 	.panel-heading
@@ -11,8 +14,9 @@
 		.list-group
 			- @surgery.tasks.each do |task|
 				.list-group-item
-					= task.name
+					= task.name	
+					= link_to "Borrar tarea", task_path(task),  method: :delete, :class => "btn btn-danger btn-small pull-right"
+				%br/
 		.btn-group.btn-group-justified
 			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"
-		.btn-group.btn-group-justified
-			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"
+		

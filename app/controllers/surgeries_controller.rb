@@ -66,8 +66,9 @@ class SurgeriesController < ApplicationController
   # DELETE /surgeries/1.json
   def destroy
     @surgery.destroy
+    areass = @surgery.area
     respond_to do |format|
-      format.html { redirect_to surgeries_url, notice: 'Surgery was successfully destroyed.' }
+      format.html { redirect_to area_path(areass), notice: 'Surgery was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
