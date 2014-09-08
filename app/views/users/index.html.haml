@@ -16,12 +16,14 @@
     .panel-heading
       %h4 Internos Activos
     .panel-body
-      - User.where(:season_id => Season.last.id).each do |user|
-        = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+      - if Season.last != nil
+        - User.where(:season_id => Season.last.id).each do |user|
+          = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
 -else
   .panel.panel-default
     .panel-heading
       %h4 Internos en área
     .panel-body
-      - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).each do |user|
-        = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+      - if Season.last != nil
+        - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).each do |user|
+          = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
