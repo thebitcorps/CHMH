@@ -14,10 +14,10 @@
         = f.label "Apellidos: "
         = f.text_field :lastname, :class => 'form-control' 
       .form-group
-        = f.label "Correo: "
+        = f.label "Correo electrónico (e-mail): "
         = f.text_field :email, :class => 'form-control'
       .form-group
-        = f.label "Sexo: "
+        = f.label "Género: "
         %br
         = f.select :gender, [['Masculino', 0], ['Femenino', 1]]
       .form-group
@@ -34,7 +34,7 @@
             = f.select :role, [['Interno', 3], ['Jefe de área', 1], ['Tutor', 2]]
           - if Area.count > 0
             .form-group
-              = f.label "Área a la que pertenece: "
+              = f.label "Área de pertenencia: "
               %br
               = f.select(:area_id, Area.all.collect {|area| [area.name, area.id]}, :class => 'form-control' )
       - if current_user.role == "1"
@@ -43,7 +43,7 @@
           %br
           = f.select :role, [['Interno', 3], ['Tutor', 2]]
         .form-group
-          = f.label "Área a la que pertenece: "
+          = f.label "Área de pertenencia: "
           %br
           = f.select(:area_id, [[current_user.area.name, current_user.area.id]], :class => 'form-control' )
   -else
@@ -52,7 +52,7 @@
         = f.label "Contraseña: "
         = f.password_field :password, :autofocus => true, :class => 'form-control' 
       .form-group
-        = f.label "Confirme contraseña: "
+        = f.label "Confirmar contraseña: "
         = f.password_field :password_confirmation, :autofocus => true, :class => 'form-control'
       .form-group
         %input{:id => "user_pd", :name => "pd", :value => params[:pd], :type => "hidden"}

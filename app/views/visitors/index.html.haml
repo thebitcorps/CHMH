@@ -19,15 +19,15 @@
 						%b Fecha de inicio:
 						= @season.startdate.day.to_s + "/" + NameMonth(@season.startdate.month.to_s) + "/" + @season.startdate.year.to_s
 					%li.list-group-item
-						%b Fecha de termino: 
+						%b Fecha de conclusión: 
 						= @season.enddate.day.to_s + "/" + NameMonth(@season.enddate.month.to_s) + "/" + @season.enddate.year.to_s
 					- lastDays = (@season.enddate - Date.today).to_i
 					- if lastDays <= 0
 						%li.list-group-item
-							.alert.alert-warning La temporada ha finalizado puede extender el tiempo editando esta temporada o siendo el caso iniciando una nueva y generar nuevos usuarios para esta.
+							.alert.alert-warning La temporada ha finalizado, puede extender el tiempo editando esta temporada o siendo el caso, iniciando una nueva y generando nuevos usuarios para la misma.
 					-else
 						%li.list-group-item
-							%b Dias restantes: 
+							%b Días restantes: 
 							= lastDays
 
 
@@ -61,7 +61,7 @@
 			%h4 Áreas
 		.panel-body
 			-if User.where(:role => "1").limit(1).count == 0
-				.alert.alert-warning Antes de crear un área, debe crear algun usuario al cual titular en ella.
+				.alert.alert-warning Antes de crear un área, debe crear algun usuario al cuál titular en ella.
 			-else
 				- if Area.count == 0
 					.btn-group.btn-group-justified
@@ -71,7 +71,7 @@
 						%tr
 							%th Nombre
 							%th Jefe de área
-							%th Cirugias realizables
+							%th Procedimentos realizables
 						- Area.all.each do |area|
 							%tr
 								%td
@@ -99,7 +99,7 @@
 						%b Procedimientos realizados: 
 						= current_user.procedures.count
 					%li.list-group-item
-						%b Tiempo en cirugia:
+						%b Tiempo en procedimientos:
 						= (current_user.minutes.to_i / 60).to_s + " horas " + (current_user.minutes.to_i % 60).to_s + " minutos."
 					%li.list-group-item
 						%b Ultimo:
@@ -121,7 +121,7 @@
 					%b Internos en área: 
 					= @area.users.where(:season_id => Season.last.id).count
 				%li.list-group-item
-					%b Cirugias realizables: 
+					%b Procedimientos realizables: 
 					= @area.surgeries.count
 			.btn-group.btn-group-justified
 				= link_to "Ver", @area, :class => "btn btn-default"
@@ -145,7 +145,7 @@
 					%b Internos en área: 
 					= @area.users.where(:season_id => Season.last.id).count
 				%li.list-group-item
-					%b Cirugias realizables: 
+					%b Procedimientos realizables: 
 					= @area.surgeries.count
 					%table.table
 						%tr

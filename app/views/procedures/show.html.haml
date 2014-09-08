@@ -1,20 +1,20 @@
 %h2 
-	Procedimiento:
+	Actividad:
 	%span.label.label-info
 		= @procedure.folio
 
 %ul.list-group
 	%li.list-group-item
-		%b Cirugia realizada: 
+		%b Procedimiento realizado: 
 		= @procedure.surgery.name
 	%li.list-group-item
 		%b Fecha: 
 		=  @procedure.donedate.day.to_s + "/" + NameMonth(@procedure.donedate.month.to_s) + "/" + @procedure.donedate.year.to_s
 	%li.list-group-item
-		%b Tiempo en cirugia: 
+		%b Tiempo de procedimiento: 
 		= (@procedure.minutes.to_i / 60).to_s + " horas " + (@procedure.minutes.to_i % 60).to_s + " minutos."
 	%li.list-group-item
-		%b Tareas realizadas:
+		%b Actividades realizadas:
 		- if @procedure.task_procedures.count == 0
 			= link_to "Agregar", task_procedures_path(:procedure_id => @procedure.id), :class => "btn btn-primary"
 		-else

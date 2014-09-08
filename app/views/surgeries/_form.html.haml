@@ -1,7 +1,7 @@
 = form_for @surgery do |f|
   - if @surgery.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@surgery.errors.count, "error")} prohibited this surgery from being saved:"
+      %h2= "#{pluralize(@surgery.errors.count, "error")} ha prohibido el guardado de este procedimiento:"
       %ul
         - @surgery.errors.full_messages.each do |msg|
           %li= msg

@@ -17,13 +17,13 @@
     %b Fecha de nacimiento: 
     = DateWow(@user.birthday)
   %li.list-group-item
-    %b Sexo: 
+    %b Género: 
     - if @user.gender == "0"
       Masculino
     - else
       Femenino
   %li.list-group-item
-    %b Correo: 
+    %b Correo electrónico (e-mail): 
     = @user.email
   - if @user.role == "3"
     %li.list-group-item

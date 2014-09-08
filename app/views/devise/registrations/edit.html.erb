@@ -10,11 +10,11 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <div>Esperando confirmación para: <%= resource.unconfirmed_email %></div>
       <% end %>
     </div>
     <fieldset>
-      <p>Leave these fields blank if you don't want to change your password.</p>
+      <p>Deja estos campos en blaco si es que no deseas cambiar tu contraseña.</p>
       <div class="form-group">
         <%= f.label :password %>
         <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
@@ -25,17 +25,17 @@
       </div>
     </fieldset>
     <fieldset>
-      <p>You must enter your current password to make changes.</p>
+      <p>Ingresa tu contraseña actual para poder hacer cambios.</p>
       <div class="form-group">
         <%= f.label :current_password %>
         <%= f.password_field :current_password, class: 'form-control' %>
       </div>
     </fieldset>
-    <%= f.submit 'Update', :class => 'button right' %>
+    <%= f.submit 'Actualizar', :class => 'button right' %>
   <% end %>
 </div>
 <div class="authform">
-<h3>Cancel Account</h3>
-<p>Unhappy? We'll be sad to see you go.</p>
-<%= button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button right' %>
+<h3>Cancelar cuenta</h3>
+<p>Te extrañaremos.</p>
+<%= button_to "Cancelar mi cuenta", registration_path(resource_name), :data => { :confirm => "¿Estás seguro?" }, :method => :delete, :class => 'button right' %>
 </div>

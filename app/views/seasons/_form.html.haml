@@ -1,7 +1,7 @@
 = form_for @season do |f|
   - if @season.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@season.errors.count, "error")} Debe corregir los errorres siguientes:"
+      %h2= "#{pluralize(@season.errors.count, "error")} ha detenido el guardado debido a:"
       %ul
         - @season.errors.full_messages.each do |msg|
           %li= msg
@@ -11,7 +11,7 @@
     %br
     = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
   .form-group
-    = f.label "Fecha de termino: "
+    = f.label "Fecha de conclusión: "
     %br
     = f.date_select :enddate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
   .form-group.btn-group

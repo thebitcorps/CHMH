@@ -1,7 +1,7 @@
 = form_for @procedure do |f|
   - if @procedure.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@procedure.errors.count, "error")} prohibited this procedure from being saved:"
+      %h2= "#{pluralize(@procedure.errors.count, "error")} prohibió el siguiente proceso para ser guardado:"
       %ul
         - @procedure.errors.full_messages.each do |msg|
           %li= msg
@@ -10,11 +10,11 @@
     = f.label "Folio: "
     = f.text_field :folio, :autofocus => true, :class => 'form-control' 
   .form-group
-    = f.label "Fecha de realizaíón: "
+    = f.label "Fecha de realizacíón: "
     %br
     = f.date_select :donedate, :class => 'form-control' 
   .form-group
-    = f.label "Tiempo en sirugia: "
+    = f.label "Duración de procedimiento: "
     %br
     %select{:id => "procedure_hou", :name => "hou"}
       - (0..30).each do |i|
@@ -27,7 +27,7 @@
           = i
     Minutos
   .form-group
-    = f.label "Cirugia a participar: "
+    = f.label "Procedimiento a participar: "
     %br
     = f.select :surgery_id, @surgeries.collect {|surgery| [surgery.name, surgery.id]}
   .form-group

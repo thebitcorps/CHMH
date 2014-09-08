@@ -1,7 +1,7 @@
 = form_for @task do |f|
   - if @task.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@task.errors.count, "error")} prohibited this task from being saved:"
+      %h2= "#{pluralize(@task.errors.count, "error")} prohibió el guardado de esta actividad:"
       %ul
         - @task.errors.full_messages.each do |msg|
           %li= msg
