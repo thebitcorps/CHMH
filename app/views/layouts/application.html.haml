@@ -19,17 +19,22 @@
 
 
   %body
-    .navbar.navbar-fixed-top
+    .navbar.navbar-inverse.navbar-top
       .navbar-inner
         .container
           %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.brand(href="#") Hospital Hidalgo
+          = link_to 'Inicio', root_path, class: 'brand'
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link 1", nil
+              - if user_signed_in?
+                %li= link_to 'Perfil', current_user
+                %li= link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
+              - else
+                %li= link_to 'Iniciar Sesión', new_user_session_path
+
 
     .container
 
