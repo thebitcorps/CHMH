@@ -6,7 +6,7 @@
     - if @user.role == "Admin"
       Administrador
     - else
-      = (@user.area = nil ? user.area.name : "No asignado") + " "
+      = (@user.area != nil ? @user.area.name : "No asignado") + " "
       - if @user.role == "1"
         (Jefe de área)
       - if @user.role == "2"

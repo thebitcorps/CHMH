@@ -1,5 +1,5 @@
 - if @role == "Admin"
-	%h2 Bienvenido Dr. #{current_user.name}
+	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
 			- if Season.count == 0
