@@ -13,7 +13,7 @@
     :email => "odaman09@gmail.com",
     :password => "devicedev",
     :password_confirmation => "devicedev",
-    :birthday => date.today,
+    :birthday => Date.today,
     :gender => "0",
     :minutes => 0,
     :role => 'Admin'
@@ -24,7 +24,7 @@
     :email => "correojefe@gmail.com",
     :password => "contraseña",
     :password_confirmation => "contraseña",
-    :birthday => date.today,
+    :birthday => Date.today,
     :gender => "0",
     :minutes => 0,
     :role => 'Admin'
