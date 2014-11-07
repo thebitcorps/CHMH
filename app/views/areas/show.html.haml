@@ -7,10 +7,10 @@
 
 .panel.panel-default
 	.panel-heading
-		%h4 Cirugías
+		%h4 Procedimiento
 	.panel-body
 		.list-group
 			- @area.surgeries.each do |surgery|
 				= link_to surgery.name, surgery_path(surgery),  :class => "list-group-item"
 		.btn-group.btn-group-justified
-			= link_to "Crear nueva", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"
+			= link_to "Crear nuevo", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"
