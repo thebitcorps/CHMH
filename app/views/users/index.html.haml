@@ -25,6 +25,15 @@
           - User.where(:season_id => Season.last.id).each do |user|
             %li.list-group-item
               = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+  .panel.panel-default
+    .panel-heading
+      %h4 Internos No Activos
+    .panel-body
+      - if Season.last != nil
+        %ul.list-group
+          - User.where(:role => "3").each do |user|
+            %li.list-group-item
+              = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
 -else
   .panel.panel-default
     .panel-heading
@@ -35,3 +44,14 @@
           - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).each do |user|
             %li.list-group-item
               = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+  .panel.panel-default
+    .panel-heading
+      %h4 Internos de area no activos
+    .panel-body
+      - if Season.last != nil
+        %ul.list-group
+          - Season.all.each do |season|
+            -if season.id != Season.last.id
+              - User.where(:season_id => season.id, :area_id => current_user.area.id).each do |user|
+                %li.list-group-item
+                  = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
