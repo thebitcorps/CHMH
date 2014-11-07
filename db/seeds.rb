@@ -13,9 +13,9 @@
     :email => "odaman09@gmail.com",
     :password => "devicedev",
     :password_confirmation => "devicedev",
-    :birthday => date.today
-    :gender => "0"
-    :minutes => 0
+    :birthday => date.today,
+    :gender => "0",
+    :minutes => 0,
     :role => 'Admin'
 )
  User.create(
@@ -24,8 +24,8 @@
     :email => "correojefe@gmail.com",
     :password => "contraseña",
     :password_confirmation => "contraseña",
-    :birthday => date.today
-    :gender => "0"
-    :minutes => 0
+    :birthday => date.today,
+    :gender => "0",
+    :minutes => 0,
     :role => 'Admin'
 )
