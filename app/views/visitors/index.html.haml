@@ -89,7 +89,7 @@
 						= link_to "Crear nueva", new_area_path, :class => "btn btn-primary"
 //  Interno ///////////////////////////////////
 - if @role == '3'
-	%h2 Bienvenido #{current_user.name}
+	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
 			%h4 Tus procedimientos
@@ -106,7 +106,7 @@
 						%b Tiempo en procedimientos:
 						= (current_user.minutes.to_i / 60).to_s + " horas " + (current_user.minutes.to_i % 60).to_s + " minutos."
 					%li.list-group-item
-						%b Ultimo:
+						%b Último:
 						- procedure = current_user.procedures.last
 						= procedure.donedate.day.to_s + "/" + NameMonth(procedure.donedate.month.to_s) + "/" + procedure.donedate.year.to_s + " | " + procedure.surgery.name.to_s + " (" + (procedure.minutes.to_i / 60).to_s + " horas " + (procedure.minutes.to_i % 60).to_s + " minutos)"
 				.btn-group.btn-group-justified
@@ -114,7 +114,7 @@
 					= link_to "Crear nuevo", new_procedure_path, :class => "btn btn-primary"
 //  Jefe de area ///////////////////////////////////
 - if @role == '1' && @area
-	%h2 Bienvenido Dr. #{current_user.name}
+	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
 			%h4 
@@ -143,12 +143,12 @@
 - elsif @role == '1' && !@area
 	.panel.panel-default
 		%h3
-			No cuenta con un area asignada a su perfil de usuario, favor de pedir su asignacion al administrador del sistema.
+			No cuenta con un area asignada a su perfil de usuario, favor de pedir su asignación al administrador del sistema.
 
 
 //  Tutor ///////////////////////////////////
 - if @role == '2'
-	%h2 Bienvenido Dr. #{current_user.name}
+	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
 			%h4 

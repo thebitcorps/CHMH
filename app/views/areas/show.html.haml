@@ -2,12 +2,12 @@
 	= @area.name
 %p
 	= @area.description
-= link_to "Editar", edit_area_path(@area), :class => "btn btn-primary"
-= link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: 'Desea borrar area'}
+= link_to "Editar área", edit_area_path(@area), :class => "btn btn-primary"
+= link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
 
 .panel.panel-default
 	.panel-heading
-		%h4 Cirugias
+		%h4 Cirugías
 	.panel-body
 		.list-group
 			- @area.surgeries.each do |surgery|

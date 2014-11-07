@@ -8,7 +8,7 @@
   - if params[:pd] == nil
     -if current_user.role != "3" and current_user.role != "2"
       .form-group
-        = f.label "Nombre: "
+        = f.label "Nombre(s): "
         = f.text_field :name, :autofocus => true, :class => 'form-control' 
       .form-group
         = f.label "Apellidos: "

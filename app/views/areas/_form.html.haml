@@ -13,7 +13,7 @@
     = f.label "Descripción: "
     = f.text_field :description, :class => 'form-control' 
   .form-group
-    = f.label "Jefe asignado: "
+    = f.label "Jefe de área asignado: "
     %br
     = f.select :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]}
   .form-group.btn-group
