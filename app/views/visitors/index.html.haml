@@ -123,10 +123,10 @@
 			%ul.list-group
 				%li.list-group-item
 					%b Internos activos: 
-					= @area.users.where(:season_id => Season.last.id).count
+					= @area.users.where(:season_id => Season.last.id).count if Season.last
 				%li.list-group-item
 					%b Internos no activos: 
-					= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count
+					= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
 					
 				%li.list-group-item
 					%b Procedimientos realizables: 
@@ -158,10 +158,10 @@
 				%li.list-group-item
 					%li.list-group-item
 						%b Internos activos: 
-						= @area.users.where(:season_id => Season.last.id).count
+						= @area.users.where(:season_id => Season.last.id).count if Season.last
 					%li.list-group-item
 						%b Internos no activos: 
-						= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count
+						= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
 					
 				%li.list-group-item
 					%b Procedimientos realizables: 
