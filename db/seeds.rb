@@ -19,11 +19,11 @@
     :role => 'Admin'
 )
  User.create(
-    :name => "Jefe",
-    :lastname => "Jefaso",
-    :email => "correojefe@gmail.com",
-    :password => "contraseña",
-    :password_confirmation => "contraseña",
+    :name => "Felipe de Jesus",
+    :lastname => "Flores Parkman",
+    :email => "watsonmex@gmail.com",
+    :password => "devicedev",
+    :password_confirmation => "devicedev",
     :birthday => Date.today,
     :gender => "0",
     :minutes => 0,
