@@ -12,10 +12,11 @@
 		%h4 Actividades
 	.panel-body
 		.list-group
-			- @surgery.tasks.each do |task|
+			- @surgery.tasks.order('name').each do |task|
 				.list-group-item
 					= task.name	
-					= link_to "Borrar actividad", task_path(task),  method: :delete, :class => "btn btn-danger btn-small pull-right"
+					= link_to "Borrar actividad", task_path(task),  method: :delete, :class => "btn btn-danger btn-small pull-right" ,data: { confirm: '¿Deseas borrar esta actividad?'}
+
 				%br/
 		.btn-group.btn-group-justified
 			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"

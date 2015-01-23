@@ -5,7 +5,7 @@
       %h4 Jefes de área
     .panel-body
       %ul.list-group
-        - User.where(:role => "1").each do |user|
+        - User.where(:role => "1").order('name').each do |user|
           %li.list-group-item
             = link_to user.name + " " + user.lastname + ", jefe de " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
   .panel.panel-default
@@ -13,16 +13,16 @@
       %h4 Tutores
     .panel-body
       %ul.list-group
-        - User.where(:role => "2").each do |user|
+        - User.where(:role => "2").order('name').each do |user|
           %li.list-group-item
-          = link_to user.name + " " + user.lastname + ", tutor en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+            = link_to user.name + " " + user.lastname + ", tutor en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
   .panel.panel-default
     .panel-heading
       %h4 Internos Activos
     .panel-body
       - if Season.last != nil
         %ul.list-group
-          - User.where(:season_id => Season.last.id).each do |user|
+          - User.where(:season_id => Season.last.id).order('name').each do |user|
             %li.list-group-item
               = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
   .panel.panel-default
@@ -31,28 +31,23 @@
     .panel-body
       - if Season.last != nil
         %ul.list-group
-          - User.where(:role => "3").each do |user|
-            %li.list-group-item
-              = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+          - User.where(:role => "3").order('name').each do |user|
+            -if user.season != Season.last
+              %li.list-group-item
+                = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+                = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning', confirm: "Actualizar?")
+                / # = debug(user)
 -else
-  .panel.panel-default
-    .panel-heading
-      %h4 Tutores en área
-    .panel-body
-      - if Season.last != nil
-        %ul.list-group
-          - User.where(:role => "2", :area_id => current_user.area.id).each do |user|
-            %li.list-group-item
-              = link_to user.name + " " + user.lastname + ", tutor en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
   .panel.panel-default
     .panel-heading
       %h4 Internos en área
     .panel-body
       - if Season.last != nil
         %ul.list-group
-          - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).each do |user|
+          - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).order('name').each do |user|
             %li.list-group-item
               = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+               
   .panel.panel-default
     .panel-heading
       %h4 Internos de área NO activos
@@ -60,7 +55,8 @@
       - if Season.last != nil
         %ul.list-group
           - Season.all.each do |season|
-            -if season.id != Season.last.id
-              - User.where(:season_id => season.id, :area_id => current_user.area.id).each do |user|
+            -if user.season != Season.last
+              - User.where(:season_id => season.id, :area_id => current_user.area.id).order('name').each do |user|
                 %li.list-group-item
                   = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+                 

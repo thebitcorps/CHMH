@@ -96,7 +96,7 @@
 		.panel-body
 			- if current_user.procedures.count == 0
 				.btn-group.btn-group-justified
-					= link_to "Crear nuevo", new_procedure_path, :class => "btn btn-primary"
+					= link_to "Participar en nuevo", new_procedure_path, :class => "btn btn-primary"
 			-else
 				%ul.list-group
 					%li.list-group-item
@@ -111,7 +111,7 @@
 						= procedure.donedate.day.to_s + "/" + NameMonth(procedure.donedate.month.to_s) + "/" + procedure.donedate.year.to_s + " | " + procedure.surgery.name.to_s + " (" + (procedure.minutes.to_i / 60).to_s + " horas " + (procedure.minutes.to_i % 60).to_s + " minutos)"
 				.btn-group.btn-group-justified
 					= link_to "Ver todos", procedures_path(:user_id => current_user.id), :class => "btn btn-default"
-					= link_to "Crear nuevo", new_procedure_path, :class => "btn btn-primary"
+					= link_to "Participar en nuevo", new_procedure_path, :class => "btn btn-primary"
 //  Jefe de area ///////////////////////////////////
 - if @role == '1' && @area
 	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}

@@ -1,0 +1,67 @@
+              Prefix Verb   URI Pattern                         Controller#Action
+     task_procedures GET    /task_procedures(.:format)          task_procedures#index
+                     POST   /task_procedures(.:format)          task_procedures#create
+  new_task_procedure GET    /task_procedures/new(.:format)      task_procedures#new
+ edit_task_procedure GET    /task_procedures/:id/edit(.:format) task_procedures#edit
+      task_procedure GET    /task_procedures/:id(.:format)      task_procedures#show
+                     PATCH  /task_procedures/:id(.:format)      task_procedures#update
+                     PUT    /task_procedures/:id(.:format)      task_procedures#update
+                     DELETE /task_procedures/:id(.:format)      task_procedures#destroy
+          procedures GET    /procedures(.:format)               procedures#index
+                     POST   /procedures(.:format)               procedures#create
+       new_procedure GET    /procedures/new(.:format)           procedures#new
+      edit_procedure GET    /procedures/:id/edit(.:format)      procedures#edit
+           procedure GET    /procedures/:id(.:format)           procedures#show
+                     PATCH  /procedures/:id(.:format)           procedures#update
+                     PUT    /procedures/:id(.:format)           procedures#update
+                     DELETE /procedures/:id(.:format)           procedures#destroy
+               tasks GET    /tasks(.:format)                    tasks#index
+                     POST   /tasks(.:format)                    tasks#create
+            new_task GET    /tasks/new(.:format)                tasks#new
+           edit_task GET    /tasks/:id/edit(.:format)           tasks#edit
+                task GET    /tasks/:id(.:format)                tasks#show
+                     PATCH  /tasks/:id(.:format)                tasks#update
+                     PUT    /tasks/:id(.:format)                tasks#update
+                     DELETE /tasks/:id(.:format)                tasks#destroy
+           surgeries GET    /surgeries(.:format)                surgeries#index
+                     POST   /surgeries(.:format)                surgeries#create
+         new_surgery GET    /surgeries/new(.:format)            surgeries#new
+        edit_surgery GET    /surgeries/:id/edit(.:format)       surgeries#edit
+             surgery GET    /surgeries/:id(.:format)            surgeries#show
+                     PATCH  /surgeries/:id(.:format)            surgeries#update
+                     PUT    /surgeries/:id(.:format)            surgeries#update
+                     DELETE /surgeries/:id(.:format)            surgeries#destroy
+             seasons GET    /seasons(.:format)                  seasons#index
+                     POST   /seasons(.:format)                  seasons#create
+          new_season GET    /seasons/new(.:format)              seasons#new
+         edit_season GET    /seasons/:id/edit(.:format)         seasons#edit
+              season GET    /seasons/:id(.:format)              seasons#show
+                     PATCH  /seasons/:id(.:format)              seasons#update
+                     PUT    /seasons/:id(.:format)              seasons#update
+                     DELETE /seasons/:id(.:format)              seasons#destroy
+               areas GET    /areas(.:format)                    areas#index
+                     POST   /areas(.:format)                    areas#create
+            new_area GET    /areas/new(.:format)                areas#new
+           edit_area GET    /areas/:id/edit(.:format)           areas#edit
+                area GET    /areas/:id(.:format)                areas#show
+                     PATCH  /areas/:id(.:format)                areas#update
+                     PUT    /areas/:id(.:format)                areas#update
+                     DELETE /areas/:id(.:format)                areas#destroy
+                root GET    /                                   visitors#index
+    new_user_session GET    /users/sign_in(.:format)            devise/sessions#new
+        user_session POST   /users/sign_in(.:format)            devise/sessions#create
+destroy_user_session DELETE /users/sign_out(.:format)           devise/sessions#destroy
+       user_password POST   /users/password(.:format)           devise/passwords#create
+   new_user_password GET    /users/password/new(.:format)       devise/passwords#new
+  edit_user_password GET    /users/password/edit(.:format)      devise/passwords#edit
+                     PATCH  /users/password(.:format)           devise/passwords#update
+                     PUT    /users/password(.:format)           devise/passwords#update
+  update_season_user POST   /users/:id/update_season(.:format)  users#update_season
+               users GET    /users(.:format)                    users#index
+                     POST   /users(.:format)                    users#create
+            new_user GET    /users/new(.:format)                users#new
+           edit_user GET    /users/:id/edit(.:format)           users#edit
+                user GET    /users/:id(.:format)                users#show
+                     PATCH  /users/:id(.:format)                users#update
+                     PUT    /users/:id(.:format)                users#update
+                     DELETE /users/:id(.:format)                users#destroy

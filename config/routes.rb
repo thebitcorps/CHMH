@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :seasons
   resources :areas
 
+
   root :to => "visitors#index"
   devise_for :users
   resources :users
+
 end

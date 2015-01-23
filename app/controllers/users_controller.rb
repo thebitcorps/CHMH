@@ -44,6 +44,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user.season = Season.last
   end
 
   # POST /users
@@ -88,7 +89,14 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  # def update_season(user)
+  #   user.season =  Season.last
+  #    if user.save
+  #       format.html { redirect_to user_path(user), notice: 'La temporada fue asignada correctamente' }
+  #     else
+  #        format.html { render :action => "edit", :pd => params[:pd] }
+  #     end 
+  # end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -118,6 +126,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :lastname, :email, :password, :password_confirmation, :birthday, :gender, :role, :area_id, :pd)
+      params.require(:user).permit(:name, :lastname, :email, :password, :password_confirmation, :birthday, :gender, :role, :area_id, :pd, :season_id)
     end
 end

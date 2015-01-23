@@ -25,10 +25,18 @@
   %li.list-group-item
     %b Correo electrónico (e-mail): 
     = @user.email
+    %li.list-group-item
+      %b Ultimo login
+      -if @user.last_sign_in_at
+        = @user.last_sign_in_at
+      -else 
+        No ha entrado
+    
   - if @user.role == "3"
     %li.list-group-item
       %b Procedimientos: 
       = link_to "Ver procedimientos", procedures_path(:user_id => @user.id), :class => 'btn btn-primary'
+
 .form-group.btn-group
   -if current_user.role == "Admin" or current_user.role == "1"
     = link_to "Acualizar", edit_user_path(@user), :class => 'btn btn-primary'
