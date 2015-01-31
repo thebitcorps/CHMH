@@ -19,7 +19,8 @@
 			= link_to "Agregar", task_procedures_path(:procedure_id => @procedure.id), :class => "btn btn-primary"
 		-else
 			- @procedure.task_procedures.each do |task_procedure|
-				= task_procedure.task.name + ", "
+
+				= task_procedure.task.name + ", " if task_procedure.task
 	%li.list-group-item
 		%b Anotaciones: 
 		= @procedure.notes
