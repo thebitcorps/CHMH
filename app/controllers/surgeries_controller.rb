@@ -36,7 +36,7 @@ class SurgeriesController < ApplicationController
   # POST /surgeries.json
   def create
     @surgery = Surgery.new(surgery_params)
-
+    @surgery.name = @surgery.name.humanize
     respond_to do |format|
       if @surgery.save
         format.html { redirect_to @surgery, notice: 'Surgery was successfully created.' }
@@ -53,6 +53,8 @@ class SurgeriesController < ApplicationController
   def update
     respond_to do |format|
       if @surgery.update(surgery_params)
+        @surgery.name = @surgery.name.humanize
+        @surgery.save
         format.html { redirect_to @surgery, notice: 'Surgery was successfully updated.' }
         format.json { render :show, status: :ok, location: @surgery }
       else

@@ -32,7 +32,7 @@ class AreasController < ApplicationController
     @area = Area.new(area_params)
     user = @area.user
     user.area = @area
-    @area.name = @area.name.humanize
+    @area.name = @area.name.titleize
     user.save
     respond_to do |format|
       if @area.save
@@ -50,7 +50,8 @@ class AreasController < ApplicationController
   def update
     respond_to do |format|
       if @area.update(area_params)
-        @area.name = @area.name.humanize
+        @area.name = @area.name.titleize
+        @area.save
         format.html { redirect_to @area, notice: 'Area was successfully updated.' }
         format.json { render :show, status: :ok, location: @area }
       else

@@ -76,7 +76,7 @@
 							%th Nombre
 							%th Jefe de área
 							%th Procedimentos realizables
-						- Area.all.each do |area|
+						- Area.order('name ASC').all.each do |area|
 							%tr
 								%td
 									= link_to area.name, area_path(area)

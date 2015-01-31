@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
+    @task.name = @task.name.humanize
     respond_to do |format|
       if @task.save
         format.html { redirect_to surgery_path(@task.surgery), notice: 'Task was successfully created.' }
@@ -48,6 +48,8 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
+        @task.name = @task.name.humanize
+        @task.save
         format.html { redirect_to surgery_path(@task.surgery), notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else

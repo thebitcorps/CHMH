@@ -51,6 +51,7 @@ class ProceduresController < ApplicationController
     @procedure.user = current_user
     @procedure.minutes = params["hou"].to_i * 60 + params["min"].to_i 
     current_user.minutes = current_user.minutes.to_i + @procedure.minutes.to_i
+    @procedure.name = @procedure.name.humanize
     current_user.save
     respond_to do |format|
       if @procedure.save
@@ -68,6 +69,8 @@ class ProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @procedure.update(procedure_params)
+        @procedure.name = @procedure.name.humanize
+        @procedure.save
         format.html { redirect_to @procedure, notice: 'Procedure was successfully updated.' }
         format.json { render :show, status: :ok, location: @procedure }
       else

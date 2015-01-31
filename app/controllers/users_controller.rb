@@ -55,6 +55,8 @@ class UsersController < ApplicationController
       @user.season = Season.last
     end
     @user.password = "cambiarcontrasena"
+    @user.name = @user.name.titleize
+    @user.lastname = @user.lastname.titleize
     respond_to do |format|
       if @user.save
         format.html { redirect_to root_path, notice: 'El usuario fue creado satisfactoriamente' }
@@ -71,6 +73,9 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        @user.name = @user.name.titleize
+        @user.lastname = @user.lastname.titleize
+        @user.save
         format.html { redirect_to root_path, notice: 'Cosas.' }
         format.json { render :show, status: :ok, location: @user }
       else
