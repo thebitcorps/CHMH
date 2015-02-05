@@ -69,7 +69,7 @@ class ProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @procedure.update(procedure_params)
-       
+
         format.html { redirect_to @procedure, notice: 'Procedure was successfully updated.' }
         format.json { render :show, status: :ok, location: @procedure }
       else

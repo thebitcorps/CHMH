@@ -4,5 +4,9 @@
     %li.active
         Actividades
 %ul.list-group
-    - @procedures.order('id').each do |procedure|
-        = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label label-info'>#{procedure.folio}</span></td><td>#{procedure.surgery.name}</td><td>#{procedure.donedate.day.to_s + "/" + NameMonth(procedure.donedate.month.to_s) + "/" + procedure.donedate.year.to_s}</td></tr></table>"), procedure, :class => "list-group-item"
+    - @procedures.order('donedate').each do |procedure|
+        %table
+            %td
+                = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label label-info'>#{procedure.folio}</span></td><td>#{procedure.surgery.name}</td><td>#{procedure.donedate.day.to_s + "/" + NameMonth(procedure.donedate.month.to_s) + "/" + procedure.donedate.year.to_s}</td></tr></table>"), procedure, :class => "list-group-item"
+            %td
+                = button_to  "Borrar", procedure, method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn btn-small btn-danger "
