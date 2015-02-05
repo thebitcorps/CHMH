@@ -26,11 +26,11 @@
     %b Correo electrónico (e-mail): 
     = @user.email
     %li.list-group-item
-      %b Ultimo login
+      %b Ultimo login:
       -if @user.last_sign_in_at
         = @user.last_sign_in_at
       -else 
-        No ha entrado
+        No ha ingresado
     
   - if @user.role == "3"
     %li.list-group-item
