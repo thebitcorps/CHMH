@@ -55,8 +55,8 @@
       - if Season.last != nil
         %ul.list-group
           - Season.all.each do |season|
-            -if user.season != Season.last
-              - User.where(:season_id => season.id, :area_id => current_user.area.id).order('name').each do |user|
-                %li.list-group-item
-                  = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+            - User.where(:season_id => season.id, :area_id => current_user.area.id).order('name').each do |user|
+              %li.list-group-item
+              -if user.season != Season.last
+                = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
                  
