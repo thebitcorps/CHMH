@@ -54,9 +54,9 @@
 						%b Internos activos: 
 						= User.where(:season_id => Season.last.id).count if Season.last
 					%li.list-group-item
-						%b Internos no activos: 
-						= User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
-						
+						%b Internos no activos:
+						- count = User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+						= count <= 0 ?  "No hay inactivos" : count
 				.btn-group.btn-group-justified
 					= link_to "Ver todos", users_path, :class => "btn btn-default"
 					= link_to "Crear nuevo", new_user_path, :class => "btn btn-primary"
@@ -123,10 +123,11 @@
 			%ul.list-group
 				%li.list-group-item
 					%b Internos activos: 
-					= @area.users.where(:season_id => Season.last.id).count if Season.last
+					= @area.users.where(:season_id => Season.last.id, :area_id => current_user.area.id).count if Season.last
 				%li.list-group-item
 					%b Internos no activos: 
-					= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+					- count = User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+					= count <= 0 ?  "No hay inactivos" : count
 					
 				%li.list-group-item
 					%b Procedimientos realizables: 
@@ -158,10 +159,11 @@
 				%li.list-group-item
 					%li.list-group-item
 						%b Internos activos: 
-						= @area.users.where(:season_id => Season.last.id).count if Season.last
+						= @area.users.where(:season_id => Season.last.id, :area_id => current_user.area.id).count if Season.last
 					%li.list-group-item
-						%b Internos no activos: 
-						= @area.users.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+						%b Internos no activos:
+						- count = User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+						= count <= 0 ?  "No hay inactivos" : count
 					
 				%li.list-group-item
 					%b Procedimientos realizables: 
