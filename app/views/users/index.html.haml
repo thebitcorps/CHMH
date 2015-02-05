@@ -30,13 +30,14 @@
       %h4 Internos NO activos
     .panel-body
       - if Season.last != nil
-        - User.where(:season_id => Season.last.id).order('name').each do |user|
-          %table.table
-            %tr
-              %td
-                = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-              %td
-                = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning list-group-item pull-right', confirm: "Actualizar?")
+        %table.table
+          -  User.where(:role => "3").order('name').each do |user|
+            - if user.season.id != Season.last.id
+              %tr
+                %td
+                  = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+                %td
+                  = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning list-group-item pull-right', confirm: "Actualizar?")
 -else
   .panel.panel-default
     .panel-heading
@@ -52,8 +53,9 @@
       %h4 Internos de área NO activoss
     .panel-body
       - if Season.last != nil
-        - User.where(:season_id => Season.last.id).order('name').each do |user|
-          %table.table
+        %table.table
+        -  User.where(:role => "3").order('name').each do |user|
+          - if user.season.id != Season.last.id
             %tr
               %td
                 = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
