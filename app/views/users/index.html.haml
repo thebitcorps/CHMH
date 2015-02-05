@@ -30,7 +30,7 @@
       %h4 Internos NO activos
     .panel-body
       - if Season.last != nil
-        -  User.where(:role => "3").order('name').each do |user|
+        - User.where(:season_id => Season.last.id).order('name').each do |user|
           %table.table
             %tr
               %td
@@ -52,7 +52,7 @@
       %h4 Internos de área NO activoss
     .panel-body
       - if Season.last != nil
-        -  User.where(:role => "3").order('name').each do |user|
+        - User.where(:season_id => Season.last.id).order('name').each do |user|
           %table.table
             %tr
               %td
