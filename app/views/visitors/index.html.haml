@@ -126,7 +126,7 @@
 					= @area.users.where(:season_id => Season.last.id, :area_id => current_user.area.id).count if Season.last
 				%li.list-group-item
 					%b Internos no activos: 
-					- count = User.where(:role => "3", area_id => current_user.area.id).count - User.where(:season_id => Season.last.id).count if Season.last
+					- count = User.where(:role => "3", :area_id => current_user.area.id).count - User.where(:season_id => Season.last.id).count if Season.last
 					= count <= 0 ?  "0" : count
 					
 				%li.list-group-item
