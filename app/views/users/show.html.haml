@@ -40,7 +40,7 @@
 .form-group.btn-group
   -if current_user.role == "Admin" or current_user.role == "1"
     = link_to "Acualizar", edit_user_path(@user), :class => 'btn btn-primary'
-  -if current_user.role == "Admin" or current_user.role == "1"
+  -if current_user.role == "Admin" or current_user.role == "1" and current_user.id != @user.id
     = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
   -if current_user == @user
     = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
