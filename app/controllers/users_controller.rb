@@ -76,7 +76,7 @@ class UsersController < ApplicationController
         @user.name = @user.name.titleize
         @user.lastname = @user.lastname.titleize
         @user.save
-        format.html { redirect_to root_path, notice: 'Cosas.' }
+        format.html { redirect_to users_path, notice: 'Cosas.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :action => "edit", :pd => params[:pd] }
