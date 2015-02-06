@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     @task.name = @task.name.humanize
     respond_to do |format|
       if @task.save
-        format.html { redirect_to surgery_path(@task.surgery), notice: 'Task was successfully created.' }
+        format.html { redirect_to surgery_path(@task.surgery), notice: 'La actividad se ha creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
       if @task.update(task_params)
         @task.name = @task.name.humanize
         @task.save
-        format.html { redirect_to surgery_path(@task.surgery), notice: 'Task was successfully updated.' }
+        format.html { redirect_to surgery_path(@task.surgery), notice: 'La actividad ha sido correctamente actualizada.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -65,7 +65,7 @@ class TasksController < ApplicationController
     @task.destroy
     sugeryass = @task.surgery
     respond_to do |format|
-      format.html { redirect_to surgery_path(sugeryass), notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to surgery_path(sugeryass), notice: 'La actividad se ha eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end

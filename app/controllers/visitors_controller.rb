@@ -11,7 +11,7 @@ class VisitorsController < ApplicationController
 			@area = current_user.area
 		end
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 end

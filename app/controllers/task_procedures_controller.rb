@@ -7,7 +7,7 @@ class TaskProceduresController < ApplicationController
     if user_signed_in?
       if current_user.role == "3"
         if current_user.procedures.where(:id => params[:procedure_id]).empty?
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         else
           @procedure = Procedure.find(params[:procedure_id])
           @surgery = @procedure.surgery
@@ -17,7 +17,7 @@ class TaskProceduresController < ApplicationController
         @surgery = @procedure.surgery
       end
     else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -31,7 +31,7 @@ class TaskProceduresController < ApplicationController
     if user_signed_in?
       if current_user.role == "3"
         if current_user.procedures.where(:id => params[:procedure_id]).empty?
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         else
           @task_procedure = TaskProcedure.new
           @procedure = Procedure.find(params[:procedure_id])
@@ -43,7 +43,7 @@ class TaskProceduresController < ApplicationController
         @surgery = @procedure.surgery
       end
     else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -58,7 +58,7 @@ class TaskProceduresController < ApplicationController
 
     respond_to do |format|
       if @task_procedure.save
-        format.html { redirect_to task_procedures_path(:procedure_id => @task_procedure.procedure.id), notice: 'Task procedure was successfully created.' }
+        format.html { redirect_to task_procedures_path(:procedure_id => @task_procedure.procedure.id), notice: 'La actividad se ha creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @task_procedure }
       else
         format.html { render :new }
@@ -72,7 +72,7 @@ class TaskProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @task_procedure.update(task_procedure_params)
-        format.html { redirect_to @task_procedure.procedure, notice: 'Task procedure was successfully updated.' }
+        format.html { redirect_to @task_procedure.procedure, notice: 'La actividad ha sido correctamente actualizada.' }
         format.json { render :show, status: :ok, location: @task_procedure }
       else
         format.html { render :edit }
@@ -86,7 +86,7 @@ class TaskProceduresController < ApplicationController
   def destroy
     @task_procedure.destroy
     respond_to do |format|
-      format.html { redirect_to task_procedures_url, notice: 'Task procedure was successfully destroyed.' }
+      format.html { redirect_to task_procedures_url, notice: 'La actividad se ha eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -97,7 +97,7 @@ class TaskProceduresController < ApplicationController
       if user_signed_in?
         if current_user.role == "3"
           if current_user.procedures.where(:id => params[:procedure_id]).empty?
-            redirect_to root_path, :alert => "Access denied."
+            redirect_to root_path, :alert => "Acceso denegado.."
           else
              @procedure = Procedure.find(params[:procedure_id])
           end
@@ -105,7 +105,7 @@ class TaskProceduresController < ApplicationController
            @procedure = Procedure.find(params[:procedure_id])
         end
       else
-          redirect_to new_user_session_path, :alert => "Access denied."
+          redirect_to new_user_session_path, :alert => "Acceso denegado.."
       end
     end
 

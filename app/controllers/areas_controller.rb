@@ -14,10 +14,10 @@ class AreasController < ApplicationController
         @area = Area.new
         @users = User.where(:role => "1")
       else
-        redirect_to root_path, :alert => "Access denied."
+        redirect_to root_path, :alert => "Acceso denegado."
       end
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -36,7 +36,7 @@ class AreasController < ApplicationController
     user.save
     respond_to do |format|
       if @area.save
-        format.html { redirect_to @area, notice: 'Area was successfully created.' }
+        format.html { redirect_to @area, notice: 'Se ha creado el área correctamente.' }
         format.json { render :show, status: :created, location: @area }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class AreasController < ApplicationController
       if @area.update(area_params)
         @area.name = @area.name.titleize
         @area.save
-        format.html { redirect_to @area, notice: 'Area was successfully updated.' }
+        format.html { redirect_to @area, notice: 'El área se ha actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @area }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class AreasController < ApplicationController
   def destroy
     @area.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Area was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Se ha eliminado el área correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -82,14 +82,14 @@ class AreasController < ApplicationController
             if current_user.area.id.to_i == params[:id].to_i
               @area = Area.find(params[:id])
             else
-              redirect_to root_path, :alert => "Access denied."
+              redirect_to root_path, :alert => "Acceso denegado."
             end
           else
-            redirect_to root_path, :alert => "Access denied."
+            redirect_to root_path, :alert => "Acceso denegado."
           end
         end
       else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
       end
     end
 

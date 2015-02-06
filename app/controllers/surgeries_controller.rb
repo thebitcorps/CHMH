@@ -17,14 +17,14 @@ class SurgeriesController < ApplicationController
           if current_user.area.id.to_i == params[:area_id].to_i
             @surgery = Surgery.new(:area_id => params[:area_id])
           else
-            redirect_to root_path, :alert => "Access denied."
+            redirect_to root_path, :alert => "Acceso denegado."
           end
         else
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         end
       end
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -39,7 +39,7 @@ class SurgeriesController < ApplicationController
     @surgery.name = @surgery.name.humanize
     respond_to do |format|
       if @surgery.save
-        format.html { redirect_to @surgery, notice: 'Surgery was successfully created.' }
+        format.html { redirect_to @surgery, notice: 'El procedimiento se ha creado correctamente.' }
         format.json { render :show, status: :created, location: @surgery }
       else
         format.html { render :new }
@@ -55,7 +55,7 @@ class SurgeriesController < ApplicationController
       if @surgery.update(surgery_params)
         @surgery.name = @surgery.name.humanize
         @surgery.save
-        format.html { redirect_to @surgery, notice: 'Surgery was successfully updated.' }
+        format.html { redirect_to @surgery, notice: 'El procedimiento se ha actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @surgery }
       else
         format.html { render :edit }
@@ -70,7 +70,7 @@ class SurgeriesController < ApplicationController
     @surgery.destroy
     areass = @surgery.area
     respond_to do |format|
-      format.html { redirect_to area_path(areass), notice: 'Surgery was successfully destroyed.' }
+      format.html { redirect_to area_path(areass), notice: 'El procedimiento ha sido eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -85,14 +85,14 @@ class SurgeriesController < ApplicationController
           if current_user.role == "1" or current_user.role == "2"
             @surgery = Surgery.find(params[:id])
             if current_user.area.id.to_i != @surgery.area.id.to_i
-              redirect_to root_path, :alert => "Access denied."
+              redirect_to root_path, :alert => "Acceso denegado."
             end
           else
-            redirect_to root_path, :alert => "Access denied."
+            redirect_to root_path, :alert => "Acceso denegado."
           end
         end
       else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
       end
     end
 

@@ -9,10 +9,10 @@ class SeasonsController < ApplicationController
       if current_user.role == "Admin"
         @seasons = Season.all.reverse
       else
-        redirect_to root_path, :alert => "Access denied."
+        redirect_to root_path, :alert => "Acceso denegado."
       end
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -27,10 +27,10 @@ class SeasonsController < ApplicationController
       if current_user.role == "Admin"
         @season = Season.new
       else
-        redirect_to root_path, :alert => "Access denied."
+        redirect_to root_path, :alert => "Acceso denegado."
       end
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -45,7 +45,7 @@ class SeasonsController < ApplicationController
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to root_path, notice: 'Season was successfully created.' }
+        format.html { redirect_to root_path, notice: 'La temporada ha sido creada correctamente.' }
         format.json { render :show, status: :created, location: @season }
       else
         format.html { render :new }
@@ -59,7 +59,7 @@ class SeasonsController < ApplicationController
   def update
     respond_to do |format|
       if @season.update(season_params)
-        format.html { redirect_to root_path, notice: 'Season was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'La temporada fue actualizada correctamente.' }
         format.json { render :show, status: :ok, location: @season }
       else
         format.html { render :edit }
@@ -73,7 +73,7 @@ class SeasonsController < ApplicationController
   def destroy
     @season.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Season was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'La temporada fue eliminada correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -85,10 +85,10 @@ class SeasonsController < ApplicationController
         if current_user.role == "Admin"
           @season = Season.find(params[:id])
         else
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         end
       else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
       end
     end
 

@@ -9,14 +9,14 @@ class ProceduresController < ApplicationController
           @procedures = Procedure.where(:user_id => params[:user_id])
           @user = User.find(params[:user_id])
         else
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         end
       else
         @procedures = Procedure.where(:user_id => params[:user_id])
         @user = User.find(params[:user_id])
       end
     else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
   end
 
@@ -32,10 +32,10 @@ class ProceduresController < ApplicationController
           @procedure = Procedure.new
           @surgeries = Surgery.where(:area_id => current_user.area.id)
         else
-          redirect_to root_path, :alert => "Access denied."
+          redirect_to root_path, :alert => "Acceso denegado."
         end
       else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
    
   end
@@ -54,7 +54,7 @@ class ProceduresController < ApplicationController
     current_user.save
     respond_to do |format|
       if @procedure.save
-        format.html { redirect_to @procedure, notice: 'Procedure was successfully created.' }
+        format.html { redirect_to @procedure, notice: 'La actividad se ha creado correctamente.' }
         format.json { render :show, status: :created, location: @procedure }
       else
         format.html { render :new }
@@ -70,7 +70,7 @@ class ProceduresController < ApplicationController
     respond_to do |format|
       if @procedure.update(procedure_params)
 
-        format.html { redirect_to @procedure, notice: 'Procedure was successfully updated.' }
+        format.html { redirect_to @procedure, notice: 'La actividad se ha actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @procedure }
       else
         format.html { render :edit }
@@ -84,7 +84,7 @@ class ProceduresController < ApplicationController
   def destroy
     @procedure.destroy
     respond_to do |format|
-      format.html { redirect_to procedures_url, notice: 'Procedure was successfully destroyed.' }
+      format.html { redirect_to procedures_url, notice: 'La actividad se ha eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
@@ -96,11 +96,11 @@ class ProceduresController < ApplicationController
         @procedure = Procedure.find(params[:id])
         if current_user.role == "3"
           if current_user.procedures.where(:id => @procedure.id).empty?
-            redirect_to root_path, :alert => "Access denied."
+            redirect_to root_path, :alert => "Acceso denegado."
           end
         end
       else
-        redirect_to new_user_session_path, :alert => "Access denied."
+        redirect_to new_user_session_path, :alert => "Acceso denegado."
       end
     end
 
