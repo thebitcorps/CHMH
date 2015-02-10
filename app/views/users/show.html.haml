@@ -31,6 +31,13 @@
         = @user.last_sign_in_at
       -else 
         No ha ingresado
+  %li.list-group-item
+    %b Cuenta de logins:
+    -if @user.sign_in_count
+      = @user.sign_in_count
+    -else
+      No ha ingresado
+
     
   - if @user.role == "3"
     %li.list-group-item
