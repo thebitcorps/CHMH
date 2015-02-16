@@ -1,0 +1,25 @@
+- @areas.each do |area|
+  .panel.panel-default
+    .panel-heading
+      %h4
+        = link_to area.name, area
+    .panel-body
+      %ul.list-group
+        %li.list-group-item
+          Numero de residentes:
+          = area.number_of_residents
+        %li.list-group-item
+          Numero de tutores:
+          = area.number_of_tutors
+
+        %li.list-group-item
+          Numero de notas:
+          = area.number_of_notes
+        %li.list-group-item
+          Tiempo total:
+          = area.all_resident_notes_hours
+          minutos
+        %li.list-group-item
+          Numero total de logins:
+          = area.logins_count
+

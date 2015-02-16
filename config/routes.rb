@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboard/index', as: 'dashboard'
+
   resources :task_procedures
 
   resources :procedures

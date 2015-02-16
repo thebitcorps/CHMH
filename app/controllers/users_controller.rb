@@ -75,6 +75,10 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         @user.name = @user.name.titleize
         @user.lastname = @user.lastname.titleize
+        @user = User.new(user_params)
+        if @user.role == "3"
+          @user.season = Season.last
+        end
         @user.save
         format.html { redirect_to users_path, notice: 'Usuario modificado.' }
         format.json { render :show, status: :ok, location: @user }
