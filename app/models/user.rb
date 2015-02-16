@@ -6,4 +6,9 @@ class User < ActiveRecord::Base
 	belongs_to :season
 	belongs_to :area
 	has_many :procedures
+
+	def self.residents
+		User.where(role: "3")
+	end
+
 end

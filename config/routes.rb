@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'dashboard/index', as: 'dashboard'
+  get 'dashboard/monthly', as: 'montly'
 
   resources :task_procedures
 

@@ -5,7 +5,7 @@ class Area < ActiveRecord::Base
 	has_many :users,  dependent: :nullify
 	has_many :surgeries
 
-	def find_area_residents
+	def area_residents
 		User.where(role: '3',area_id: self.id)
 	end
 
@@ -18,11 +18,11 @@ class Area < ActiveRecord::Base
 	end
 
 	def number_of_residents
-		find_area_residents.count
+		area_residents.count
 	end
 
 	def all_resident_notes_hours
-		residents = find_area_residents
+		residents = area_residents
 		count = 0
 		residents.each  do |resident|
 			count += resident.minutes if resident.minutes
@@ -31,7 +31,7 @@ class Area < ActiveRecord::Base
 	end
 
 	def number_of_notes
-		residents = find_area_residents
+		residents = area_residents
 		count = 0
 		residents.each  do |resident|
 			count += resident.procedures.count
@@ -47,5 +47,36 @@ class Area < ActiveRecord::Base
 		end
 		count
 	end
+
+
+	def all_notes_last_month
+		users  = area_residents
+		procedures_count = 0
+		users.each do |user|
+			procedures_count += user.procedures.where('created_at BETWEEN ? AND ? ',1.month.ago.beginning_of_month , 1.month.ago.end_of_month).count
+		end
+		procedures_count
+	end
+
+
+	def self.resident_with_more_notes
+		users = User.residents
+		best_resident(users)
+	end
+
+	def resident_with_more_notes
+		Area.best_resident(area_residents)
+	end
+
+	def self.best_resident(users)
+		user_with_more_notes = users.first
+		users.each do |user|
+			if user.procedures.count > user_with_more_notes.procedures.count
+				user_with_more_notes = user
+			end
+		end
+		user_with_more_notes
+	end
+
 
 end
