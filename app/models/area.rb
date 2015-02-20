@@ -60,7 +60,7 @@ class Area < ActiveRecord::Base
 	end
 
 
-	def resident_with_more_notes_monthly(since_monthly)
+	def resident_more_notes_monthly(since_monthly)
 		Area.best_resident_monthly(area_residents,since_monthly)
 	end
 

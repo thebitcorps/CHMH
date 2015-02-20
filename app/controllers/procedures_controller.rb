@@ -6,14 +6,17 @@ class ProceduresController < ApplicationController
     if user_signed_in?
       if current_user.role == "3"
         if current_user.id.to_i == params[:user_id].to_i
-          @procedures = Procedure.where(:user_id => params[:user_id])
+          # @procedures = Procedure.where(:user_id => params[:user_id])
           @user = User.find(params[:user_id])
+          @procedures = Procedure.where(user: @user).group(:surgery).count
+          @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
         else
           redirect_to root_path, :alert => "Acceso denegado."
         end
       else
-        @procedures = Procedure.where(:user_id => params[:user_id])
         @user = User.find(params[:user_id])
+        @procedures = Procedure.where(user: @user).group(:surgery).count
+        @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
       end
     else
         redirect_to new_user_session_path, :alert => "Acceso denegado."
@@ -84,10 +87,12 @@ class ProceduresController < ApplicationController
   def destroy
     @procedure.destroy
     respond_to do |format|
-      format.html { redirect_to procedures_url, notice: 'La actividad se ha eliminado correctamente.' }
+      format.html { redirect_to root_path, notice: 'La actividad se ha eliminado correctamente.' }
       format.json { head :no_content }
     end
   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

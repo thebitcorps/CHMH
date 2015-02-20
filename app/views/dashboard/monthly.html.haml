@@ -1,7 +1,11 @@
-%ul.nav.nav-pills
+%ul.nav.nav-pills.breadcrumb
   - 10.times do |i|
-    %li
-      =link_to i.months.ago.strftime("%B %Y"),dashboard_monthly_path( month: i )
+    - if i == @since
+      %li.active
+        =link_to i.months.ago.strftime("%B %Y"),dashboard_monthly_path( month: i )
+    - else
+      %li
+        =link_to i.months.ago.strftime("%B %Y"),dashboard_monthly_path( month: i )
 - @areas.each do |area|
   .panel.panel-default
     .panel-heading
@@ -12,11 +16,15 @@
         %li.list-group-item
           Numero notas uiltimo mes:
           = area.all_notes_last_month(@since)
-        - user =  area.resident_with_more_notes_monthly(@since)
+        - user =  area.resident_more_notes_monthly(@since)
         - if user
           %li.list-group-item
             Usuario con mas notas
             = user.name + " " + user.lastname + " con " + user.last_month_notes(@since).count.to_s + " notas."
+        %li.list-group-item
+          Minutos totales:
+          = area.all_resident_notes_hours
+
 
 .panel.panel-default
   .panel-heading
