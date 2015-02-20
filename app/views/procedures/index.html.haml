@@ -3,19 +3,17 @@
         = link_to @user.name, @user
     %li.active
         Actividades
-%ul.list-group
-    - i = 0
-    - @procedures.each do |k,v|
-        %table
-            %tr
-                %td
-                    %h4
-                        = "Realizo "+ v.to_s + " de   "+ k.name
-        - v.times do
-            %table
-                %tr
-                    %td
-                        = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label label-info'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
-                    %td
-                        = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right"
-            - i += 1
+%table.table
+- i = 0
+- @procedures.each do |k,v|
+    %tr
+        %td
+            %h4
+                = "Realizo "+ v.to_s + " de   "+ k.name
+    - v.times do
+        %tr
+            %td
+                = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label label-info'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
+            %td
+                = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
+        - i += 1
