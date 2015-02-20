@@ -41,9 +41,9 @@
                       %li
                         = link_to "Totales",dashboard_index_path
                         = link_to "Mensuales",dashboard_monthly_path
-                  %li= link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
-                - else
-                  %li= link_to 'Iniciar Sesión', new_user_session_path
+                %li= link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
+              - else
+                %li= link_to 'Iniciar Sesión', new_user_session_path
     -if notice
       %div#notice.alert
         = notice
