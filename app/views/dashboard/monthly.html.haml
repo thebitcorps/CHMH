@@ -23,7 +23,7 @@
             = user.name + " " + user.lastname + " con " + user.last_month_notes(@since).count.to_s + " notas."
         %li.list-group-item
           Minutos totales:
-          = area.all_resident_notes_hours
+          = area.last_resident_notes_hours(@since)
 
 
 .panel.panel-default
@@ -31,4 +31,5 @@
     %h4
       Residente del mes
   .panel-body
-    = @best_resident.name + " " + @best_resident.lastname + " con " + @best_resident.procedures.count.to_s + " notas."
+    - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.procedures.count.to_s + " notas."
+    = link_to   message,@best_resident

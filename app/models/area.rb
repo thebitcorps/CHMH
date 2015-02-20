@@ -22,18 +22,27 @@ class Area < ActiveRecord::Base
 	end
 
 	def all_resident_notes_hours
-		residents = area_residents
 		count = 0
-		residents.each  do |resident|
+		area_residents.each  do |resident|
 			count += resident.minutes if resident.minutes
 		end
 		count
 	end
 
-	def number_of_notes
-		residents = area_residents
+
+	def last_resident_notes_hours(since_month)
 		count = 0
-		residents.each  do |resident|
+		area_residents.each  do |resident|
+			resident.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).each do |procedure|
+				count += procedure.minutes
+			end
+		end
+		count
+	end
+
+	def number_of_notes
+		count = 0
+		area_residents.each  do |resident|
 			count += resident.procedures.count
 		end
 		count
