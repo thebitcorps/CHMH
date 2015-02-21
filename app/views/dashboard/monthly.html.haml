@@ -19,8 +19,9 @@
         - user =  area.resident_more_notes_monthly(@since)
         - if user
           %li.list-group-item
-            Usuario con mas notas
-            = user.name + " " + user.lastname + " con " + user.last_month_notes(@since).count.to_s + " notas."
+            Residente con mas notas:
+            - message = user.name + " " + user.lastname + " con " + user.last_month_notes(@since).count.to_s + " notas."
+            = link_to message ,user
         %li.list-group-item
           Minutos totales:
           = area.last_resident_notes_hours(@since)
@@ -31,5 +32,5 @@
     %h4
       Residente del mes
   .panel-body
-    - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.procedures.count.to_s + " notas."
+    - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.last_month_notes(@since).count.to_s + " notas."
     = link_to   message,@best_resident

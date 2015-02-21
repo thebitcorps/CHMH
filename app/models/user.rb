@@ -15,4 +15,5 @@ class User < ActiveRecord::Base
 		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
+
 end
