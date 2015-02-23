@@ -31,7 +31,7 @@
             %ul.nav
               - if user_signed_in?
                 %li= link_to 'Perfil', current_user
-                - if current_user.role == 'Admin' or current_user == '3'
+                - if current_user.role == 'Admin' or current_user.role == '1' or current_user.role == '2'
                   %li
                     = link_to "Totales",dashboard_index_path
                   %li
