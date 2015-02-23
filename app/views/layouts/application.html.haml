@@ -31,16 +31,16 @@
             %ul.nav
               - if user_signed_in?
                 %li= link_to 'Perfil', current_user
-              - if current_user.role == 'Admin' or current_user == '3'
-
-                %li.dropdown
-                  %a.dropdown-toggle{:href => "#", "role" => "button", "data-toggle" => "dropdown", "data-target" => "#"}
-                    Estadisticas Areas
-                    %b.caret
-                  %ul.dropdown-menu{"role" => "menu"}
-                    %li
-                      = link_to "Totales",dashboard_index_path
-                      = link_to "Mensuales",dashboard_monthly_path
+                - if current_user.role == 'Admin' or current_user == '3'
+                  %li.dropdown
+                    %a.dropdown-toggle{:href => "#", "role" => "button", "data-toggle" => "dropdown", "data-target" => "#"}
+                      Estadisticas Areas
+                      %b.caret
+                    %ul.dropdown-menu{"role" => "menu"}
+                      %li
+                        = link_to "Totales",dashboard_index_path
+                      %li
+                        = link_to "Mensuales",dashboard_monthly_path
                 %li= link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
               - else
                 %li= link_to 'Iniciar Sesión', new_user_session_path
