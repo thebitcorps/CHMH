@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   resources :task_procedures
 
-  resources :procedures
+  resources :procedures do
+    collection do
+      get :monthly
+    end
+  end
 
   resources :tasks
 

@@ -92,9 +92,35 @@ class ProceduresController < ApplicationController
     end
   end
 
+  def monthly
+      if current_user.role == "3"
+        #if resident only can see own
+        if current_user.id.to_i == params[:user_id].to_i
+          set_notes
+        else
+          redirect_to root_path, :alert => "Acceso denegado."
+        end
+      else
+        set_notes
+      end
+
+  end
+
+
 
 
   private
+
+  #set the variables for montlhy view with the last month oraganize per type
+  def set_notes
+    @since = params[:month].to_i
+    @user = User.find(params[:user_id])
+    #all the types of procedures the user did
+    @procedures = @user.last_month_notes(@since).group(:surgery).count
+    #the actual procedures orden so we can show in group of types
+    @procedure = @user.last_month_notes(@since).order('surgery_id DESC').to_a
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_procedure
       if user_signed_in?
@@ -111,6 +137,6 @@ class ProceduresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
-      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task)
+      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month)
     end
 end

@@ -1,0 +1,19 @@
+%ol.breadcrumb
+  %li
+    = link_to @user.name, @user
+  %li.active
+    Actividades
+%ul.nav.nav-pills.breadcrumb
+  %li
+    = link_to "General",procedures_path(:user_id => @user.id)
+  %li.active
+    = link_to "Mensual",monthly_procedures_path(:user_id => @user.id)
+%ul.nav.nav-pills.breadcrumb
+  - 10.times do |i|
+    - if i == @since
+      %li.active
+        =link_to i.months.ago.strftime("%B %Y"),monthly_procedures_path(user_id: @user.id, month: i )
+    - else
+      %li
+        =link_to i.months.ago.strftime("%B %Y"),monthly_procedures_path(user_id: @user.id, month: i )
+= render 'notes'
