@@ -101,7 +101,7 @@ class ProceduresController < ApplicationController
           redirect_to root_path, :alert => "Acceso denegado."
         end
       else
-        set_notes
+          set_notes
       end
 
   end
