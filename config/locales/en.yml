@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        inclusion: "no est&aacute; incluido en la lista"
+        blank: "no puede quedar en blanco"
+        greater_than: "tiene que ser mayor a 0"
