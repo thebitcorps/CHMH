@@ -52,7 +52,8 @@ class ProceduresController < ApplicationController
   def create
     @procedure = Procedure.new(procedure_params)
     @procedure.user = current_user
-    @procedure.minutes = params["hou"].to_i * 60 + params["min"].to_i 
+    @procedure.minutes = params["hou"].to_i * 60 + params["min"].to_i
+    @surgeries = Surgery.where(:area_id => current_user.area.id)
     current_user.minutes = current_user.minutes.to_i + @procedure.minutes.to_i
     current_user.save
     respond_to do |format|
@@ -85,6 +86,9 @@ class ProceduresController < ApplicationController
   # DELETE /procedures/1
   # DELETE /procedures/1.json
   def destroy
+    user = @procedure.user
+    user.minutes -= @procedure.minutes
+    user.save!
     @procedure.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'La actividad se ha eliminado correctamente.' }
