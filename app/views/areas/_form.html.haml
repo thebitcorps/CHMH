@@ -1,7 +1,7 @@
 = form_for @area do |f|
   - if @area.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error", "errores")}:"
+      %h2= "#{pluralize(@area.errors.count, "error", "errores")}:"
       %ul
         - @area.errors.full_messages.each do |msg|
           %li= msg

@@ -32,6 +32,8 @@ class AreasController < ApplicationController
     @area = Area.new(area_params)
     user = @area.user
     user.area = @area
+    @users = User.where(:role => "1")
+
     @area.name = @area.name.titleize
     user.save
     respond_to do |format|
