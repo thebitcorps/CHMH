@@ -32,5 +32,6 @@
     %h4
       Residente del mes
   .panel-body
-    - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.last_month_notes(@since).count.to_s + " notas."
-    = link_to   message,@best_resident
+    - if @best_resident
+      - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.last_month_notes(@since).count.to_s + " notas."
+      = link_to   message,@best_resident

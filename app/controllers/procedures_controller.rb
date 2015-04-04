@@ -8,14 +8,14 @@ class ProceduresController < ApplicationController
         if current_user.id.to_i == params[:user_id].to_i
           # @procedures = Procedure.where(:user_id => params[:user_id])
           @user = User.find(params[:user_id])
-          @procedures = Procedure.where(user: @user).group(:surgery).count
+          @procedures = Procedure.where(user: @user).order('surgery_id DESC').group(:surgery).count
           @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
         else
           redirect_to root_path, :alert => "Acceso denegado."
         end
       else
         @user = User.find(params[:user_id])
-        @procedures = Procedure.where(user: @user).group(:surgery).count
+        @procedures = Procedure.where(user: @user).order('surgery_id DESC').group(:surgery).count
         @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
       end
     else
@@ -120,7 +120,7 @@ class ProceduresController < ApplicationController
     @since = params[:month].to_i
     @user = User.find(params[:user_id])
     #all the types of procedures the user did
-    @procedures = @user.last_month_notes(@since).group(:surgery).count
+    @procedures = @user.last_month_notes(@since).order('surgery_id DESC').group(:surgery).count
     #the actual procedures orden so we can show in group of types
     @procedure = @user.last_month_notes(@since).order('surgery_id DESC').to_a
   end
