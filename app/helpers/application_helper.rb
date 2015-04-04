@@ -1,11 +1,15 @@
 module ApplicationHelper
 	def NameMonth(month)
 		names = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-		return names[month.to_i - 1]
+		 names[month.to_i - 1]
 	end
 
 	def DateWow(date)
-		return date.day.to_s + "/" + NameMonth(date.month.to_s) + "/" + date.year.to_s
+		 date.day.to_s + "/" + NameMonth(date.month.to_s) + "/" + date.year.to_s
+	end
+
+	def show_in_hours_and_minutes(minutes)
+		(minutes/60).to_s + " horas y " + (minutes%60).to_s+ " minutos."
 	end
 
 	def capitalize_and_humanazie(frase)

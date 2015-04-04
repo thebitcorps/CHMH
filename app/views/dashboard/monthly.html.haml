@@ -24,7 +24,7 @@
             = link_to message ,user
         %li.list-group-item
           Minutos totales:
-          = area.last_resident_notes_hours(@since)
+          =show_in_hours_and_minutes area.last_resident_notes_hours(@since)
 
 
 .panel.panel-default
