@@ -24,7 +24,7 @@
 	%li.list-group-item
 		%b Anotaciones: 
 		= @procedure.notes
-	%hr
-	%li.list-group-item
-		%b Estado de la nota:
-		= @procedure.examined ? "revisado" : "no revisado"
+	-#%hr
+	-#%li.list-group-item
+	-#	%b Estado de la nota:
+	-#	= @procedure.examined ? "revisado" : "no revisado"
