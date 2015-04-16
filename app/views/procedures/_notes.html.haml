@@ -1,14 +1,17 @@
-%table.table
+
 - i = 0
-- @procedures.each do |k,v|
-  %tr
-    %td
-      %h4
-        = "Realizo "+ v.to_s + " de   "+ k.name
-  - v.times do
-    %tr
-      %td
-        = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label label-info'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
-      %td
-        = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
-    - i += 1
+#accordion2.accordion
+  - @procedures.each do |k,v|
+    .accordion-group
+      .accordion-heading
+        %h4
+          %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapse_#{i}"}
+            = "Realizo "+ v.to_s + " de   "+ k.name
+      %div{id: "collapse_#{i}", class: "accordion-body collapse"}
+        .accordion-inner
+          - v.times do
+            - examined_color = @procedure[i].examined ? "label-success" : "label-info"
+            = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label #{examined_color}'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
+
+            = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
+          - i += 1

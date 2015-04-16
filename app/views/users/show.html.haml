@@ -28,7 +28,7 @@
     %li.list-group-item
       %b Ultimo login:
       -if @user.last_sign_in_at
-        = @user.last_sign_in_at
+        = @user.last_sign_in_at.strftime "%F %H:%M"
       -else 
         No ha ingresado
   %li.list-group-item
@@ -52,3 +52,5 @@
     = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
   -if current_user == @user
     = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
+
+

@@ -2,6 +2,8 @@ class ProceduresController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_procedure, only: [:show, :edit, :update, :destroy]
 
+
+
   def index
     if user_signed_in?
       if current_user.role == "3"
@@ -141,6 +143,6 @@ class ProceduresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
-      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month)
+      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid)
     end
 end
