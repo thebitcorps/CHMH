@@ -10,7 +10,8 @@
       %div{id: "collapse_#{i}", class: "accordion-body collapse"}
         .accordion-inner
           - v.times do
-            - examined_color = @procedure[i].examined ? "label-success" : "label-info"
+            -#change when cheked
+            - examined_color =  "label-info"
             = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label #{examined_color}'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
 
             = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
