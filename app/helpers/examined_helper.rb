@@ -1,0 +1,2 @@
+module ExaminedHelper
+end

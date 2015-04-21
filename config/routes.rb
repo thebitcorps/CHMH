@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  post 'examined/create'
+
+  delete 'examined/destroy'
+
   get 'dashboard/index'
   get 'dashboard/monthly'
+
+
 
   resources :task_procedures
 

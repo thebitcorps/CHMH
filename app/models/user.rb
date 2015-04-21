@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	belongs_to :season
 	belongs_to :area
 	has_many :procedures
+  has_many :examineds
 
 	def self.residents
 		User.where(role: "3")
@@ -15,5 +16,13 @@ class User < ActiveRecord::Base
 		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
+
+  def doctor_gender
+    self.gender == '0' ? "Dr." : "Dra."
+  end
+
+  def fullname
+    self.name + ' ' + self.lastname
+  end
 
 end

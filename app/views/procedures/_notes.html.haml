@@ -11,7 +11,7 @@
         .accordion-inner
           - v.times do
             -#change when cheked
-            - examined_color =  "label-info"
+            - examined_color = @procedure[i].examineds.count == 0 ?  "label-info" : "label-success"
             = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label #{examined_color}'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
 
             = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
