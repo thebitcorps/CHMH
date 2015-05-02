@@ -1,0 +1,7 @@
+%li.list-group-item
+  %b Revisado por:
+  - @procedure.examineds.each do | examined_by |
+    %ul.list-group
+      %li.list-group-item
+        = examined_by.user.doctor_gender + ' '+  examined_by.user.fullname
+  = "No a sido revisado" if @procedure.examineds.count == 0

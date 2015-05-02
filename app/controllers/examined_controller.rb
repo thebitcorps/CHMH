@@ -33,7 +33,9 @@ class ExaminedController < ApplicationController
   def destroy_examined(procedure_id)
     examined = Examined.where(procedure_id: procedure_id, user_id: current_user.id)
     examined.destroy_all
+
     respond_to do |format|
+      format.js {  @procedure = Procedure.find procedure_id}
       format.html{ redirect_to :back, notice: 'No Revisado' }
     end
   end
@@ -45,6 +47,7 @@ class ExaminedController < ApplicationController
     examined.procedure = procedure
     respond_to do |format|
       if examined.save
+        format.js {  @procedure = procedure}
         format.html { redirect_to procedure, notice: 'Nota revisada.' }
       else
         format.html { redirect_to procedure, notice: 'Error nota no revisada.' }

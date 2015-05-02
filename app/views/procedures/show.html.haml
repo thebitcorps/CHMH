@@ -4,9 +4,9 @@
 		= @procedure.folio
 	- if current_user.role == 'Admin' or current_user.role == '1' or current_user == '2'
 		- if Examined.was_examined_by(current_user.id,@procedure.id)
-			= link_to "Revisar", examined_create_path(:procedure_id => @procedure.id), method: :post, :class => "btn btn-primary"
+			= link_to "Revisar", examined_create_path(:procedure_id => @procedure.id), method: :post, :class => "btn btn-primary", remote: true, id: "examined-button"
 		- else
-			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-primary"
+			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-primary",remote: true,id: "examined-button"
 
 %ul.list-group
 	%li.list-group-item
@@ -30,10 +30,5 @@
 		%b Anotaciones: 
 		= @procedure.notes
 	%hr
-	%li.list-group-item
-		%b Revisado por:
-		- @procedure.examineds.each do | examined_by |
-			%ul.list-group
-				%li.list-group-item
-					= examined_by.user.doctor_gender + ' '+  examined_by.user.fullname
-		= "No a sido revisado" if @procedure.examineds.count == 0
+		#examined
+			= render 'examined/examined'
