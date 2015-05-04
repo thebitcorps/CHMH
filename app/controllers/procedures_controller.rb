@@ -112,10 +112,33 @@ class ProceduresController < ApplicationController
 
   end
 
+  def examined
+    if current_user.role == "3"
+      #if resident only can see own
+      if current_user.id.to_i == params[:user_id].to_i
 
+      else
+        redirect_to root_path, :alert => "Acceso denegado."
+      end
+    else
+      set_examined
+    end
+  end
+
+  def not_examined
+
+  end
 
 
   private
+
+  def set_examined
+    @user = User.find(params[:user_id])
+    #all the types of procedures the user did
+    @procedures = @user.last_month_notes(@since).order('surgery_id DESC').group(:surgery).count
+    #the actual procedures orden so we can show in group of types
+    @procedure = @user.last_month_notes(@since).order('surgery_id DESC').to_a
+  end
 
   #set the variables for montlhy view with the last month oraganize per type
   def set_notes
