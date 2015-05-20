@@ -47,7 +47,7 @@ class ExaminedController < ApplicationController
 
   def new_examined(procedure_id)
     procedure = Procedure.find procedure_id
-    examined = Examined.find_or_create_by(procedure_id: procedure_id, user_id: current_user.id, owner_id: procedure.user.id)
+    examined = Examined.find_or_create_by(procedure_id: procedure_id, user_id: current_user.id)
     respond_to do |format|
       if examined.save
         format.js {  @procedure = procedure}
