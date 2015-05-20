@@ -25,4 +25,12 @@ class User < ActiveRecord::Base
     self.name + ' ' + self.lastname
   end
 
+
+  def examined_notes_of(owner_id)
+
+    Examined.where(user_id: self.id,owner_id: owner_id)
+  end
+
+
+
 end

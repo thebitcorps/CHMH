@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   post 'examined/create'
-
+  get 'examined/not_examined'
   delete 'examined/destroy'
 
   get 'dashboard/index'

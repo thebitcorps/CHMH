@@ -12,7 +12,7 @@
   .form-group
     = f.label "Fecha de realizacíón: "
     %br
-    = f.date_select :donedate, :class => 'form-control' 
+    = f.date_select :donedate, :class => 'form-control' ,end_year:  Date.current.year
   .form-group
     = f.label "Duración de procedimiento: "
     %br

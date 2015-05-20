@@ -1,0 +1,10 @@
+%ol.breadcrumb
+  %li
+    = link_to @user.name, @user
+  %li.active
+    Actividades
+%ul.nav.nav-pills.breadcrumb
+  %li{class: "#{active == 1 ? "active" : "" }"}
+    = link_to "General",procedures_path(:user_id => @user.id)
+  %li{class: "#{active == 2 ? "active" : "" }"}
+    = link_to "Mensual",monthly_procedures_path(:user_id => @user.id)

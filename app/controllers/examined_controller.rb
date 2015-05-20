@@ -1,5 +1,10 @@
 class ExaminedController < ApplicationController
   before_filter :authenticate_user!
+  
+  
+  def not_examined
+    @user =  User.find params[:user_id]
+  end
 
   def create
     if current_user.role == 'Admin'
@@ -41,8 +46,8 @@ class ExaminedController < ApplicationController
   end
 
   def new_examined(procedure_id)
-    examined = Examined.find_or_create_by(procedure_id: procedure_id, user_id: current_user.id)
     procedure = Procedure.find procedure_id
+    examined = Examined.find_or_create_by(procedure_id: procedure_id, user_id: current_user.id, owner_id: procedure.user.id)
     respond_to do |format|
       if examined.save
         format.js {  @procedure = procedure}
@@ -54,6 +59,6 @@ class ExaminedController < ApplicationController
   end
 
   def user_params
-    params.require(:procedure_id)
+    params.require(:procedure_id).permit(:user_id)
   end
 end

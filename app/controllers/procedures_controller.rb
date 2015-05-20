@@ -75,7 +75,6 @@ class ProceduresController < ApplicationController
   def update
     respond_to do |format|
       if @procedure.update(procedure_params)
-
         format.html { redirect_to @procedure, notice: 'La actividad se ha actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @procedure }
       else
@@ -109,24 +108,6 @@ class ProceduresController < ApplicationController
       else
           set_notes
       end
-
-  end
-
-  def examined
-    if current_user.role == "3"
-      #if resident only can see own
-      if current_user.id.to_i == params[:user_id].to_i
-
-      else
-        redirect_to root_path, :alert => "Acceso denegado."
-      end
-    else
-      set_examined
-    end
-  end
-
-  def not_examined
-
   end
 
 
@@ -168,4 +149,6 @@ class ProceduresController < ApplicationController
     def procedure_params
       params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid)
     end
+
+
 end

@@ -1,11 +1,2 @@
-%ol.breadcrumb
-    %li
-        = link_to @user.name, @user
-    %li.active
-        Actividades
-%ul.nav.nav-pills.breadcrumb
-    %li.active
-        = link_to "General",procedures_path(:user_id => @user.id)
-    %li
-        = link_to "Mensual",monthly_procedures_path(:user_id => @user.id)
+= render 'header', active: 1
 = render 'notes'

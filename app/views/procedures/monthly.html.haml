@@ -1,13 +1,4 @@
-%ol.breadcrumb
-  %li
-    = link_to @user.name, @user
-  %li.active
-    Actividades
-%ul.nav.nav-pills.breadcrumb
-  %li
-    = link_to "General",procedures_path(:user_id => @user.id)
-  %li.active
-    = link_to "Mensual",monthly_procedures_path(:user_id => @user.id)
+= render 'header', active: 2
 %ul.nav.nav-pills.breadcrumb
   - 10.times do |i|
     - if i == @since
