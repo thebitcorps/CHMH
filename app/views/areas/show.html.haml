@@ -1,17 +1,42 @@
-%h2
-	= @area.name
-%p
-	= @area.description
-= link_to "Editar área", edit_area_path(@area), :class => "btn btn-primary"
-= link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
+.jumbotron
+  %h2
+    =@area.name
+    %span.label.label-primary
+      Area
+  %h3
+    =@area.description
+  %h4
+    %ul
+      %li
+        Jefe de area:
+        = link_to @area.user.fullname, user_path(@area.user)
+      %li
+        Numero de residentes:
+        = @area.number_of_residents
+      %li
+        Numero de tutores:
+        = @area.number_of_tutors
+      %li
+        Numero de notas:
+        = @area.number_of_notes
+      %li
+        Tiempo total:
+        =  show_in_hours_and_minutes @area.all_resident_notes_hours
+      %li
+        Numero total de logins:
+        = @area.logins_count
+  .btn-group
+    = link_to "Editar área", edit_area_path(@area), :class => "btn btn-warning"
+    = link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
 
-.panel.panel-default
-	.panel-heading
-		%h4 Procedimiento
-	.panel-body
-		%ul.list-group
-			- @area.surgeries.order('name').each do |surgery|
-				%li.list-item
-					= link_to surgery.name, surgery_path(surgery),  :class => "list-group-item"
-		.btn-group.btn-group-justified
-			= link_to "Crear nuevo", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"
+
+-#.panel.panel-default
+-#	.panel-heading
+-#		%h4 Procedimiento
+-#	.panel-body
+-#		%ul.list-group
+-#			- @area.surgeries.order('name').each do |surgery|
+-#				%li.list-item
+-#					= link_to surgery.name, surgery_path(surgery),  :class => "list-group-item"
+-#		.btn-group.btn-group-justified
+-#			= link_to "Crear nuevo", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"

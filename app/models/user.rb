@@ -32,5 +32,41 @@ class User < ActiveRecord::Base
   end
 
 
+  def role_name
+    if role == "Admin"
+      'Administrador'
+    elsif role == "1"
+      'Jefe de área'
+    elsif role == "2"
+      'Tutor'
+    elsif role == "3"
+      'Interno'
+    end
+  end
+
+
+  def human_genre
+    if gender == "0"
+      'Masculino'
+    else
+      'Femenino'
+    end
+  end
+
+  def last_login
+    if last_sign_in_at
+      last_sign_in_at.strftime "%F %H:%M"
+    else
+      'No ha ingresado'
+    end
+  end
+
+  def login_count
+    if sign_in_count
+      sign_in_count
+    else
+      "No ha ingresad"
+    end
+  end
 
 end

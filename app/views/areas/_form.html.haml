@@ -18,4 +18,3 @@
     = f.select :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]}
   .form-group.btn-group
     = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
