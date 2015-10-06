@@ -2,7 +2,7 @@ class Procedure < ActiveRecord::Base
   belongs_to :user
   belongs_to :surgery
   has_many :task_procedures
-  has_many :examineds
+  has_many :examineds, dependent: :destroy
   validates :folio,:donedate  ,presence: true
   validates :minutes, numericality: {greater_than: 0}
   validate :donedate_less_than_today

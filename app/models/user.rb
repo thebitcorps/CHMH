@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
 	belongs_to :area
-	has_many :procedures
-  has_many :examineds
+	has_many :procedures, dependent: :destroy
+  has_many :examineds, dependent: :destroy
 
 	def self.residents
 		User.where(role: "3")

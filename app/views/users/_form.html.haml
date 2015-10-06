@@ -19,7 +19,7 @@
       .form-group
         = f.label "Género: "
         %br
-        = f.select :gender, [['Masculino', 0], ['Femenino', 1]]
+        = f.select(:gender,options_for_select( [['Masculino', 0], ['Femenino', 1]]),{},{ class: 'form-control'})
       .form-group
         = f.label "Fecha de nacimiento: "
         %br
@@ -29,19 +29,19 @@
           = f.label "Rol: "
           %br
           - if Area.count == 0 or Season.count == 0
-            = f.select :role, [['Jefe de área', 1], ['Tutor', 2]]
+            = f.select(:role,options_for_select( [['Jefe de área', 1], ['Tutor', 2]]),{},{class: 'form-control'})
           -else
-            = f.select :role, [['Interno', 3], ['Jefe de área', 1], ['Tutor', 2]]
+            = f.select :role,options_for_select( [['Interno', 3], ['Jefe de área', 1], ['Tutor', 2]]),{},{class: 'form-control'}
           - if Area.count > 0
             .form-group
               = f.label "Área de pertenencia: "
               %br
-              = f.select(:area_id, Area.all.collect {|area| [area.name, area.id]}, :class => 'form-control' )
+              = f.select(:area_id, Area.all.collect {|area| [area.name, area.id]},{}, :class => 'form-control' )
       - if current_user.role == "1"
         .form-group
           = f.label "Rol: "
           %br
-          = f.select :role, [['Interno', 3], ['Tutor', 2]]
+          = f.select :role, [['Interno', 3], ['Tutor', 2]],{},{class: 'form-control'}
         .form-group
           = f.label "Área de pertenencia: "
           %br
@@ -57,6 +57,7 @@
       .form-group
         %input{:id => "user_pd", :name => "pd", :value => params[:pd], :type => "hidden"}
   .form-group.btn-group
-    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
+    = f.submit 'Guardar', :class => "btn btn-primary"
+    = link_to 'Cancelar', root_path, :class => 'btn btn-default'
+
 
