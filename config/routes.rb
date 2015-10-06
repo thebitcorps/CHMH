@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
   resources :tasks
 
-  resources :surgeries
+  resources :surgeries do
+    get :query, on: :member
+  end
+
+
   resources :seasons
   resources :areas
 

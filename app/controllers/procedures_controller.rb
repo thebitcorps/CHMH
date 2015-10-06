@@ -1,6 +1,6 @@
 class ProceduresController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_procedure, only: [:show, :edit, :update, :destroy]
+  before_action :set_procedure, only: [:show, :edit, :update, :destroy,:query]
 
 
 
@@ -25,6 +25,8 @@ class ProceduresController < ApplicationController
     end
   end
 
+
+
   # GET /procedures/1
   # GET /procedures/1.json
   def show
@@ -36,6 +38,7 @@ class ProceduresController < ApplicationController
         if current_user.role == "3"
           @procedure = Procedure.new
           @surgeries = Surgery.where(:area_id => current_user.area.id)
+          @surgeries_json = JSON.parse Surgery.where(:area_id => current_user.area.id).to_json
         else
           redirect_to root_path, :alert => "Acceso denegado."
         end

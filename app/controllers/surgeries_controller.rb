@@ -2,9 +2,19 @@ class SurgeriesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_surgery, only: [:show, :edit, :update, :destroy]
 
+  def query
+    respond_to do |format|
+      @surgery = Surgery.find(params[:id])
+      @tasks = JSON.parse @surgery.tasks.to_json
+      format.json {render json: @tasks}
+    end
+  end
+
+
   # GET /surgeries/1
   # GET /surgeries/1.json
   def show
+
   end
 
   # GET /surgeries/new
