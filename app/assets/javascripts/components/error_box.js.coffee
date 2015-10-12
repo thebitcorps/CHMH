@@ -9,6 +9,7 @@
 #      add a X to remove the box if user don't want to see it anymore
       React.DOM.div
         className: "panel panel-danger"
+        id: 'errorbox'
         React.DOM.div
           className: 'panel-heading'
           "Errores (#{@props.errorsArray.length})"

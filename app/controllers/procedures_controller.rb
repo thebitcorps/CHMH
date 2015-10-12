@@ -58,13 +58,16 @@ class ProceduresController < ApplicationController
     @procedure = Procedure.new(procedure_params)
     @procedure.user = current_user
     @procedure.minutes = params["hou"].to_i * 60 + params["min"].to_i
+    @procedure.create_procedure_tasks( params[:task_procedure_ids])
     @surgeries = Surgery.where(:area_id => current_user.area.id)
     current_user.minutes = current_user.minutes.to_i + @procedure.minutes.to_i
     current_user.save
+
     respond_to do |format|
       if @procedure.save
         format.html { redirect_to @procedure, notice: 'La actividad se ha creado correctamente.' }
         format.json { render json: JSON.parse( @procedure.to_json)}
+
       else
         format.html { render :new }
         format.json { render json: JSON.parse(@procedure.errors.full_messages.to_json), status: :unprocessable_entity }

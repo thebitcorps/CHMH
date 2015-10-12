@@ -6,6 +6,8 @@
       keepOpen: false
       format: 'DD/MM/YYYY'
       locale: 'es'
+      maxDate: moment()
+      minDate: moment().subtract(10, 'days')
     that = @
     $('#' + "#{@props.name}").on 'dp.change', (e) ->
       that.changed(e)

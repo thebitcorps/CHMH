@@ -15,11 +15,12 @@
     tasks: []
     selectedTasks: []
     errors: []
-    minutes: 0
+    minutes: '0'
+    hours: '0'
     notes: ''
     messageSurgery: 'Seleccione primero un procedimiento'
   createOptions: (objects,displayObjectName,valueObjectName) ->
-    options = [{'display': 'Seleccione una opcion...','value': ''}]
+    options = []
     for thing in objects
       options.push {'display': thing[displayObjectName] ,'value': thing[valueObjectName]}
     return options
@@ -39,6 +40,7 @@
         return
       error: (XMLHttpRequest, textStatus, errorThrown) ->
         #we parse the responses o errors so we can send a array of errors
+        window.location.hash = '#errorbox'
         if errorThrown == 'Internal Server Error'
           that.setState errors: ['Internal Server Error']
           return
@@ -76,10 +78,8 @@
       data:
         procedure: {folio: @state.folio,notes: @state.notes,surgery_id: @state.surgery_id,donedate: @state.donedate}
         hou: @state.hours
-        min: @state.min
+        min: @state.minutes
         task_procedure_ids: tasks_ids
-
-
       url: '/procedures'
       type: 'POST'
       dataType: 'JSON'
@@ -87,19 +87,23 @@
         window.location.assign('/procedures/' + data.id)
         return
       error: (XMLHttpRequest, textStatus, errorThrown) ->
+
         #we parse the responses o errors so we can send a array of errors
         if errorThrown == 'Internal Server Error'
           that.setState errors: ['Internal Server Error']
           return
         that.setState errors: $.parseJSON(XMLHttpRequest.responseText)
+        $('#errorbox').focus()
         return
 
   render: ->
     React.DOM.div
-      className: 'procedure-form'
+      className: 'procedure-form '
       React.createElement ErrorBox, errorsArray: @state.errors
       React.createElement LabelInput,name: 'folio',label: 'Folio:',changed: @inputChange
-      React.createElement LabelInput,name: 'donedate',label: 'Fecha de Realizacion:',changed: @inputChange
+      React.DOM.div
+        style: {position: "relative"}
+        React.createElement DateInput,name: 'donedate',label: 'Fecha de Realizacion:',changed: @inputChange
       React.DOM.label
         className: 'control-label'
         'Duración de procedimiento:'
@@ -123,8 +127,6 @@
           className: 'panel panel-body'
           React.DOM.h4 null,
             if @state.selectedTasks.length == 0
-              React.DOM.span
-                className: 'label label-default'
                 @state.messageSurgery
             for selectedTask in @state.selectedTasks
               React.createElement Task , task: selectedTask,key: selectedTask.value,handleClick: @removeSelectedTask,color: 'primary'
@@ -139,9 +141,7 @@
           className: 'panel panel-body'
           React.DOM.h4 null,
             if @state.tasks.length == 0
-              React.DOM.span
-                className: 'label label-default'
-                @state.messageSurgery
+              @state.messageSurgery
             for task in @state.tasks
               React.createElement Task , task: task,key: task.value,handleClick: @taskSelected
 #      React.createElement LabelSelect, name: 'task',options: @state.tasks,multiple: true,onChanged: @taskSelected
