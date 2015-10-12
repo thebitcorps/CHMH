@@ -1,5 +1,5 @@
 class ProceduresController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
   before_action :set_procedure, only: [:show, :edit, :update, :destroy,:query]
 
 
@@ -64,10 +64,10 @@ class ProceduresController < ApplicationController
     respond_to do |format|
       if @procedure.save
         format.html { redirect_to @procedure, notice: 'La actividad se ha creado correctamente.' }
-        format.json { render :show, status: :created, location: @procedure }
+        format.json { render json: JSON.parse( @procedure.to_json)}
       else
         format.html { render :new }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
+        format.json { render json: JSON.parse(@procedure.errors.full_messages.to_json), status: :unprocessable_entity }
       end
     end
   end
@@ -150,7 +150,7 @@ class ProceduresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
-      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid)
+      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid, :task_procedure_ids => [])
     end
 
 
