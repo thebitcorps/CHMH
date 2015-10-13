@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.2.2'
 gem 'rails', '4.1.1'
 #gem 'sqlite3'
 gem 'pg'
@@ -12,6 +12,7 @@ gem 'turbolinks'
 gem "haml-rails"
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'puma'
 # gem 'bootstrap-sass'
 gem "less-rails"
 gem "twitter-bootstrap-rails"
@@ -24,6 +25,11 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 group :development, :test do
   gem 'factory_girl_rails'
