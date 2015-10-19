@@ -5,6 +5,7 @@ class AreasController < ApplicationController
   # GET /areas/1
   # GET /areas/1.json
   def show
+    @surgeries = JSON.parse @area.surgeries.to_json
   end
 
   # GET /areas/new

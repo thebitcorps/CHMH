@@ -1,9 +1,9 @@
-%ol.breadcrumb
-  %li
-    = link_to @user.name, @user
-  %li.active
+-#%ol.breadcrumb
+  -#%li
+  -#  = link_to @user.name, @user
+  -#%li.active
     Actividades
-%ul.nav.nav-pills.breadcrumb
+%ul.nav.nav-pills
   %li{class: "#{active == 1 ? "active" : "" }"}
     = link_to "General",procedures_path(:user_id => @user.id)
   %li{class: "#{active == 2 ? "active" : "" }"}

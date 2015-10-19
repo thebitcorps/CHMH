@@ -29,6 +29,7 @@
     = link_to "Editar área", edit_area_path(@area), :class => "btn btn-warning"
     = link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
 
+= react_component 'TableCRUD',displayName: 'Procedimientos',list: @surgeries,modelNamePlural: 'surgeries',modelNameSingular: 'surgery',parentId: @area.id,parentName: 'area'
 
 -#.panel.panel-default
 -#	.panel-heading

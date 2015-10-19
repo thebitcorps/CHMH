@@ -1,5 +1,5 @@
 class SurgeriesController < ApplicationController
-  before_filter :authenticate_user!
+  # before_filter :authenticate_user!
   before_action :set_surgery, only: [:show, :edit, :update, :destroy]
 
   def query
@@ -50,10 +50,10 @@ class SurgeriesController < ApplicationController
     respond_to do |format|
       if @surgery.save
         format.html { redirect_to @surgery, notice: 'El procedimiento se ha creado correctamente.' }
-        format.json { render :show, status: :created, location: @surgery }
+        format.json {render json: JSON.parse(@surgery.to_json) }
       else
         format.html { render :new }
-        format.json { render json: @surgery.errors, status: :unprocessable_entity }
+        format.json { render json: @surgery.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -81,7 +81,7 @@ class SurgeriesController < ApplicationController
     areass = @surgery.area
     respond_to do |format|
       format.html { redirect_to area_path(areass), notice: 'El procedimiento ha sido eliminado satisfactoriamente.' }
-      format.json { head :no_content }
+      format.json { render json: @surgery.to_json, status: :ok }
     end
   end
 

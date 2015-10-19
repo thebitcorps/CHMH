@@ -11,7 +11,7 @@
     minutes: createNumbersOptions(60)
   getInitialState: ->
     #maybe we should surgeries  this at server side so we eliminate this unnecessary state and make it a prop
-    surgeries: @createOptions(@props.surgeries,'name','id')
+    surgeries: @createOptionsWithEmpty(@props.surgeries,'name','id')
     tasks: []
     selectedTasks: []
     errors: []
@@ -21,6 +21,11 @@
     messageSurgery: 'Seleccione primero un procedimiento'
   createOptions: (objects,displayObjectName,valueObjectName) ->
     options = []
+    for thing in objects
+      options.push {'display': thing[displayObjectName] ,'value': thing[valueObjectName]}
+    return options
+  createOptionsWithEmpty: (objects,displayObjectName,valueObjectName) ->
+    options = [{display: 'Seleccione',value: ''}]
     for thing in objects
       options.push {'display': thing[displayObjectName] ,'value': thing[valueObjectName]}
     return options

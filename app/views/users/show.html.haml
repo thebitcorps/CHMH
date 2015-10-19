@@ -30,3 +30,9 @@
       = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
     -if current_user.role == "Admin" or current_user.role == "1" and current_user.id != @user.id
       = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
+- if @user.role == '3'
+  .panel.panel-default
+    #header.panel-heading
+      = render 'procedures/header', active: 1
+    #procedures.panel-body
+      = render 'procedures/notes',procedure: @user.procedures

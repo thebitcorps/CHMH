@@ -8,3 +8,6 @@
 */
 
 body { padding-top: 70px; }
+.label-as-badge {
+    border-radius: 3em;
+}
