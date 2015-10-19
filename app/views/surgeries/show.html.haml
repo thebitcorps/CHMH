@@ -1,26 +1,32 @@
+.jumbotron
+  %h2
+    = @surgery.name
+    %span.label.label-primary
+      Procedimiento
+  %p
+    = @surgery.description
+  %p
+    = "Ha sido usado #{@surgery.procedures.count} #{@surgery.procedures.count == 1 ? 'vez' : 'veces'}"
+
+  .btn-group
+    = link_to "Editar", edit_surgery_path(@surgery), :class => "btn btn-warning"
+    = link_to "Borrar procedimiento", surgery_path,  method: :delete, :class => "btn btn-danger",data: { confirm: '¿Deseas borrar este procedimiento?'}
 
 
 
-%h2
-	= @surgery.name
-%p
-	= @surgery.description
-.btn-group.btn-group-justified	
-	= link_to "Editar", edit_surgery_path(@surgery), :class => "btn btn-primary"
-	= link_to "Borrar procedimiento", surgery_path,  method: :delete, :class => "btn btn-danger",data: { confirm: '¿Deseas borrar este procedimiento?'}
+= react_component 'TableCRUD',displayName: "Actividades dentro de #{@surgery.name}",list: @tasks,modelNamePlural: 'tasks',modelNameSingular: 'task',parentId: @surgery.id,parentName: 'surgery'
 
-
-.panel.panel-default
-	.panel-heading
-		%h4 Actividades
-	.panel-body
-		.list-group
-			- @surgery.tasks.order('name').each do |task|
-				.list-group-item
-					= task.name	
-					= link_to "Borrar actividad", task_path(task),  method: :delete, :class => "btn btn-danger btn-small pull-right" ,data: { confirm: '¿Deseas borrar esta actividad?'}
-
-				%br/
-		.btn-group.btn-group-justified
-			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"
-		
+-#.panel.panel-default
+-#	.panel-heading
+-#		%h4 Actividades
+-#	.panel-body
+-#		.list-group
+-#			- @surgery.tasks.order('name').each do |task|
+-#				.list-group-item
+-#					= task.name
+-#					= link_to "Borrar actividad", task_path(task),  method: :delete, :class => "btn btn-danger btn-small pull-right" ,data: { confirm: '¿Deseas borrar esta actividad?'}
+-#
+-#				%br/
+-#		.btn-group.btn-group-justified
+-#			= link_to "Crear nueva", new_task_path(:surgery_id => @surgery.id), :class => "btn btn-primary"
+-#

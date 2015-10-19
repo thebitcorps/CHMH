@@ -2,6 +2,7 @@
   getInitialState: ->
     edit: false
     element: @props.element
+    #refactor this so we could remove name and description because they come in element
     name: @props.element.name
     description: @props.element.description
   deleteElement: ->
@@ -39,9 +40,9 @@
     unless @state.edit
       React.DOM.tr null,
         React.DOM.td null,
-          React.DOM.a {href: "/#{@props.parentName}/#{@props.element.id}/"},@state.element.name
+          React.DOM.a {href: "/#{@props.parentName}/#{@props.element.id}/"},@state.name
         React.DOM.td null,
-          @state.element.description
+          @state.description
         React.DOM.td null,
           React.DOM.div
             className: 'btn-group'

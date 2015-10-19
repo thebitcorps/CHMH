@@ -1,5 +1,5 @@
 class SurgeriesController < ApplicationController
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
   before_action :set_surgery, only: [:show, :edit, :update, :destroy]
 
   def query
@@ -14,7 +14,7 @@ class SurgeriesController < ApplicationController
   # GET /surgeries/1
   # GET /surgeries/1.json
   def show
-
+    @tasks = JSON.parse @surgery.tasks.to_json
   end
 
   # GET /surgeries/new
