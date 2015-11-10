@@ -1,0 +1,7 @@
+.panel.panel-default
+  .panel-heading
+    %h4= heading
+  .panel-body
+    .list-group
+      - users.each do |user|
+        = link_to user.name + " " + user.lastname + ", jefe de " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"

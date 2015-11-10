@@ -16,6 +16,29 @@ class User < ActiveRecord::Base
 		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
+  scope :tutors, ->(area_id) {where(role: '2',area_id: area_id).order('name')}
+  scope :tutors, -> {where(role: '2').order('name')}
+  scope :head_area, -> {where(role: '1').order('name')}
+  scope :interns, -> {where role: '3'}
+  scope :interns, ->(area_id) {where role: '3',area_id: area_id}
+  scope :active_interns, -> {where(:season_id => Season.last.id).order('name')}
+
+
+  def is_admin?
+    role == 'Admin'
+  end
+
+  def is_intern?
+    role == '3'
+  end
+
+  def is_tutor?
+    role == '2'
+  end
+
+  def is_head_of_area?
+    role == '1'
+  end
 
   def doctor_gender
     self.gender == '0' ? "Dr." : "Dra."
@@ -65,7 +88,7 @@ class User < ActiveRecord::Base
     if sign_in_count
       sign_in_count
     else
-      "No ha ingresad"
+      "No ha ingresado"
     end
   end
 

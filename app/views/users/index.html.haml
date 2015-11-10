@@ -1,30 +1,9 @@
 %h1 Usuarios
--if current_user.role == "Admin"
-  .panel.panel-default
-    .panel-heading
-      %h4 Jefes de área
-    .panel-body
-      %ul.list-grou
-        - User.where(:role => "1").order('name').each do |user|
-          %li.list-group-item
-            = link_to user.name + " " + user.lastname + ", jefe de " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-  .panel.panel-default
-    .panel-heading
-      %h4 Tutores
-    .panel-body
-      %ul.list-group
-        - User.where(:role => "2").order('name').each do |user|
-          %li.list-group-item
-            = link_to user.name + " " + user.lastname + ", tutor en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-  .panel.panel-default
-    .panel-heading
-      %h4 Internos Activos
-    .panel-body
-      - if Season.last != nil
-        %ul.list-group
-          - User.where(:season_id => Season.last.id).order('name').each do |user|
-            %li.list-group-item
-              = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+-if current_user.is_admin?
+  = render :partial => 'user_box',locals: {heading: 'Jefes de área',users: User.head_area}
+  = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors}
+  = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns}
+
   .panel.panel-default
     .panel-heading
       %h4 Internos NO activos
@@ -39,25 +18,9 @@
                 %td
                   = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning list-group-item pull-right', confirm: "Actualizar?")
 -else
-  -if current_user.role == '1'
-    .panel.panel-default
-      .panel-heading
-        %h4 Tutores
-      .panel-body
-        %ul.list-group
-          - User.where(:role => "2", :area_id =>  current_user.area.id).order('name').each do |user|
-            %li.list-group-item
-              = link_to user.name + " " + user.lastname + ", tutor en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-
-  .panel.panel-default
-    .panel-heading
-      %h4 Internos en área
-    .panel-body
-      - if Season.last != nil
-        %ul.list-group
-          - User.where(:season_id => Season.last.id, :area_id => current_user.area.id).order('name').each do |user|
-            %li.list-group-item
-              = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
+  -if current_user.is_head_of_area?
+    = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors(current_user.area_id)}
+    = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns(current_user.area_id)}
   .panel.panel-default
     .panel-heading
       %h4 Internos NO activos

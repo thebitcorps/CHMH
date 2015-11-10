@@ -1,4 +1,4 @@
-- if @role == "Admin"
+- if current_user.is_admin?
 	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
@@ -56,6 +56,8 @@
 					%li.list-group-item
 						%b Internos no activos:
 						- count = User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last
+						- if count == nil
+							-count = 0
 						= count <= 0 ?  "No hay inactivos" : count
 				.btn-group.btn-group-justified
 					= link_to "Ver todos", users_path, :class => "btn btn-default"
@@ -148,7 +150,7 @@
 
 
 //  Tutor ///////////////////////////////////
-- if @role == '2'
+- if current_user.is_tutor?
 	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading

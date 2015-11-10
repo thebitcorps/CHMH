@@ -6,15 +6,17 @@
       .panel-heading
         %h4
           %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapse_#{i}"}
-            %span.badge
-              = v
-            = k.name
+            -#%span.badge
+            -#  = v
+            = "#{v} x #{k.name}"
       %div{id: "collapse_#{i}", class: "accordion-body collapse"}
         .panel-body
-          - v.times do
-            -#change when cheked
-            - examined_color = @procedure[i].examineds.count == 0 ?  "label-info" : "label-success"
-            = link_to raw("<table class = 'nav-justified'><tr><th></td><th></td><th></td><th></td></tr><tr><td><span class='label #{examined_color}'>#{@procedure[i].folio}</span></td><td>#{@procedure[i].surgery.name}</td><td>#{@procedure[i].donedate.day.to_s + "/" + NameMonth(@procedure[i].donedate.month.to_s) + "/" + @procedure[i].donedate.year.to_s}</td></tr></table>"), @procedure[i], :class => "list-group-item"
-
-            = button_to  "Borrar", @procedure[i], method: :delete, data: {confirm: "Desea borrar la nota?"}, class:  "btn-sm btn-danger pull-right  list-group-item"
-            - i += 1
+          .list-group
+            - v.times do
+              %a.list-group-item{href: "/procedures/#{@procedure[i].id}"}
+                %span{class: "label #{@procedure[i].examineds_color}"}
+                  = @procedure[i].folio
+                = " Realizo #{k.name} con duracion de #{show_in_hours_and_minutes @procedure[i].minutes} "
+                .pull-right
+                  = "hace #{time_ago_in_words @procedure[i].donedate}"
+              - i += 1

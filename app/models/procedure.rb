@@ -28,6 +28,10 @@ class Procedure < ActiveRecord::Base
     end
   end
 
+  def examineds_color
+    examineds.count == 0 ?  "label-info" : "label-success"
+  end
+
 
   # def self.examined_procedures(user_id)
   #   Procedure.where(user: user_id).order('surgery_id DESC').to_a.each do |procedure|
