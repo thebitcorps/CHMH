@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
-gem 'rails', '4.1.1'
+# ruby '2.2.2'
+gem 'rails', '4.2.4'
 #gem 'sqlite3'
 gem 'pg'
 gem 'simple_form'
@@ -18,6 +18,7 @@ gem "less-rails"
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'therubyracer'
+gem 'dotenv-rails'
 gem 'rails_12factor'
 group :development do
   gem 'spring'
@@ -25,11 +26,13 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
+  gem 'capistrano', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano3-puma', require: false
+  gem 'capistrano-rails-console', require: false
+  gem 'airbrussh', require: false
 end
 group :development, :test do
   gem 'factory_girl_rails'
