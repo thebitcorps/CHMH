@@ -1,16 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
 development:
-  adapter: postgresql
-  database: my_database_development
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: chmh_development
+
 test:
-  adapter: postgresql
-  database: my_database_test
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: chmh_test
 
 production:
-  adapter: postgresql
-  database: my_database_production
-  pool: 5
-  timeout: 5000
+  <<: *default
+  database: chmh_production
+  username: deployer
+  password: <%= ENV['CHMH_DATABASE_PASSWORD'] %>
