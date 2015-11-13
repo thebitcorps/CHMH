@@ -15,7 +15,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'puma'
 # gem 'bootstrap-sass'
 gem "less-rails"
-gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails", "2.2.8"
 gem 'devise'
 gem 'therubyracer'
 gem 'dotenv-rails'
