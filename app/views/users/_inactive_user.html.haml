@@ -5,7 +5,8 @@
     - if Season.last != nil
       .list-group
         -  users.each do |user|
-          %span.label.label-primary= (user.area != nil ? user.area.name : "No asignado")
-          = "#{user.doctor_gender} #{user.name} #{user.lastname}"
+          %a{href: user_path(user),class: "list-group-item"}
+            %span.label.label-primary= (user.area != nil ? user.area.name : "No asignado")
+            = "#{user.doctor_gender} #{user.name} #{user.lastname}"
           .pull-right
             = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning btn-sm', confirm: "Activar usuario?")

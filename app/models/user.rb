@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
     self.name + ' ' + self.lastname
   end
 
+  def is_active?
+    self.season == Season.last
+  end
+
 
   def examined_notes_of(owner_id)
 

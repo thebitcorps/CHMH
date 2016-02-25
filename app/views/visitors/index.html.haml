@@ -29,8 +29,6 @@
 						%li.list-group-item
 							%b Días restantes: 
 							= lastDays
-
-
 				.btn-group.btn-group-justified
 					= link_to "Ver todas", seasons_path, :class => "btn btn-default"
 					= link_to "Editar", edit_season_path(Season.last), :class => "btn btn-default"
@@ -46,13 +44,13 @@
 				%ul.list-group
 					%li.list-group-item
 						%b Jefes de área: 
-						= User.where(:role => "1").count
+						= User.head_area.count
 					%li.list-group-item 
 						%b Tutores: 
-						= User.where(:role => "2").count
+						= User.tutors.count
 					%li.list-group-item
 						%b Internos activos: 
-						= User.where(:season_id => Season.last.id).count if Season.last
+						= User.active_interns.count if Season.last
 					%li.list-group-item
 						%b Internos no activos:
 						- count = User.where(:role => "3").count - User.where(:season_id => Season.last.id).count if Season.last

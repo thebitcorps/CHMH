@@ -122,33 +122,38 @@
           React.createElement LabelSelect, name: 'minutes',label: 'Minutos',options: @props.minutes,onChanged: @inputChange
       React.createElement LabelSelect, name: 'surgery_id',label: 'Procedimiento a participar:',options: @state.surgeries,onChanged: @surgeryChange
       React.DOM.div
-        className: 'panel panel-primary'
+        className: 'col-md-6'
         React.DOM.div
-          className: 'panel panel-heading'
-          React.DOM.label
-            className: 'form-label'
-            'Actividades dentro del procedimiento: '
+          className: 'panel panel-default'
+          React.DOM.div
+            className: 'panel panel-heading'
+            React.DOM.label
+              className: 'form-label'
+              'Actividades disponibles '
+          React.DOM.div
+            className: 'panel panel-body'
+            React.DOM.h4 null,
+              if @state.tasks.length == 0
+                @state.messageSurgery
+              for task in @state.tasks
+                React.createElement Task , task: task,key: task.value,handleClick: @taskSelected
+      React.DOM.div
+        className: 'col-md-6'
         React.DOM.div
-          className: 'panel panel-body'
-          React.DOM.h4 null,
-            if @state.selectedTasks.length == 0
+          className: 'panel panel-primary'
+          React.DOM.div
+            className: 'panel panel-heading'
+            React.DOM.label
+              className: 'form-label'
+              'Actividades realizadas: '
+          React.DOM.div
+            className: 'panel panel-body'
+            React.DOM.h4 null,
+              if @state.selectedTasks.length == 0
                 @state.messageSurgery
             for selectedTask in @state.selectedTasks
               React.createElement Task , task: selectedTask,key: selectedTask.value,handleClick: @removeSelectedTask,color: 'primary'
-      React.DOM.div
-        className: 'panel panel-default'
-        React.DOM.div
-          className: 'panel panel-heading'
-          React.DOM.label
-            className: 'form-label'
-            'Actividades dentro de la cirugia: '
-        React.DOM.div
-          className: 'panel panel-body'
-          React.DOM.h4 null,
-            if @state.tasks.length == 0
-              @state.messageSurgery
-            for task in @state.tasks
-              React.createElement Task , task: task,key: task.value,handleClick: @taskSelected
+
 #      React.createElement LabelSelect, name: 'task',options: @state.tasks,multiple: true,onChanged: @taskSelected
       React.DOM.label
         className: 'form-label'
