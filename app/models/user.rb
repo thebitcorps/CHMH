@@ -21,7 +21,10 @@ class User < ActiveRecord::Base
   scope :head_area, -> {where(role: '1').order('name')}
   scope :interns, -> {where role: '3'}
   scope :interns, ->(area_id) {where role: '3',area_id: area_id}
+  scope :active_interns, ->(area_id) {where(:season_id => Season.last.id,area_id: area_id).order('name')}
   scope :active_interns, -> {where(:season_id => Season.last.id).order('name')}
+  scope :inactive_interns, ->(area_id) {where.not(season_id: Season.last.id,area_id: area_id).order('name')}
+  scope :inactive_interns, -> {where.not(season_id: Season.last.id).order('name')}
 
 
   def is_admin?

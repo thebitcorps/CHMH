@@ -1,4 +1,4 @@
-%ul.nav.nav-pills.breadcrumb
+%ul.nav.nav-pills
   - 10.times do |i|
     - if i == @since
       %li.active
@@ -6,6 +6,14 @@
     - else
       %li
         =link_to i.months.ago.strftime("%B %Y"),dashboard_monthly_path( month: i )
+.panel.panel-default
+  .panel-heading
+    %h4
+      Residente del mes
+  .panel-body
+    - if @best_resident
+      - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.last_month_notes(@since).count.to_s + " notas."
+      = link_to   message,@best_resident
 - @areas.each do |area|
   .panel.panel-default
     .panel-heading
@@ -27,11 +35,3 @@
           =show_in_hours_and_minutes area.last_resident_notes_hours(@since)
 
 
-.panel.panel-default
-  .panel-heading
-    %h4
-      Residente del mes
-  .panel-body
-    - if @best_resident
-      - message =  @best_resident.name + " " + @best_resident.lastname + " del area de  " + @best_resident.area.name + " con " + @best_resident.last_month_notes(@since).count.to_s + " notas."
-      = link_to   message,@best_resident

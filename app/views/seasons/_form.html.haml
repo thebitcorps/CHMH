@@ -9,7 +9,7 @@
   .form-group
     = f.label "Fecha de inicio: "
     %br
-    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year],:html_options =>{class: 'form-control'}
+    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year],:html =>{class: 'form-control'}
   .form-group
     = f.label "Fecha de conclusión: "
     %br

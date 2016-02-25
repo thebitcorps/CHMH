@@ -3,34 +3,9 @@
   = render :partial => 'user_box',locals: {heading: 'Jefes de área',users: User.head_area}
   = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors}
   = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns}
-
-  .panel.panel-default
-    .panel-heading
-      %h4 Internos NO activos
-    .panel-body
-      - if Season.last != nil
-        %table.table
-          -  User.where(:role => "3").order('name').each do |user|
-            - if user.season.id != Season.last.id
-              %tr
-                %td
-                  = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-                %td
-                  = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning list-group-item pull-right', confirm: "Actualizar?")
+  = render :partial => 'inactive_user',locals: {users: User.inactive_interns}
 -else
   -if current_user.is_head_of_area?
     = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors(current_user.area_id)}
     = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns(current_user.area_id)}
-  .panel.panel-default
-    .panel-heading
-      %h4 Internos NO activos
-    .panel-body
-      - if Season.last != nil
-        %table.table
-          -  User.where(:role => "3",:area_id => current_user.area.id).order('name').each do |user|
-            - if user.season.id != Season.last.id
-              %tr
-                %td
-                  = link_to user.name + " " + user.lastname + ", interno en " + (user.area != nil ? user.area.name : "No asignado"), user, :class => "list-group-item"
-                %td
-                  = link_to("Activar usuario", user_path(user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-warning list-group-item pull-right', confirm: "Actualizar?")
+    = render :partial => 'inactive_user',locals: {user: User.inactive_interns(current_user.area_id)}
