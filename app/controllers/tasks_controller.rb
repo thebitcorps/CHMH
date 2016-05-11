@@ -35,7 +35,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to surgery_path(@task.surgery), notice: 'La actividad se ha creado satisfactoriamente.' }
-        format.json { render :show, status: :created, location: @task }
+        format.json { render json: JSON.parse(@task.to_json )}
       else
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
         @task.name = @task.name.humanize
         @task.save
         format.html { redirect_to surgery_path(@task.surgery), notice: 'La actividad ha sido correctamente actualizada.' }
-        format.json { render :show, status: :ok, location: @task }
+        format.json { render json: JSON.parse(@task.to_json) }
       else
         format.html { render :edit }
         format.json { render json: @task.errors, status: :unprocessable_entity }

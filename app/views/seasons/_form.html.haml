@@ -9,11 +9,11 @@
   .form-group
     = f.label "Fecha de inicio: "
     %br
-    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
+    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year],:html =>{class: 'form-control'}
   .form-group
     = f.label "Fecha de conclusión: "
     %br
     = f.date_select :enddate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
   .form-group.btn-group
-    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
+    = f.submit 'Guardar', :class => "btn btn-primary"
+    = link_to 'Cancelar', root_path, :class => 'btn btn-default'

@@ -15,7 +15,7 @@
   .form-group
     = f.label "Jefe de área asignado: "
     %br
-    = f.select :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]}
+    = f.select( :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]},class: 'form-control')
   .form-group.btn-group
-    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
+    = f.submit 'Guardar', :class => "btn btn-primary"
+    = link_to 'Cancelar', root_path, :class => 'btn btn-default'

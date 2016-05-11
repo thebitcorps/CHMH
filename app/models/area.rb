@@ -3,7 +3,7 @@ class Area < ActiveRecord::Base
 	validates :description, :presence => true
 	belongs_to :user
 	has_many :users,  dependent: :nullify
-	has_many :surgeries
+	has_many :surgeries, dependent: :destroy
 
 	def area_residents
 		User.where(role: '3',area_id: self.id)

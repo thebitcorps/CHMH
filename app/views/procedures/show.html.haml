@@ -24,11 +24,15 @@
 			= link_to "Agregar", task_procedures_path(:procedure_id => @procedure.id), :class => "btn btn-primary"
 		-else
 			- @procedure.task_procedures.each do |task_procedure|
-
-				= task_procedure.task.name + ", " if task_procedure.task
+				%label.label.label-primary= task_procedure.task.name if task_procedure.task
 	%li.list-group-item
 		%b Anotaciones: 
 		= @procedure.notes
 	%hr
-		#examined
-			= render 'examined/examined'
+	- if current_user.role == 'Admin' or current_user.role == '1' or current_user == '2'
+		- if Examined.was_examined_by(current_user.id,@procedure.id)
+			= link_to "Revisar", examined_create_path(:procedure_id => @procedure.id), method: :post, :class => "btn btn-primary", remote: true, id: "examined-button"
+		- else
+			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-warning",remote: true,id: "examined-button"
+	#examined
+		= render 'examined/examined'

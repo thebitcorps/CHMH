@@ -1,56 +1,44 @@
-%h2 
-  = @user.name + " " + @user.lastname
-%ul.list-group
-  %li.list-group-item
-    %b Área de pertenencia: 
-    - if @user.role == "Admin"
-      Administrador
-    - else
-      = (@user.area != nil ? @user.area.name : "No asignado") + " "
-      - if @user.role == "1"
-        (Jefe de área)
-      - if @user.role == "2"
-        (Tutor)
-      - if @user.role == "3"
-        (Interno)
-  %li.list-group-item
-    %b Fecha de nacimiento: 
-    = DateWow(@user.birthday)
-  %li.list-group-item
-    %b Género: 
-    - if @user.gender == "0"
-      Masculino
-    - else
-      Femenino
-  %li.list-group-item
-    %b Correo electrónico (e-mail): 
-    = @user.email
-    %li.list-group-item
-      %b Ultimo login:
-      -if @user.last_sign_in_at
-        = @user.last_sign_in_at.strftime "%F %H:%M"
-      -else 
-        No ha ingresado
-  %li.list-group-item
-    %b Cuenta de logins:
-    -if @user.sign_in_count
-      = @user.sign_in_count
-    -else
-      No ha ingresado
+.jumbotron
+  %h2
+    = @user.fullname
+    %span.label.label-primary
+      = @user.role_name
+  %h4
+    %ul
+      %li
+        %b Area de pertenencia:
+        = link_to @user.area.name,area_path(@user.area) if @user.area
+      %li
+        %b Fecha de nacimiento:
+        = DateWow(@user.birthday)
+      %li
+        %b Genero:
+        = @user.human_genre
+      %li
+        %b Correo electrónico (e-mail):
+        = @user.email
+      %li
+        %b Ultimo login:
+        = @user.last_login
+      %li
+        %b Cuenta de logins:
+        = @user.login_count
+  .form-group.btn-group
+    -if current_user.is_admin? or (current_user.is_intern? and current_user == @user)
+      = link_to "Actualizar", edit_user_path(@user), :class => 'btn btn-primary'
+    -if current_user == @user
+      = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
+    -if current_user.is_admin? and current_user.id != @user.id
+      = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
+    - if current_user.is_admin? or current_user.is_head_of_area?
+      - if @user.is_active?
+        = link_to("Desactivar usuario", user_path(@user, user: { season_id: Season.first.id }), method: :put, class: 'btn btn-default', confirm: "Activar usuario?")
+      - else
+        = link_to("Activar usuario", user_path(@user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-default', confirm: "Activar usuario?")
 
-
-    
-  - if @user.role == "3"
-    %li.list-group-item
-      %b Procedimientos: 
-      = link_to "Ver procedimientos", procedures_path(:user_id => @user.id), :class => 'btn btn-primary'
-
-.form-group.btn-group
-  -if current_user.role == "Admin" or current_user.role == "1"
-    = link_to "Acualizar", edit_user_path(@user), :class => 'btn btn-primary'
-  -if current_user.role == "Admin" or current_user.role == "1" and current_user.id != @user.id
-    = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
-  -if current_user == @user
-    = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
-
-
+- if @user.is_intern?
+  .panel.panel-default
+    #header.panel-heading
+      = render 'procedures/header', active: 1
+    #procedures.panel-body
+      = render 'procedures/notes',procedure: @user.procedures

@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require react
+//= require react_ujs
+//= require components
+//= require moment
+//= require moment/es
+//= require bootstrap-datetimepicker
 //= require_tree .

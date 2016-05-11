@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
 	belongs_to :area
-	has_many :procedures
-  has_many :examineds
+	has_many :procedures, dependent: :destroy
+  has_many :examineds, dependent: :destroy
 
 	def self.residents
 		User.where(role: "3")
@@ -16,6 +16,32 @@ class User < ActiveRecord::Base
 		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
+  scope :tutors, ->(area_id) {where(role: '2',area_id: area_id).order('name')}
+  scope :tutors, -> {where(role: '2').order('name')}
+  scope :head_area, -> {where(role: '1').order('name')}
+  scope :interns, -> {where role: '3'}
+  scope :interns, ->(area_id) {where role: '3',area_id: area_id}
+  scope :active_interns, ->(area_id) {where(:season_id => Season.last.id,area_id: area_id).order('name')}
+  scope :active_interns, -> {where(:season_id => Season.last.id).order('name')}
+  scope :inactive_interns, ->(area_id) {where.not(season_id: Season.last.id,area_id: area_id).order('name')}
+  scope :inactive_interns, -> {where.not(season_id: Season.last.id).order('name')}
+
+
+  def is_admin?
+    role == 'Admin'
+  end
+
+  def is_intern?
+    role == '3'
+  end
+
+  def is_tutor?
+    role == '2'
+  end
+
+  def is_head_of_area?
+    role == '1'
+  end
 
   def doctor_gender
     self.gender == '0' ? "Dr." : "Dra."
@@ -25,6 +51,10 @@ class User < ActiveRecord::Base
     self.name + ' ' + self.lastname
   end
 
+  def is_active?
+    self.season == Season.last
+  end
+
 
   def examined_notes_of(owner_id)
 
@@ -32,5 +62,41 @@ class User < ActiveRecord::Base
   end
 
 
+  def role_name
+    if role == "Admin"
+      'Administrador'
+    elsif role == "1"
+      'Jefe de área'
+    elsif role == "2"
+      'Tutor'
+    elsif role == "3"
+      'Interno'
+    end
+  end
+
+
+  def human_genre
+    if gender == "0"
+      'Masculino'
+    else
+      'Femenino'
+    end
+  end
+
+  def last_login
+    if last_sign_in_at
+      last_sign_in_at.strftime "%F %H:%M"
+    else
+      'No ha ingresado'
+    end
+  end
+
+  def login_count
+    if sign_in_count
+      sign_in_count
+    else
+      "No ha ingresado"
+    end
+  end
 
 end

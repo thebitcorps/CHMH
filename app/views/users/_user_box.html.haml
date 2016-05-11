@@ -1,0 +1,10 @@
+.panel.panel-default
+  .panel-heading
+    %h4= heading
+  .panel-body
+    .list-group
+      - users.each do |user|
+        %a{href: user_path(user),class: "list-group-item"}
+          %span.label.label-primary= (user.area != nil ? user.area.name : "No asignado")
+          = "#{user.doctor_gender} #{user.name} #{user.lastname}"
+

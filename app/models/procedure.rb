@@ -2,7 +2,7 @@ class Procedure < ActiveRecord::Base
   belongs_to :user
   belongs_to :surgery
   has_many :task_procedures
-  has_many :examineds
+  has_many :examineds, dependent: :destroy
   validates :folio,:donedate  ,presence: true
   validates :minutes, numericality: {greater_than: 0}
   validate :donedate_less_than_today
@@ -20,6 +20,18 @@ class Procedure < ActiveRecord::Base
   def donedate_less_this_month
     errors.add(:donedate, 'Solo se pueden registrar fechas dentro de los pasados 15 dias. ') if (Date.today - donedate).to_i > 15
   end
+
+  def create_procedure_tasks(task_ids)
+    return unless task_ids
+    for task_id in task_ids
+      task_procedures << TaskProcedure.new(task_id: task_id.to_i)
+    end
+  end
+
+  def examineds_color
+    examineds.count == 0 ?  "label-info" : "label-success"
+  end
+
 
   # def self.examined_procedures(user_id)
   #   Procedure.where(user: user_id).order('surgery_id DESC').to_a.each do |procedure|

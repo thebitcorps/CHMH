@@ -1,6 +1,6 @@
 class ProceduresController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :set_procedure, only: [:show, :edit, :update, :destroy]
+  # before_filter :authenticate_user!
+  before_action :set_procedure, only: [:show, :edit, :update, :destroy,:query]
 
 
 
@@ -23,7 +23,13 @@ class ProceduresController < ApplicationController
     else
         redirect_to new_user_session_path, :alert => "Acceso denegado."
     end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
+
+
 
   # GET /procedures/1
   # GET /procedures/1.json
@@ -36,6 +42,7 @@ class ProceduresController < ApplicationController
         if current_user.role == "3"
           @procedure = Procedure.new
           @surgeries = Surgery.where(:area_id => current_user.area.id)
+          @surgeries_json = JSON.parse Surgery.where(:area_id => current_user.area.id).to_json
         else
           redirect_to root_path, :alert => "Acceso denegado."
         end
@@ -55,16 +62,19 @@ class ProceduresController < ApplicationController
     @procedure = Procedure.new(procedure_params)
     @procedure.user = current_user
     @procedure.minutes = params["hou"].to_i * 60 + params["min"].to_i
+    @procedure.create_procedure_tasks( params[:task_procedure_ids])
     @surgeries = Surgery.where(:area_id => current_user.area.id)
     current_user.minutes = current_user.minutes.to_i + @procedure.minutes.to_i
     current_user.save
+
     respond_to do |format|
       if @procedure.save
         format.html { redirect_to @procedure, notice: 'La actividad se ha creado correctamente.' }
-        format.json { render :show, status: :created, location: @procedure }
+        format.json { render json: JSON.parse( @procedure.to_json)}
+
       else
         format.html { render :new }
-        format.json { render json: @procedure.errors, status: :unprocessable_entity }
+        format.json { render json: JSON.parse(@procedure.errors.full_messages.to_json), status: :unprocessable_entity }
       end
     end
   end
@@ -108,6 +118,10 @@ class ProceduresController < ApplicationController
       else
           set_notes
       end
+      respond_to do |format|
+        format.html
+        format.js
+      end
   end
 
 
@@ -147,7 +161,7 @@ class ProceduresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def procedure_params
-      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid)
+      params.require(:procedure).permit(:folio, :donedate, :notes, :user_id, :surgery_id, :task,:month,:examid, :task_procedure_ids => [])
     end
 
 

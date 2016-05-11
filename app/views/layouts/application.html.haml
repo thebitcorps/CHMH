@@ -19,38 +19,37 @@
 
 
   %body
-    .navbar.navbar-inverse.navbar-top
-      .navbar-inner
-        .container
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-expanded" => "false", "data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          = link_to 'Inicio', root_path, class: 'brand'
-          .nav-collapse.collapse
-            %ul.nav
-              - if user_signed_in?
-                %li= link_to 'Perfil', current_user
-                - if current_user.role == 'Admin' or current_user.role == '1' or current_user.role == '2'
-                  %li
-                    = link_to "Totales",dashboard_index_path
-                  %li
-                    = link_to "Mensuales",dashboard_monthly_path
-                %li= link_to 'Cerrar Sesión', destroy_user_session_path, :method=>'delete'
-              - else
-                %li= link_to 'Iniciar Sesión', new_user_session_path
-    -if notice
-      %div#notice.alert
-        = notice
-    -if alert
-      %div#notice.alert
-        = alert
+          %a.navbar-brand{:href => "/"} Inicio
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            - if user_signed_in?
+              %li= link_to 'Perfil', current_user
 
-
+              - if current_user.role == 'Admin' or current_user.role == '1' or current_user.role == '2'
+                %li.dropdown
+                  %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                    Estadisticas
+                    %span.caret
+                  %ul.dropdown-menu
+                    %li
+                      = link_to "Totales",dashboard_index_path
+                    %li
+                      = link_to "Mensuales",dashboard_monthly_path
+          - if user_signed_in?
+            %p.navbar-text.navbar-right
+              = link_to current_user.fullname, user_path(current_user),class: 'navbar-link'
+              = link_to '(Cerrar Sesión)', destroy_user_session_path, :method=>'delete'
 
 
     .container
-
       .row
         .span12
           = bootstrap_flash

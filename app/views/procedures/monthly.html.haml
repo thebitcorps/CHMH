@@ -1,10 +1,6 @@
-= render 'header', active: 2
-%ul.nav.nav-pills.breadcrumb
-  - 10.times do |i|
-    - if i == @since
-      %li.active
-        =link_to i.months.ago.strftime("%B %Y"),monthly_procedures_path(user_id: @user.id, month: i )
-    - else
-      %li
-        =link_to i.months.ago.strftime("%B %Y"),monthly_procedures_path(user_id: @user.id, month: i )
-= render 'notes'
+.panel.panel-default
+  #header.panel-heading
+    = render 'header', active: 2
+  #procedures.panel-body
+    = render :partial => 'months'
+    = render 'notes'
