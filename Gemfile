@@ -10,13 +10,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem "haml-rails"
+gem 'haml-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'puma'
 # gem 'bootstrap-sass'
-gem "less-rails"
-gem "twitter-bootstrap-rails", "2.2.8"
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'therubyracer'
 gem 'dotenv-rails'

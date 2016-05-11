@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "areas", force: true do |t|
+  create_table "areas", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.integer  "user_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
 
   add_index "areas", ["user_id"], name: "index_areas_on_user_id", using: :btree
 
-  create_table "examineds", force: true do |t|
+  create_table "examineds", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "procedure_id"
     t.datetime "created_at"
@@ -34,7 +34,10 @@ ActiveRecord::Schema.define(version: 20150504190213) do
     t.integer  "owner_id"
   end
 
-  create_table "procedures", force: true do |t|
+  add_index "examineds", ["procedure_id"], name: "index_examineds_on_procedure_id", using: :btree
+  add_index "examineds", ["user_id"], name: "index_examineds_on_user_id", using: :btree
+
+  create_table "procedures", force: :cascade do |t|
     t.string   "folio"
     t.date     "donedate"
     t.integer  "minutes"
@@ -48,14 +51,14 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   add_index "procedures", ["surgery_id"], name: "index_procedures_on_surgery_id", using: :btree
   add_index "procedures", ["user_id"], name: "index_procedures_on_user_id", using: :btree
 
-  create_table "seasons", force: true do |t|
+  create_table "seasons", force: :cascade do |t|
     t.date     "startdate"
     t.date     "enddate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "surgeries", force: true do |t|
+  create_table "surgeries", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.integer  "area_id"
@@ -65,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
 
   add_index "surgeries", ["area_id"], name: "index_surgeries_on_area_id", using: :btree
 
-  create_table "task_procedures", force: true do |t|
+  create_table "task_procedures", force: :cascade do |t|
     t.integer  "procedure_id"
     t.integer  "task_id"
     t.datetime "created_at"
@@ -75,7 +78,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   add_index "task_procedures", ["procedure_id"], name: "index_task_procedures_on_procedure_id", using: :btree
   add_index "task_procedures", ["task_id"], name: "index_task_procedures_on_task_id", using: :btree
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.integer  "surgery_id"
@@ -85,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
 
   add_index "tasks", ["surgery_id"], name: "index_tasks_on_surgery_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                            default: "", null: false
     t.string   "encrypted_password",               default: "", null: false
     t.string   "reset_password_token"
