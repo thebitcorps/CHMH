@@ -24,19 +24,19 @@
         %b Cuenta de logins:
         = @user.login_count
   .form-group.btn-group
-    -if current_user.is_admin? or (current_user.is_intern? and current_user == @user)
+    -if current_user.admin? or (current_user.intern? and current_user == @user)
       = link_to "Actualizar", edit_user_path(@user), :class => 'btn btn-primary'
     -if current_user == @user
       = link_to "Cambiar contraseña", edit_user_path(@user, :pd => true), :class => 'btn btn-warning'
-    -if current_user.is_admin? and current_user.id != @user.id
+    -if current_user.admin? and current_user.id != @user.id
       = link_to "Borrar usuario", user_path,  method: :delete, :class => "btn btn-danger"
-    - if current_user.is_admin? or current_user.is_head_of_area?
+    - if current_user.admin? or current_user.head_of_area? and @user.intern?
       - if @user.is_active?
         = link_to("Desactivar usuario", user_path(@user, user: { season_id: Season.first.id }), method: :put, class: 'btn btn-default', confirm: "Activar usuario?")
       - else
         = link_to("Activar usuario", user_path(@user, user: { season_id: Season.last.id }), method: :put, class: 'btn btn-default', confirm: "Activar usuario?")
 
-- if @user.is_intern?
+- if @user.intern?
   .panel.panel-default
     #header.panel-heading
       = render 'procedures/header', active: 1

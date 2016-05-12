@@ -1,4 +1,4 @@
-- if current_user.is_admin?
+- if current_user.admin?
 	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading
@@ -148,7 +148,7 @@
 
 
 //  Tutor ///////////////////////////////////
-- if current_user.is_tutor?
+- if current_user.tutor?
 	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
 	.panel.panel-default
 		.panel-heading

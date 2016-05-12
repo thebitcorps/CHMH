@@ -1,11 +1,11 @@
 %h1 Usuarios
--if current_user.is_admin?
+-if current_user.admin?
   = render :partial => 'user_box',locals: {heading: 'Jefes de área',users: User.head_area}
   = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors}
   = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns}
   = render :partial => 'inactive_user',locals: {users: User.inactive_interns}
 -else
-  -if current_user.is_head_of_area?
-    = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors(current_user.area_id)}
-    = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns(current_user.area_id)}
-    = render :partial => 'inactive_user',locals: {user: User.inactive_interns(current_user.area_id)}
+  -if current_user.head_of_area? or  current_user.tutor?
+    = render :partial => 'user_box',locals: {heading: 'Tutores',users: User.tutors_from_area(current_user.area_id)}
+    = render :partial => 'user_box',locals: {heading: 'Internos activos',users: User.active_interns_from_area(current_user.area_id)}
+    = render :partial => 'inactive_user',locals: {users: User.inactive_interns_from_area(current_user.area_id)}

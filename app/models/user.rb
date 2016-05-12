@@ -16,30 +16,30 @@ class User < ActiveRecord::Base
 		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
-  scope :tutors, ->(area_id) {where(role: '2',area_id: area_id).order('name')}
+  scope :tutors_from_area, ->(area_id) {where(role: '2',area_id: area_id).order('name')}
   scope :tutors, -> {where(role: '2').order('name')}
   scope :head_area, -> {where(role: '1').order('name')}
   scope :interns, -> {where role: '3'}
-  scope :interns, ->(area_id) {where role: '3',area_id: area_id}
-  scope :active_interns, ->(area_id) {where(:season_id => Season.last.id,area_id: area_id).order('name')}
-  scope :active_interns, -> {where(:season_id => Season.last.id).order('name')}
-  scope :inactive_interns, ->(area_id) {where.not(season_id: Season.last.id,area_id: area_id).order('name')}
-  scope :inactive_interns, -> {where.not(season_id: Season.last.id).order('name')}
+  scope :interns_from_area, ->(area_id) {where role: '3',area_id: area_id}
+  scope :active_interns_from_area, ->(area_id) {interns.where(:season_id => Season.last.id,area_id: area_id).order('name')}
+  scope :active_interns, -> {interns.where(:season_id => Season.last.id).order('name')}
+  scope :inactive_interns_from_area, ->(area_id) {interns_from_area(area_id).where.not(season_id: Season.last.id).order('name')}
+  scope :inactive_interns, -> {interns.where.not(season_id: Season.last.id).order('name')}
 
 
-  def is_admin?
+  def admin?
     role == 'Admin'
   end
 
-  def is_intern?
+  def intern?
     role == '3'
   end
 
-  def is_tutor?
+  def tutor?
     role == '2'
   end
 
-  def is_head_of_area?
+  def head_of_area?
     role == '1'
   end
 
