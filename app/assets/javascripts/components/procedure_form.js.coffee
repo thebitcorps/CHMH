@@ -147,12 +147,12 @@
               className: 'form-label'
               'Actividades realizadas: '
           React.DOM.div
-            className: 'panel panel-body'
+            className: 'panel panel-body '
             React.DOM.h4 null,
               if @state.selectedTasks.length == 0
                 @state.messageSurgery
-            for selectedTask in @state.selectedTasks
-              React.createElement Task , task: selectedTask,key: selectedTask.value,handleClick: @removeSelectedTask,color: 'primary'
+              for selectedTask in @state.selectedTasks
+                React.createElement Task , task: selectedTask,key: selectedTask.value,handleClick: @removeSelectedTask,color: 'primary'
 
 #      React.createElement LabelSelect, name: 'task',options: @state.tasks,multiple: true,onChanged: @taskSelected
       React.DOM.label
