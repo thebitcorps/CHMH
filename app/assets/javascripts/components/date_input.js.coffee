@@ -1,7 +1,6 @@
 @DateInput = React.createClass
   componentDidMount: ->
     $('#' + "#{@props.name}").datetimepicker
-      daysOfWeekDisabled: [ 0 ]
       showTodayButton: true
       keepOpen: false
       format: 'DD/MM/YYYY'
