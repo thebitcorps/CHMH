@@ -1,3 +1,3 @@
 $('#examined').html("<%= escape_javascript render('examined/examined') %>");
 
-$('#examined-button').replaceWith("<%= escape_javascript ( link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-primary",remote: true,id: "examined-button")%>");
+$('#examined-button').replaceWith("<%= escape_javascript ( link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-warning",remote: true,id: "examined-button")%>");
