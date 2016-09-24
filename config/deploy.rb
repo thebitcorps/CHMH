@@ -1,5 +1,5 @@
 # Change these
-server '45.55.29.185', port: 22, roles: [:web, :app, :db], primary: true
+server '198.199.94.36', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url, 'git@github.com:thebitcorps/CHMH.git'
 set :application, 'CHMH'
