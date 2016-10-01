@@ -1,0 +1,7 @@
+- @areas.each do |area|
+  .panel.panel-default
+    .panel-heading
+      %h4
+        = link_to area.name, area
+    .panel-body
+      = line_chart  area.montly_procedures_hash

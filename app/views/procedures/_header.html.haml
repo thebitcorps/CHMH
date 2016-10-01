@@ -4,3 +4,6 @@
     = link_to "General",procedures_path(:user_id => @user.id),remote: true
   %li{class: "#{active == 2 ? "active" : "" }"}
     = link_to "Mensual",monthly_procedures_path(:user_id => @user.id),remote: true
+  %li{class: "#{active == 3 ? "active" : "" }"}
+    = link_to 'Graficas',user_chart_url(user_id: @user.id,type: 'month'),remote: true
+

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
   get 'dashboard/monthly'
+  get 'dashboard/chart'
 
 
 

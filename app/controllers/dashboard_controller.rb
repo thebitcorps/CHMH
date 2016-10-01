@@ -15,6 +15,14 @@ class DashboardController < ApplicationController
       redirect_to root_path, :alert => "Acceso denegado."
     end
   end
+
+  def chart
+    if current_user.role == 'Admin' or current_user.role == '1' or current_user.role == '2'
+      @since = params[:month].to_i
+    else
+      redirect_to root_path, :alert => "Acceso denegado."
+    end
+  end
   private
   def set_areas
     @areas = Area.all

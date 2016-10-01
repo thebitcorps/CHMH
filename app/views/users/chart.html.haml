@@ -1,10 +1,4 @@
 
 %h2=" Procedimientos de #{@user.fullname}"
-#chart
-  %ul.nav.nav-pills
-    %li{:role => "presentation", class: "#{'active' if params[:type] == 'month'} "}
-      = link_to 'Mes',user_chart_url(user_id: @user.id,type: 'month')
-    %li{:role => "presentation" , class: "#{'active' if params[:type] == 'day'}"}
-      = link_to 'Dia',user_chart_url(user_id: @user.id,type: 'day')
-
-  = line_chart  @procedures_hash
+#procedures
+  = render partial: 'chart'

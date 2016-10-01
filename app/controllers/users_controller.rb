@@ -23,6 +23,10 @@ class UsersController < ApplicationController
   def chart
     @user = User.find(params[:user_id])
     set_procedure_hash
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
 
@@ -116,6 +120,8 @@ class UsersController < ApplicationController
   # end
   private
 
+
+    # should be coll after the user is setin @user
     def set_procedure_hash
       if params[:type] == 'month'
         @procedures_hash = @user.month_procedure_count

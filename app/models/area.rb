@@ -30,6 +30,15 @@ class Area < ActiveRecord::Base
 	end
 
 
+	def montly_procedures_hash
+		procedure_hash = Hash.new
+		procedure_hash.default_proc = proc{ |hash, key| hash[key] = 0 }
+		procedures.each do |procedure|
+			procedure_hash[procedure.donedate.at_beginning_of_month] += 1
+		end
+		procedure_hash
+	end
+
 	def last_resident_notes_hours(since_month)
 		count = 0
 		area_residents.each  do |resident|
@@ -38,6 +47,16 @@ class Area < ActiveRecord::Base
 			end
 		end
 		count
+	end
+
+	def procedures
+		procedures = []
+		area_residents.each  do |resident|
+			resident.procedures.each do |procedure|
+				procedures << procedure
+			end
+		end
+		procedures
 	end
 
 	def number_of_notes
