@@ -10,15 +10,15 @@ class ProceduresController < ApplicationController
         if current_user.id.to_i == params[:user_id].to_i
           # @procedures = Procedure.where(:user_id => params[:user_id])
           @user = User.find(params[:user_id])
-          @procedures = Procedure.where(user: @user).order('surgery_id DESC').group(:surgery).count
-          @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
+          @procedures = Procedure.from_user(@user.id).group(:surgery).count
+          @procedure =  Procedure.from_user(@user.id).to_a
         else
           redirect_to root_path, :alert => "Acceso denegado."
         end
       else
         @user = User.find(params[:user_id])
-        @procedures = Procedure.where(user: @user).order('surgery_id DESC').group(:surgery).count
-        @procedure =  Procedure.where(user: @user).order('surgery_id DESC').to_a
+        @procedures = Procedure.from_user(@user.id).group(:surgery).count
+        @procedure =  Procedure.from_user(@user.id).to_a
       end
     else
         redirect_to new_user_session_path, :alert => "Acceso denegado."
@@ -28,7 +28,6 @@ class ProceduresController < ApplicationController
       format.js
     end
   end
-
 
 
   # GET /procedures/1
