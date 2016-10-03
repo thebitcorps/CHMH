@@ -18,5 +18,7 @@
 //= require components
 //= require moment
 //= require moment/es
+//= require Chart.bundle
+//= require chartkick
 //= require bootstrap-datetimepicker
 //= require_tree .

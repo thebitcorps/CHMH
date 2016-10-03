@@ -9,6 +9,10 @@ class Procedure < ActiveRecord::Base
   validate :donedate_less_this_month
 
 
+  scope :from_user,  -> (user_id){
+      where(user_id: user_id).order('surgery_id DESC')
+  }
+
   def last_month_notes
     Procedure.where('created_at BETWEEN ? AND ? ',1.month.ago.beginning_of_month , 1.month.ago.end_of_month)
   end

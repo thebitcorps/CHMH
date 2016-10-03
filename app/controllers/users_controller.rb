@@ -20,6 +20,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def chart
+    @user = User.find(params[:user_id])
+    set_procedure_hash
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
+  end
+
+
   # GET /users/1
   # GET /users/1.json
   def show
@@ -109,6 +119,20 @@ class UsersController < ApplicationController
   #     end 
   # end
   private
+
+
+    # should be coll after the user is setin @user
+    def set_procedure_hash
+      if params[:type] == 'month'
+        @procedures_hash = @user.month_procedure_count
+      elsif params[:type] == 'day'
+        @procedures_hash = @user.day_procedures_count
+      else
+        @procedures_hash = @user.month_procedure_count
+      end
+    end
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       if user_signed_in?

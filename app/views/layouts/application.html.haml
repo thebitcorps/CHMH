@@ -43,6 +43,8 @@
                       = link_to "Totales",dashboard_index_path
                     %li
                       = link_to "Mensuales",dashboard_monthly_path
+                    %li
+                      = link_to "Graficas",dashboard_chart_url
           - if user_signed_in?
             %p.navbar-text.navbar-right
               = link_to current_user.fullname, user_path(current_user),class: 'navbar-link'

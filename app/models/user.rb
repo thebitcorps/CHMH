@@ -27,6 +27,19 @@ class User < ActiveRecord::Base
   scope :inactive_interns, -> {interns.where.not(season_id: Season.last.id).order('name')}
 
 
+  def month_procedure_count
+    procedure_hash = Hash.new
+    procedure_hash.default_proc = proc{ |hash, key| hash[key] = 0 }
+    procedures.each do |procedure|
+      procedure_hash[procedure.donedate.at_beginning_of_month] += 1
+    end
+    procedure_hash
+  end
+
+  def day_procedures_count
+    procedures.group(:donedate).count
+  end
+
   def admin?
     role == 'Admin'
   end
