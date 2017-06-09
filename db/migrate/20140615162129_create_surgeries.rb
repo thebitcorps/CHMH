@@ -5,7 +5,7 @@ class CreateSurgeries < ActiveRecord::Migration
       t.string :description
       t.belongs_to :area, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

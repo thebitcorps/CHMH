@@ -5,7 +5,7 @@ class CreateAreas < ActiveRecord::Migration
       t.string :description
       t.belongs_to :user, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

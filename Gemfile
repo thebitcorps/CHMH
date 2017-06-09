@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.8'
 
 #gem 'sqlite3'
 gem 'pg'
@@ -28,6 +28,8 @@ gem 'rails_12factor'
 gem 'react-rails', '~> 1.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
+gem 'royce'
+gem 'access-granted'
 group :development do
   gem 'pry-rails'
   gem 'spring'

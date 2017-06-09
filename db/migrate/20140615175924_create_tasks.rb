@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :description
       t.belongs_to :surgery, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

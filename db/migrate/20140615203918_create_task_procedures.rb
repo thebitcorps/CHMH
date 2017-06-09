@@ -4,7 +4,7 @@ class CreateTaskProcedures < ActiveRecord::Migration
       t.belongs_to :procedure, index: true
       t.belongs_to :task, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

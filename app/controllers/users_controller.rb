@@ -2,21 +2,13 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
   def index
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @users = User.all
-      else
-        if current_user.role == "1" or current_user.role == "2"
-          @users = User.where(:area_id => current_user.area.id)
-        else
-          redirect_to root_path, :alert => "Access denied."
-        end
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Access denied."
+    @role = current_user.roles.first.try(:name)
+    case @role
+    when 'administrator'
+      @users = User.all
+    when ['head_of_area', 'tutor']
+      @users = User.where(area: current_user.area)
     end
   end
 
@@ -39,18 +31,11 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @user = User.new
-      else
-        if current_user.role == "1"
-          @user = User.new(:area_id => current_user.area.id)
-        else
-          redirect_to root_path, :alert => "Access denied."
-        end
-      end
+    case current_user.roles.first.name
+    when 'administrator'
+      @user = User.new
     else
-      redirect_to new_user_session_path, :alert => "Access denied."
+      @user = User.new(area: current_user.area)
     end
   end
 
@@ -135,28 +120,7 @@ class UsersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      if user_signed_in?
-        if current_user.role == "Admin"
-           @user = User.find(params[:id])
-        else
-          @user = User.find(params[:id])
-          if current_user.id.to_i != @user.id.to_i
-            if current_user.role == "1" or current_user.role == "2"
-              if @user.role == "Admin" 
-                redirect_to root_path, :alert => "Acceso denegado."
-              else
-                if current_user.area.id.to_i != @user.area.id.to_i
-                  redirect_to root_path, :alert => "Acceso denegado."
-                end 
-              end
-            else
-              redirect_to root_path, :alert => "Acceso denegado."
-            end
-          end
-        end
-      else
-        redirect_to new_user_session_path, :alert => "Acceso denegado."
-      end
+      @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

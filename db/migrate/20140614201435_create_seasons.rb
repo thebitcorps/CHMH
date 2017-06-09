@@ -4,7 +4,7 @@ class CreateSeasons < ActiveRecord::Migration
       t.date :startdate
       t.date :enddate
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

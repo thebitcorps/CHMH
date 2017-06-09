@@ -1,29 +1,31 @@
 class Area < ActiveRecord::Base
-	validates :name, :presence => true
-	validates :description, :presence => true
+	validates :name, presence: true
+	validates :description, presence: true
 	belongs_to :user
 	has_many :users,  dependent: :nullify
 	has_many :surgeries, dependent: :destroy
 
-	def area_residents
-		User.where(role: '3',area_id: self.id)
+	def residents
+		User.interns.where(area: id)
+		# User.where(role: '3',area_id: self.id)
 	end
 
-	def find_area_tutors
-		User.where(role: '2',area_id: self.id)
+	def tutors
+		User.tutors.where(area: id)
+		# User.where(role: '2',area_id: self.id)
 	end
 
 	def number_of_tutors
-		find_area_tutors.count
+		tutors.count
 	end
 
 	def number_of_residents
-		area_residents.count
+		residents.count
 	end
 
 	def all_resident_notes_hours
 		count = 0
-		area_residents.each  do |resident|
+		residents.each do |resident|
 			count += resident.minutes if resident.minutes
 		end
 		count
@@ -60,11 +62,12 @@ class Area < ActiveRecord::Base
 	end
 
 	def number_of_notes
-		count = 0
-		area_residents.each  do |resident|
-			count += resident.procedures.count
-		end
-		count
+		# count = 0
+		residents.each.map { |resident, sum| sum += resident.procedures.count } 
+		# do |resident|
+		# 	count += resident.procedures.count
+		# end
+		# count
 	end
 
 	def logins_count

@@ -3,7 +3,7 @@ class CreateExamineds < ActiveRecord::Migration
     create_table :examineds do |t|
       t.integer :user_id, index: true
       t.integer :procedure_id, index: true
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

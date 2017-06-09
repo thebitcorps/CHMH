@@ -8,7 +8,7 @@ class CreateProcedures < ActiveRecord::Migration
       t.belongs_to :user, index: true
       t.belongs_to :surgery, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
