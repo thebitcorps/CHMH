@@ -19,7 +19,7 @@
         = @user.email
       %li
         %b Ultimo login:
-        = @user.last_login
+        = I18n.l @user.last_login, format: :long
       %li
         %b Cuenta de logins:
         = @user.login_count

@@ -15,12 +15,12 @@ class User < ActiveRecord::Base
 		procedures.where('created_at BETWEEN ? AND ? ', since_month.month.ago.beginning_of_month, since_month.month.ago.end_of_month)
 	end
 
-  scope :tutors_from_area, ->(area_id) {where(role: :tutor, area: area_id).order('name')}
-  scope :interns_from_area, ->(area_id) {where role: '3',area_id: area_id}
-  scope :active_interns_from_area, ->(area_id) {interns.where(season: Season.last, area: area_id).order('name')}
+  # scope :tutors_from_area, ->(area_id) {where(role: :tutor, area: area_id).order('name')}
+  # scope :interns_from_area, ->(area_id) {where role: '3',area_id: area_id}
+  # scope :active_interns_from_area, ->(area_id) {interns.where(season: Season.last, area: area_id).order('name')}
   scope :active_interns, -> {interns.where(season: Season.last).order('name')}
-  scope :inactive_interns_from_area, ->(area_id) {interns_from_area(area_id).where.not(season_id: Season.last.id).order('name')}
-  scope :inactive_interns, -> {interns.where.not(season_id: Season.last.id).order('name')}
+  # scope :inactive_interns_from_area, ->(area_id) {interns_from_area(area_id).where.not(season_id: Season.last.id).order('name')}
+  # scope :inactive_interns, -> {interns.where.not(season: Season.last).order('name')}
 
 
   def month_procedure_count
@@ -36,10 +36,6 @@ class User < ActiveRecord::Base
     procedures.group(:donedate).count
   end
 
-  def doctor_gender
-    gender == '0' ? "Dr." : "Dra."
-  end
-
   def fullname
     [name, lastname].join(" ")
   end
@@ -53,35 +49,8 @@ class User < ActiveRecord::Base
     Examined.where(user: id, owner: owner_id)
   end
 
-
-  # def role_name
-  #   if role == "Admin"
-  #     'Administrador'
-  #   elsif role == "1"
-  #     'Jefe de área'
-  #   elsif role == "2"
-  #     'Tutor'
-  #   elsif role == "3"
-  #     'Interno'
-  #   end
-  # end
-
-
-  def human_genre
-    if gender == "0"
-      'Masculino'
-    else
-      'Femenino'
-    end
-  end
-
   def last_login
-    if last_sign_in_at
-      # last_sign_in_at.strftime "%F %H:%M"
-      I18n.l last_sign_in_at
-    else
-      'No ha ingresado'
-    end
+    last_sign_in_at
   end
 
   def login_count
@@ -90,6 +59,15 @@ class User < ActiveRecord::Base
 
   def role_name
     roles.first.try(:name)
+  end
+
+  def self.with_monthly_record(params_month)
+    month = params_month.to_i
+    start_date = month.month.ago.beginning_of_month
+    end_date = month.month.ago.end_of_month
+    record_set = Procedure.where('created_at BETWEEN ? AND ?', start_date, end_date).group('user_id').count
+    uid, record = record_set.sort_by { |_,v| v}.last
+    [user = find(uid), record]
   end
 
 end

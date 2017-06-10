@@ -1,19 +1,8 @@
-= form_for @season do |f|
-  - if @season.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@season.errors.count, "error")} ha detenido el guardado debido a:"
-      %ul
-        - @season.errors.full_messages.each do |msg|
-          %li= msg
-
-  .form-group
-    = f.label "Fecha de inicio: "
-    %br
-    = f.date_select :startdate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year],:html =>{class: 'form-control'}
-  .form-group
-    = f.label "Fecha de conclusión: "
-    %br
-    = f.date_select :enddate, :start_year => Time.now.year + 2, :end_year => Time.now.year - 2, :order => [:day, :month, :year]
-  .form-group.btn-group
-    = f.submit 'Guardar', :class => "btn btn-primary"
-    = link_to 'Cancelar', root_path, :class => 'btn btn-default'
+= simple_form_for @season do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :startdate#, as: :datepicker
+    = f.input :enddate
+  .form-actions
+    = f.submit class: "btn btn-primary"
+    = link_to 'Cancelar', root_path, class: 'btn btn-default'

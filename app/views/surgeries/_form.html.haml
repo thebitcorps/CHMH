@@ -1,19 +1,9 @@
-= form_for @surgery do |f|
-  - if @surgery.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@surgery.errors.count, "error")} ha prohibido el guardado de este procedimiento:"
-      %ul
-        - @surgery.errors.full_messages.each do |msg|
-          %li= msg
-
-  .form-group
-    = f.label "Nombre: "
-    = f.text_field :name, :autofocus => true, :class => 'form-control' 
-  .form-group
-    = f.label "Descripción: "
-    = f.text_field :description, :class => 'form-control' 
-  .form-group
-    = f.text_field :area_id, :type => "hidden"
-  .form-group.btn-group
-    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
+= simple_form_for @surgery do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, autofocus: true, class: 'form-control' 
+    = f.input :description, class: 'form-control' 
+    = f.input :area_id, as: :hidden
+  .form-actions
+    = f.submit class: "btn btn-success"
+    = link_to 'Cancelar', root_path, class: 'btn btn-danger'

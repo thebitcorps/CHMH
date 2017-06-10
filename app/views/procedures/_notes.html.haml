@@ -1,11 +1,11 @@
-
 - i = 0
 #accordion2.panel-group
   - @procedures.each do |k,v|
     .panel.panel-default
       .panel-heading
         %h4
-          %a.accordion-toggle{"data-parent" => "#accordion2", "data-toggle" => "collapse", :href => "#collapse_#{i}"}
+          = link_to nil, "#collapse_#{i}", class: 'accordion-toggle', data: {parent: "#accordion2", toggle: "collapse"} }
+            / %a.accordion-toggle{href: "#collapse_#{i}", data: {parent: "#accordion2", toggle: "collapse"} }
             -#%span.badge
             -#  = v
             = "#{v} x #{k.name}"

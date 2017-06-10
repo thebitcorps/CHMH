@@ -1,19 +1,9 @@
-= form_for @task do |f|
-  - if @task.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@task.errors.count, "error")} prohibió el guardado de esta actividad:"
-      %ul
-        - @task.errors.full_messages.each do |msg|
-          %li= msg
-
-  .form-group
-    = f.label "Nombre: "
-    = f.text_field :name, :autofocus => true, :class => 'form-control' 
-  .form-group
-    = f.label "Descripción: "
-    = f.text_field :description, :class => 'form-control' 
-  .form-group
-    = f.text_field :surgery_id, :type => "hidden"
-  .form-group.btn-group
-    = link_to 'Cancelar', root_path, :class => 'btn btn-danger'
-    = f.submit 'Guardar', :class => "btn btn-success"
+= simple_form_for @task do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, autofocus: true, class: 'form-control' 
+    = f.input :description, class: 'form-control' 
+    = f.input :surgery_id, type: "hidden"
+  .form-actions
+    = f.submit class: "btn btn-success"
+    = link_to 'Cancelar', root_path, class: 'btn btn-danger'

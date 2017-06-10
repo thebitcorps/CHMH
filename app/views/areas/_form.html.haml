@@ -1,21 +1,9 @@
-= form_for @area do |f|
-  - if @area.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@area.errors.count, "error", "errores")}:"
-      %ul
-        - @area.errors.full_messages.each do |msg|
-          %li= msg
-
-  .form-group
-    = f.label "Nombre: "
-    = f.text_field :name, :autofocus => true, :class => 'form-control' 
-  .form-group
-    = f.label "Descripción: "
-    = f.text_field :description, :class => 'form-control' 
-  .form-group
-    = f.label "Jefe de área asignado: "
-    %br
-    = f.select( :user_id, @users.collect {|user| [user.name + " " + user.lastname, user.id]},class: 'form-control')
-  .form-group.btn-group
-    = f.submit 'Guardar', :class => "btn btn-primary"
-    = link_to 'Cancelar', root_path, :class => 'btn btn-default'
+= simple_form_for @area, html: {class: 'form-horizontal'} do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, autofocus: true, class: 'form-control' 
+    = f.input :description, class: 'form-control' 
+    = f.association :user, label: 'Jefe', collection: User.head_of_areas, label_method: :fullname, class: 'form-control'
+  .form-actions
+    = f.submit class: "btn btn-primary"
+    = link_to 'Cancelar', root_path, class: 'btn btn-default'

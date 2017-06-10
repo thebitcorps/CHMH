@@ -29,7 +29,7 @@ class Procedure < ActiveRecord::Base
   def create_procedure_tasks(task_ids)
     return unless task_ids
     for task_id in task_ids
-      task_procedures << TaskProcedure.new(task_id: task_id.to_i)
+      task_procedures << TaskProcedure.new(task: task_id)
     end
   end
 

@@ -6,7 +6,8 @@ class DashboardController < ApplicationController
   end
 
   def monthly
-    @best_resident = Area.resident_more_notes_monthly(params[:month].to_i)
+    query = User.with_monthly_record(params[:month])
+    @best_resident, @record_count = query
     @since = params[:month].to_i
   end
 
@@ -18,7 +19,7 @@ class DashboardController < ApplicationController
 
   def set_areas
     @areas = Area.all
-    authorize! :read, Area
+    # authorize! :read, Area
   end
 
   def area_params

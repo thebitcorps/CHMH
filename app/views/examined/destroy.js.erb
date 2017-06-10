@@ -1,4 +1,2 @@
 $('#examined').html("<%= escape_javascript render('examined/examined') %>");
-
-$('#examined-button').replaceWith("<%= escape_javascript (link_to "Revisar", examined_create_path(:procedure_id => @procedure.id), :class => "btn btn-primary", method: :post,  remote: true, id: "examined-button")%>");
-
+$('#examined-button').replaceWith("<%= escape_javascript (link_to 'Revisar', examined_create_path(procedure: @procedure), class: 'btn btn-primary', method: :post,  remote: true, id: 'examined-button')%>");

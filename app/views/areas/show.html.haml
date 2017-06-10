@@ -27,8 +27,8 @@
         = number_with_delimiter @area.logins_count
   .btn-group
     - if can? :update, @area
-      = link_to "Editar área", edit_area_path(@area), :class => "btn btn-warning"
+      = link_to "Editar área", edit_area_path(@area), class: "btn btn-warning"
     - if can? :destroy, @area
-      = link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
+      = link_to "Borrar área", area_path, method: :delete, class: "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
 
-= react_component 'TableCRUD',displayName: "Procedimientos dentro de #{@area.name}",list: @surgeries,modelNamePlural: 'surgeries',modelNameSingular: 'surgery',parentId: @area.id,parentName: 'area'
+= react_component 'TableCRUD', displayName: "Procedimientos dentro de #{@area.name}", list: @surgeries, modelNamePlural: 'surgeries', modelNameSingular: 'surgery', parentId: @area.id, parentName: 'area'

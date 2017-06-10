@@ -1,17 +1,9 @@
-= form_for @task_procedure do |f|
-  - if @task_procedure.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@task_procedure.errors.count, "error")} prohibió el guardado de esta actividad:"
-      %ul
-        - @task_procedure.errors.full_messages.each do |msg|
-          %li= msg
+= simple_form_for @task_procedure do |f|
+  = f.error_notification
 
-  .form-group
-    = f.label "Actividad realizada: "
-    %br
-    = f.select :task_id, @surgery.tasks.collect {|task| [task.name, task.id]}, :autofocus => true, :class => 'form-control' 
-  .form-group
-    = f.hidden_field :procedure_id, :value => @procedure.id
-  .form-group.btn-group
-    = link_to "Cancelar", task_procedures_path(:procedure_id => @procedure.id), :class => "btn btn-danger"
-    = f.submit 'Guardar', :class => "btn btn-success"
+  .form-inputs
+    = f.association :task, collection: @surgery.tasks, autofocus: true, class: 'form-control', label: 'Actividades realizadas' 
+    = f.input :procedure_id, value: @procedure.id, as: :hidden
+  .form-actions
+    = f.submit class: "btn btn-success"
+    = link_to "Cancelar", task_procedures_path(procedure: @procedure), class: "btn btn-danger"

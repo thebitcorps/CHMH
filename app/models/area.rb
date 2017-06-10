@@ -1,6 +1,5 @@
 class Area < ActiveRecord::Base
-	validates :name, presence: true
-	validates :description, presence: true
+	validates :description, :name, :user, presence: true
 	belongs_to :user
 	has_many :users,  dependent: :nullify
 	has_many :procedures, through: :users
@@ -38,8 +37,8 @@ class Area < ActiveRecord::Base
 
 	def last_resident_notes_hours(since_month)
 		count = 0
-		area_residents.each  do |resident|
-			resident.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).each do |procedure|
+		residents.each  do |resident|
+			resident.procedures.where('created_at BETWEEN ? AND ? ', since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).each do |procedure|
 				count += procedure.minutes
 			end
 		end
@@ -57,59 +56,16 @@ class Area < ActiveRecord::Base
 
 
 	def all_notes_last_month(since_month)
-	  area_residents
+		since_month = 1 if since_month.nil?
 		procedures_count = 0
-		since_month = 1 	if since_month == nil
-		area_residents.each do |user|
-			procedures_count += user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
+		residents.each do |resident|
+			procedures_count += resident.procedures.where('created_at BETWEEN ? AND ? ', since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
 		end
 		procedures_count
 	end
 
-
-	def resident_more_notes_monthly(since_monthly)
-		Area.best_resident_monthly(area_residents,since_monthly)
+	def best_resident
+		procs = procedures.group('user_id').count
+		user = User.find(procs.sort_by { |_,v| v}.last[0])
 	end
-
-	def self.resident_more_notes_monthly(since_month)
-		users = User.where(role: '3')
-		user_with_more_notes = users.first
-		users.each do |user|
-			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
-				user_with_more_notes = user
-			end
-		end
-		user_with_more_notes
-	end
-
-
-	def self.resident_with_more_notes
-		best_resident(User.residents)
-	end
-
-	def resident_with_more_notes
-		Area.best_resident(area_residents)
-	end
-
-	def self.best_resident_monthly(users,since_month)
-		user_with_more_notes = users.first
-		users.each do |user|
-			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
-				user_with_more_notes = user
-			end
-		end
-		user_with_more_notes
-	end
-
-	def self.best_resident(users)
-		user_with_more_notes = users.first
-		users.each do |user|
-			if user.procedures.count > user_with_more_notes.procedures.count
-				user_with_more_notes = user
-			end
-		end
-		user_with_more_notes
-	end
-
-
 end
