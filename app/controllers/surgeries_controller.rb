@@ -11,40 +11,20 @@ class SurgeriesController < ApplicationController
   end
 
 
-  # GET /surgeries/1
-  # GET /surgeries/1.json
   def show
+    authorize! :read, Surgery
     @tasks = JSON.parse @surgery.tasks.to_json
   end
 
-  # GET /surgeries/new
   def new
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @surgery = Surgery.new(:area_id => params[:area_id])
-      else
-        if current_user.role == "1"
-          if current_user.area.id.to_i == params[:area_id].to_i
-            @surgery = Surgery.new(:area_id => params[:area_id])
-          else
-            redirect_to root_path, :alert => "Acceso denegado."
-          end
-        else
-          redirect_to root_path, :alert => "Acceso denegado."
-        end
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
+    @surgery = Surgery.new(area_id: params[:area_id])
   end
 
-  # GET /surgeries/1/edit
   def edit
   end
 
-  # POST /surgeries
-  # POST /surgeries.json
   def create
+    authorize! :create, Surgery
     @surgery = Surgery.new(surgery_params)
     @surgery.name = @surgery.name.humanize
     respond_to do |format|
@@ -58,8 +38,6 @@ class SurgeriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /surgeries/1
-  # PATCH/PUT /surgeries/1.json
   def update
     respond_to do |format|
       if @surgery.update(surgery_params)
@@ -74,9 +52,8 @@ class SurgeriesController < ApplicationController
     end
   end
 
-  # DELETE /surgeries/1
-  # DELETE /surgeries/1.json
   def destroy
+    authorize! :destroy, Surgery
     @surgery.destroy
     areass = @surgery.area
     respond_to do |format|
@@ -86,27 +63,16 @@ class SurgeriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_surgery
-      if user_signed_in?
-        if current_user.role == "Admin"
-          @surgery = Surgery.find(params[:id])
-        else
-          if current_user.role == "1" or current_user.role == "2"
-            @surgery = Surgery.find(params[:id])
-            if current_user.area.id.to_i != @surgery.area.id.to_i
-              redirect_to root_path, :alert => "Acceso denegado."
-            end
-          else
-            redirect_to root_path, :alert => "Acceso denegado."
-          end
-        end
-      else
-        redirect_to new_user_session_path, :alert => "Acceso denegado."
+      case current_user.roles.first.name
+      when 'administrator'
+        @surgery = Surgery.find(params[:id])
+      when ['head_of_area', 'tutor']
+        @surgery = Surgery.where(id: params[:id], area: current_user.area)
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def surgery_params
       params.require(:surgery).permit(:name, :description, :area_id)
     end

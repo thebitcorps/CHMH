@@ -2,45 +2,24 @@ class SeasonsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_season, only: [:show, :edit, :update, :destroy]
 
-  # GET /seasons
-  # GET /seasons.json
   def index
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @seasons = Season.all.reverse
-      else
-        redirect_to root_path, :alert => "Acceso denegado."
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
+    @seasons = Season.all.reverse
+    authorize! :read, Season
   end
 
-  # GET /seasons/1
-  # GET /seasons/1.json
   def show
   end
 
-  # GET /seasons/new
   def new
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @season = Season.new
-      else
-        redirect_to root_path, :alert => "Acceso denegado."
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
+    @season = Season.new
   end
 
-  # GET /seasons/1/edit
   def edit
+
   end
 
-  # POST /seasons
-  # POST /seasons.json
   def create
+    authorize! :create, Season
     @season = Season.new(season_params)
 
     respond_to do |format|
@@ -54,9 +33,8 @@ class SeasonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /seasons/1
-  # PATCH/PUT /seasons/1.json
   def update
+    authorize! :update, Season
     respond_to do |format|
       if @season.update(season_params)
         format.html { redirect_to root_path, notice: 'La temporada fue actualizada correctamente.' }
@@ -68,9 +46,8 @@ class SeasonsController < ApplicationController
     end
   end
 
-  # DELETE /seasons/1
-  # DELETE /seasons/1.json
   def destroy
+    authorize! :destroy, Season
     @season.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'La temporada fue eliminada correctamente.' }
@@ -79,21 +56,12 @@ class SeasonsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_season
-      if user_signed_in?
-        if current_user.role == "Admin"
-          @season = Season.find(params[:id])
-        else
-          redirect_to root_path, :alert => "Acceso denegado."
-        end
-      else
-        redirect_to new_user_session_path, :alert => "Acceso denegado."
-      end
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def season_params
-      params.require(:season).permit(:startdate, :enddate)
-    end
+  def set_season
+    @season = Season.find(params[:id])
+  end
+
+  def season_params
+    params.require(:season).permit(:startdate, :enddate)
+  end
 end

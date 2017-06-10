@@ -1,0 +1,89 @@
+%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
+.panel.panel-default
+  .panel-heading
+    - if Season.count.zero?
+      %h4 Temporada
+    -else
+      %h4 Temporada #{NameMonth(Season.last.startdate.month)} / #{NameMonth(Season.last.enddate.month)}
+  .panel-body
+    - if Season.count == 0
+      .btn-group.btn-group-justified
+        = link_to "Iniciar nueva", new_season_path, :class => "btn btn-primary"
+    -else
+      %ul.list-group
+        %li.list-group-item
+          %b Usuarios activos: 
+          = Season.last.users.count
+        %li.list-group-item
+          %b Fecha de inicio:
+          = I18n.l @season.startdate
+        %li.list-group-item
+          %b Fecha de conclusión: 
+          = I18n.l @season.enddate
+        - lastDays = (@season.enddate - Date.today).to_i
+        - if lastDays <= 0
+          %li.list-group-item
+            .alert.alert-warning La temporada ha finalizado, puede extender el tiempo editando esta temporada o siendo el caso, iniciando una nueva y generando nuevos usuarios para la misma.
+        -else
+          %li.list-group-item
+            %b Días restantes: 
+            = lastDays
+      .btn-group.btn-group-justified
+        = link_to "Ver todas", seasons_path, :class => "btn btn-default"
+        = link_to "Editar", edit_season_path(Season.last), :class => "btn btn-default"
+        = link_to "Iniciar nueva", new_season_path, :class => "btn btn-primary"
+.panel.panel-default
+  .panel-heading
+    %h4 Usuarios
+  .panel-body
+    - if User.count <= 2
+      .btn-group.btn-group-justified
+        = link_to "Crear nuevo", new_user_path, :class => "btn btn-primary"
+    -else
+      %ul.list-group
+        %li.list-group-item
+          %b Jefes de área: 
+          = User.head_of_areas.count
+        %li.list-group-item 
+          %b Tutores: 
+          = User.tutors.count
+        %li.list-group-item
+          %b Internos activos: 
+          = User.active_interns.count if Season.last
+        %li.list-group-item
+          %b Internos no activos:
+          - count = User.interns.count - User.where(season: Season.last).count if Season.last
+          - if count == nil
+            -count = 0
+          = count <= 0 ?  "No hay inactivos" : count
+      .btn-group.btn-group-justified
+        = link_to "Ver todos", users_path, :class => "btn btn-default"
+        = link_to "Crear nuevo", new_user_path, :class => "btn btn-primary"
+.panel.panel-default
+  .panel-heading
+    %h4 Áreas
+  .panel-body
+    -if User.head_of_areas.limit(1).count == 0
+      .alert.alert-warning Antes de crear un área, debe crear algun usuario al cuál titular en ella.
+    -else
+      - if Area.count == 0
+        .btn-group.btn-group-justified
+          = link_to "Crear nueva", new_area_path, :class => "btn btn-primary"
+      -else
+        %table.table
+          %tr
+            %th Nombre
+            %th Jefe de área
+            %th Procedimentos realizables
+          - Area.order('name ASC').all.each do |area|
+            %tr
+              %td
+                = link_to area.name, area_path(area)
+              %td
+                = link_to area.user.name + " " + area.user.lastname, user_path(area.user)
+              %td 
+                = area.surgeries.count
+
+        .btn-group.btn-group-justified
+          = link_to "Crear nueva", new_area_path, :class => "btn btn-primary"
+//  Interno ///////////////////////////////////
