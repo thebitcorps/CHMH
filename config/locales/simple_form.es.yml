@@ -1,0 +1,25 @@
+es:
+  simple_form:
+    "yes": 'Sí'
+    "no": 'No'
+    required:
+      text: 'obligatorio'
+      mark: '*'
+    error_notification:
+      default_message: "Hay los siguientes errores en la forma"
+    labels:
+      defaults:
+        email: Correo
+        username: Usuario
+        password: Contraseña
+        remember_me: Recordarme
+        title: Título
+        body: Cuerpo
+        publish: Publicar
+        author: Autor
+        date: Fecha
+        name: Nombre
+        attachment: Adjuntar
+        avatar: Avatar
+      buttons:
+        choose_file: Seleccionar archivo

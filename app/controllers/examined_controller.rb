@@ -1,36 +1,30 @@
 class ExaminedController < ApplicationController
   before_filter :authenticate_user!
   
-  
   def not_examined
-    @user =  User.find params[:user_id]
+    @user = User.find(params[:user_id])
   end
 
   def create
-    if current_user.role == 'Admin'
+    case current_user.role_list
+    when 'administrator'
       new_examined(params[:procedure_id])
-    elsif current_user.role == '1' or current_user.role == '2'
-      procedure = Procedure.find params[:procedure_id]
-      if current_user.area == procedure.user.area
-          new_examined(params[:procedure_id])
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
+    when ['head_of_area', 'tutor']
+      procedure = Procedure.find(params[:procedure_id])
+      new_examined(params[:procedure_id]) if current_user.area == procedure.user.area
     end
-
   end
 
   def destroy
-    if current_user.role == 'Admin'
-      destroy_examined params[:procedure_id]
-    elsif current_user.role == '1' or current_user.role == '2'
+    authorize! :destroy, Examined
+    case current_user.role_list
+    when 'administrator'
+      destroy_examined(params[:procedure_id])
+    when ['head_of_area', 'tutor']
       procedure = Procedure.find params[:procedure_id]
       if current_user.area == procedure.user.area
-        destroy_examined params[:procedure_id]
+        destroy_examined(params[:procedure_id])
       end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
   end
 
   private
