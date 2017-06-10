@@ -31,6 +31,7 @@ es:
       user:
         one: Usuario
         other: Usuarios
+        lastname: Apellido
   date:
     abbr_day_names:
     - dom

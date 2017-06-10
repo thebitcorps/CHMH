@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-	validates :name, presence: true
-	validates :lastname, presence: true
+	validates :name, :lastname, :email, presence: true
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
 	belongs_to :area

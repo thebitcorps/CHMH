@@ -10,6 +10,7 @@ es:
     labels:
       defaults:
         email: Correo
+        lastname: Apellido
         username: Usuario
         password: Contraseña
         remember_me: Recordarme
@@ -21,5 +22,9 @@ es:
         name: Nombre
         attachment: Adjuntar
         avatar: Avatar
+        birthday: Cumpleaños
+        gender: Género
+        startdate: Fecha de inicio
+        enddate: Fecha de cierre
       buttons:
         choose_file: Seleccionar archivo
