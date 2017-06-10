@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :examineds, dependent: :destroy
 
   royce_roles %w[ administrator head_of_area tutor intern ]
-  ROLES = {administrator: 'Administrador', head_of_area: 'Jefe de área', tutor: 'Tutor', intern: 'Interno'}
+  ROLES = {'administrator' => 'Administrador', 'head_of_area' => 'Jefe de área', 'tutor' => 'Tutor', 'intern' => 'Interno'}
 
 
 	def last_month_notes(since_month)
@@ -37,16 +37,15 @@ class User < ActiveRecord::Base
   end
 
   def doctor_gender
-    self.gender == '0' ? "Dr." : "Dra."
+    gender == '0' ? "Dr." : "Dra."
   end
 
   def fullname
-    [name, lastname].join
-    # self.name + ' ' + self.lastname
+    [name, lastname].join(" ")
   end
 
   def is_active?
-    self.season == Season.last
+    season == Season.last
   end
 
 
@@ -87,14 +86,8 @@ class User < ActiveRecord::Base
 
   def login_count
     sign_in_count || 'No ha ingresado'
-    # if sign_in_count
-    #   sign_in_count
-    # else
-    #   "No ha ingresado"
-    # end
   end
 
-  ### Rob
   def role_name
     roles.first.try(:name)
   end

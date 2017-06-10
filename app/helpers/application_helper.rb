@@ -9,7 +9,7 @@ module ApplicationHelper
 	end
 
 	def show_in_hours_and_minutes(minutes)
-		(minutes/60).to_s + " horas y " + (minutes%60).to_s+ " minutos."
+		number_with_delimiter(minutes/60) + " horas y " + number_with_delimiter(minutes%60) + " minutos."
 	end
 
 	def capitalize_and_humanazie(frase)

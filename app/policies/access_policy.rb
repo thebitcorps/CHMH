@@ -4,9 +4,14 @@ class AccessPolicy
   def configure
 
     role :administrator, proc { |user| user.administrator? } do
-      can :manage, User
-      can :manage, Surgery
+      can :manage, Area
+      can :manage, Examined
+      can :manage, Procedure
       can :manage, Season
+      can :manage, Surgery
+      can :manage, Task
+      can :manage, TaskProcedure
+      can :manage, User
     end
 
     role :head_of_area, proc { |user| user.head_of_area? } do

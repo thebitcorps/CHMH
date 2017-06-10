@@ -3,16 +3,15 @@ class Area < ActiveRecord::Base
 	validates :description, presence: true
 	belongs_to :user
 	has_many :users,  dependent: :nullify
+	has_many :procedures, through: :users
 	has_many :surgeries, dependent: :destroy
 
 	def residents
 		User.interns.where(area: id)
-		# User.where(role: '3',area_id: self.id)
 	end
 
 	def tutors
 		User.tutors.where(area: id)
-		# User.where(role: '2',area_id: self.id)
 	end
 
 	def number_of_tutors
@@ -24,11 +23,7 @@ class Area < ActiveRecord::Base
 	end
 
 	def all_resident_notes_hours
-		count = 0
-		residents.each do |resident|
-			count += resident.minutes if resident.minutes
-		end
-		count
+		count = residents.inject(0) { |sum, res| sum += res.minutes || 0 }
 	end
 
 
@@ -51,32 +46,13 @@ class Area < ActiveRecord::Base
 		count
 	end
 
-	def procedures
-		procedures = []
-		area_residents.each  do |resident|
-			resident.procedures.each do |procedure|
-				procedures << procedure
-			end
-		end
-		procedures
-	end
-
 	def number_of_notes
-		# count = 0
-		residents.each.map { |resident, sum| sum += resident.procedures.count } 
-		# do |resident|
-		# 	count += resident.procedures.count
-		# end
-		# count
+		procedures.select { |x| x.notes.present? }.count
 	end
 
 	def logins_count
-		users = User.where(area_id: self.id)
-		count = 0
-		users.each do |user|
-			count += user.sign_in_count
-		end
-		count
+		users = User.where(area: id)
+		count = users.inject(0) { |sum, usr| sum += usr.sign_in_count }
 	end
 
 
