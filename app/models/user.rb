@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
+  before_destroy :check_if_has_area
 	validates :name, :lastname, :email, presence: true
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
-	belongs_to :area
+	belongs_to :area #, dependent: :restrict_with_error
 	has_many :procedures, dependent: :destroy
   has_many :examineds, dependent: :destroy
 
@@ -67,6 +68,13 @@ class User < ActiveRecord::Base
     record_set = Procedure.where('created_at BETWEEN ? AND ?', start_date, end_date).group('user_id').count
     uid, record = record_set.sort_by { |_,v| v}.last
     [user = find(uid), record]
+  end
+
+  def check_if_has_area
+    if !area.nil?
+      errors.add(:base, "No es posible quitar al usuario si supervisa un área.")
+      return false
+    end
   end
 
 end
