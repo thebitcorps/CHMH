@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 	validates :name, :lastname, :email, presence: true
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
-	belongs_to :area #, dependent: :restrict_with_error
+	belongs_to :area
 	has_many :procedures, dependent: :destroy
   has_many :examineds, dependent: :destroy
 

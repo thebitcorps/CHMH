@@ -1,6 +1,7 @@
 class Area < ActiveRecord::Base
 	validates :description, :name, :user, presence: true
-	belongs_to :user
+	# belongs_to :user
+	has_one :chief, class_name: 'User', foreign_key: :area_id
 	has_many :users,  dependent: :nullify
 	has_many :procedures, through: :users
 	has_many :surgeries, dependent: :destroy

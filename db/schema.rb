@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170609211805) do
+ActiveRecord::Schema.define(version: 20170623063013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,9 @@ ActiveRecord::Schema.define(version: 20170609211805) do
   create_table "areas", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "description", limit: 255
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "areas", ["user_id"], name: "index_areas_on_user_id", using: :btree
 
   create_table "examineds", force: :cascade do |t|
     t.integer  "user_id"
