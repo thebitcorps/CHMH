@@ -14,9 +14,7 @@ set :puma_workers, 0
 set :use_sudo, false
 set :pty, true
 set :stage, :production
-set :ssh_options, {:forward_agent => true}
-# set :ssh_options, { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-# set :deploy_via, :copy
+set :deploy_via, :copy
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :puma_bind, "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state, "#{shared_path}/tmp/pids/puma.state"
