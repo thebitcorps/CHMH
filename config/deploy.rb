@@ -1,6 +1,6 @@
-require 'sshkit'
-require 'sshkit/dsl'
-include SSHKit::DSL
+# require 'sshkit'
+# require 'sshkit/dsl'
+# include SSHKit::DSL
 # Change these
 server '198.199.106.115', port: 22, roles: [:web, :app, :db], primary: true
 
