@@ -4,8 +4,10 @@ require 'capistrano/deploy'
 
 require 'capistrano/rails'
 require 'capistrano/bundler'
+# require 'capistrano/monit'
 require 'capistrano/rvm'
 require 'capistrano/puma'
+require 'capistrano/puma/monit'
 require 'capistrano/rails/console'
 require 'airbrussh/capistrano'
 require "capistrano/scm/git"
