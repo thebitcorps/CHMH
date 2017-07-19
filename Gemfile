@@ -11,6 +11,8 @@ gem 'haml-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'puma'
+gem 'sshkit'
+gem 'sshkit-sudo'
 # gem 'bootstrap-sass'
 
 
@@ -39,7 +41,7 @@ group :development do
   gem 'capistrano-rvm', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma', require: false
+  gem 'capistrano3-puma', require: false, github: "seuros/capistrano-puma"
   gem 'capistrano-rails-console', require: false
   gem 'airbrussh', require: false
 end

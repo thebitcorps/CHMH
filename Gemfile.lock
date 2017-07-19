@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/seuros/capistrano-puma.git
+  revision: bcb4887c39559a803db174ee30ccf8ca991bc180
+  specs:
+    capistrano3-puma (3.1.1)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (~> 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -71,10 +80,6 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano3-puma (3.1.1)
-      capistrano (~> 3.7)
-      capistrano-bundler
-      puma (~> 3.4)
     capybara (2.14.4)
       addressable
       mime-types (>= 1.16)
@@ -282,6 +287,8 @@ GEM
       net-ssh (>= 2.8.0)
     sshkit-interactive (0.2.1)
       sshkit (~> 1.12)
+    sshkit-sudo (0.1.0)
+      sshkit (~> 1.8)
     temple (0.8.0)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
@@ -319,7 +326,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rails-console
   capistrano-rvm
-  capistrano3-puma
+  capistrano3-puma!
   capybara
   chartkick
   coffee-rails (~> 4.1.0)
@@ -348,6 +355,8 @@ DEPENDENCIES
   selenium-webdriver
   simple_form
   spring
+  sshkit
+  sshkit-sudo
   therubyracer
   turbolinks
   twitter-bootstrap-rails
