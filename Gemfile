@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby '2.4.1'
 
-gem 'rails', '4.2.8'
+gem 'rails', '5.1.2'
 
 #gem 'sqlite3'
 gem 'pg'
@@ -17,9 +18,9 @@ gem 'puma'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
-gem 'sass-rails', '~> 4.0.3'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'sass-rails'#, '~> 4.0.3'
+gem 'uglifier'#, '>= 1.3.0'
+gem 'coffee-rails' #, '~> 4.1.0'
 gem 'chartkick'
 
 gem 'devise'
@@ -35,7 +36,6 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'#, :platforms=>[:mri_21]
-  gem 'quiet_assets'
   gem 'rails_layout'
   gem 'capistrano', require: false
   gem 'capistrano-rvm', require: false
