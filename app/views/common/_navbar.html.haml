@@ -1,0 +1,26 @@
+%nav{class: "navbar navbar-toggleable-md navbar-light bg-faded"}
+  %button{class: "navbar-toggler navbar-toggler-right", type:"button", data: {toggle: "collapse", target: "#navbarSupportedContent"}, aria: {controls: "navbarSupportedContent", expanded: "false", label: "Toggle navigation"}}
+    %span{class: "navbar-toggler-icon"}
+  %a{class: "navbar-brand", href: "#"} Navbar
+
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item.active
+        %a{class: "nav-link", href: "#"}
+          Home
+          %span{class: "sr-only"}
+            (current)
+
+      %li.nav-item
+        %a{class: "nav-link", href: "#"} Link
+      %li.nav-item
+        %a{class: "nav-link disabled", href: "#"} Disabled
+    %nav
+      = link_to 'bitacora.ml', root_path
+      - if user_signed_in?
+        = link_to 'Perfil', current_user
+        = link_to "Totales", dashboard_index_path
+        = link_to "Mensuales", dashboard_monthly_path
+        = link_to "Gráficas", dashboard_chart_url
+        = link_to current_user.fullname, user_path(current_user)
+        = link_to 'Cerrar sesión', destroy_user_session_path, method: 'delete'

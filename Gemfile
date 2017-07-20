@@ -3,7 +3,6 @@ ruby '2.4.1'
 
 gem 'rails', '5.1.2'
 
-#gem 'sqlite3'
 gem 'pg'
 gem 'simple_form'
 gem 'jquery-rails'
@@ -12,30 +11,26 @@ gem 'haml-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'puma'
-# gem 'bootstrap-sass'
 
-
+gem 'listen'
 gem 'therubyracer'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails'
-gem 'sass-rails'#, '~> 4.0.3'
-gem 'uglifier'#, '>= 1.3.0'
-gem 'coffee-rails' #, '~> 4.1.0'
+gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'chartkick'
 
 gem 'devise'
 gem 'dotenv-rails'
 gem 'rails_12factor'
-gem 'react-rails', '~> 1.0'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
 gem 'royce'
 gem 'access-granted'
 group :development do
   gem 'pry-rails'
   gem 'spring'
-  gem 'better_errors'
-  gem 'binding_of_caller'#, :platforms=>[:mri_21]
+  # gem 'better_errors'
+  # gem 'binding_of_caller'
   gem 'rails_layout'
   gem 'capistrano', require: false
   gem 'capistrano-rvm', require: false

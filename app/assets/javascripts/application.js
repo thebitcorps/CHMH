@@ -11,14 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require twitter/bootstrap
-//= require react
-//= require react_ujs
-//= require components
-//= require moment
-//= require moment/es
-//= require Chart.bundle
-//= require chartkick
-//= require bootstrap-datetimepicker
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
 //= require_tree .
