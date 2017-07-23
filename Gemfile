@@ -37,7 +37,7 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'quiet_assets'
   gem 'rails_layout'
-  gem 'capistrano', require: false
+  # gem 'capistrano', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false

@@ -321,7 +321,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap3-datetimepicker-rails (~> 4.15.35)
-  capistrano
   capistrano-bundler
   capistrano-rails
   capistrano-rails-console
