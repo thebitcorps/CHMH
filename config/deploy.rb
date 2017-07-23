@@ -13,7 +13,7 @@ set :repo_url, "git@github.com:thebitcorps/CHMH.git"
 set :deploy_to, "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 
 # Default value for :format is :airbrussh.
-# set :format, :airbrussh
+set :format, :airbrussh
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
