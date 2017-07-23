@@ -53,9 +53,9 @@ server "bitacora.ml",
   user: "deployer",
   roles: %w{web app db},
   ssh_options: {
-    user: "artificemm", # overrides user setting above
+    user: "deployer", # overrides user setting above
     keys: %w(/home/deployer/.ssh/id_rsa),
-    forward_agent: true,
+    forward_agent: false,
     auth_methods: %w(publickey password)
     # password: "please use keys"
   }
