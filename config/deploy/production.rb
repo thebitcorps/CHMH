@@ -56,6 +56,6 @@ server "bitacora.ml",
     user: "deployer", # overrides user setting above
     keys: %w(/home/deployer/.ssh/id_rsa),
     forward_agent: true,
-    auth_methods: %w(publickey password)
+    auth_methods: %w(publickey)
     # password: "please use keys"
   }
