@@ -2,6 +2,10 @@ require "capistrano/setup"
 
 require "capistrano/deploy"
 
+require "capistrano/rvm"
+require "capistrano/bundler"
+require "capistrano/rails"
+
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
@@ -21,9 +25,6 @@ install_plugin Capistrano::Puma::Nginx
 #   https://github.com/capistrano/rails
 #   https://github.com/capistrano/passenger
 #
-require "capistrano/rvm"
-require "capistrano/bundler"
-require "capistrano/rails"
 
 # require "capistrano/rbenv"
 # require "capistrano/chruby"
