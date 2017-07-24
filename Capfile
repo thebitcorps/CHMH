@@ -22,6 +22,7 @@ install_plugin Capistrano::Puma::Nginx
 #   https://github.com/capistrano/passenger
 #
 require "capistrano/rvm"
+require "capistrano/bundler"
 require "capistrano/rails"
 
 # require "capistrano/rbenv"
