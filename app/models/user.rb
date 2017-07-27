@@ -111,5 +111,4 @@ class User < ActiveRecord::Base
       "No ha ingresado"
     end
   end
-
 end

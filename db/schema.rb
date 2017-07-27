@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   enable_extension "plpgsql"
 
   create_table "areas", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -34,11 +34,8 @@ ActiveRecord::Schema.define(version: 20150504190213) do
     t.integer  "owner_id"
   end
 
-  add_index "examineds", ["procedure_id"], name: "index_examineds_on_procedure_id", using: :btree
-  add_index "examineds", ["user_id"], name: "index_examineds_on_user_id", using: :btree
-
   create_table "procedures", force: :cascade do |t|
-    t.string   "folio"
+    t.string   "folio",      limit: 255
     t.date     "donedate"
     t.integer  "minutes"
     t.text     "notes"
@@ -46,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150504190213) do
     t.integer  "surgery_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "examined",               default: false
   end
 
   add_index "procedures", ["surgery_id"], name: "index_procedures_on_surgery_id", using: :btree
@@ -59,8 +57,8 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   end
 
   create_table "surgeries", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -79,8 +77,8 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   add_index "task_procedures", ["task_id"], name: "index_task_procedures_on_task_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.integer  "surgery_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -89,24 +87,24 @@ ActiveRecord::Schema.define(version: 20150504190213) do
   add_index "tasks", ["surgery_id"], name: "index_tasks_on_surgery_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                            default: "", null: false
-    t.string   "encrypted_password",               default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.integer  "season_id"
     t.integer  "area_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "lastname"
+    t.string   "name",                   limit: 255
+    t.string   "lastname",               limit: 255
     t.date     "birthday"
-    t.string   "role"
+    t.string   "role",                   limit: 255
     t.string   "gender",                 limit: 1
     t.integer  "minutes"
   end

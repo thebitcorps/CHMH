@@ -13,6 +13,10 @@ class Procedure < ActiveRecord::Base
       where(user_id: user_id).order('surgery_id DESC')
   }
 
+  scope :by_user,  -> (user_id){
+      includes(:examineds).where(user_id: user_id).order('surgery_id DESC')
+  }
+
   def last_month_notes
     Procedure.where('created_at BETWEEN ? AND ? ',1.month.ago.beginning_of_month , 1.month.ago.end_of_month)
   end
