@@ -33,8 +33,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @procedures = @user.procedures.order('surgery_id DESC').group(:surgery).count
-    @procedure =  @user.procedures.order('surgery_id DESC').to_a
+    query = Procedure.by_user(@user) 
+    @procedures = query.group(:surgery).count
+    @procedure =  query.to_a
   end
 
   # GET /users/new

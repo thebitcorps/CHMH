@@ -3,10 +3,10 @@
 	%span.label.label-info
 		= @procedure.folio
 	- if current_user.admin? or current_user.tutor? or current_user.head_of_area?
-		- if Examined.was_examined_by(current_user.id,@procedure.id)
-			= link_to "Revisar", examined_create_path(:procedure_id => @procedure.id), method: :post, :class => "btn btn-primary", remote: true, id: "examined-button"
+		- if Examined.was_examined_by(current_user.id, @procedure.id)
+			= link_to "Revisar", examined_create_path(procedure_id: @procedure.id), method: :post, class: "btn btn-primary", remote: false, id: "examined-button"
 		- else
-			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-warning",remote: true,id: "examined-button"
+			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-warning",remote: false, id: "examined-button"
 %ul.list-group
 	%li.list-group-item
 		%b Procedimiento realizado por:
