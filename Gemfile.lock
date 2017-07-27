@@ -340,7 +340,7 @@ DEPENDENCIES
   launchy
   less-rails
   momentjs-rails (>= 2.9.0)
-  pg (= 0.20.0)
+  pg
   pry-rails
   puma
   quiet_assets

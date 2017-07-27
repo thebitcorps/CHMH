@@ -1,0 +1,8 @@
+.row
+  .span12
+    / = p [controller.controller_name, controller.action_name]
+    / = p request.path
+    / = p controller.class == Devise::SessionsController
+    / = p debug resource
+    / = p controller.send(resource_name)
+

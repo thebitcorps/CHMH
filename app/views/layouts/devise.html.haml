@@ -17,7 +17,7 @@
     = favicon_link_tag 'favicon.ico', rel: 'shortcut icon'
     = javascript_include_tag "application"
 
-  %body
+  %body{class: "#{check_for_devise}"}
     .container
       .row
         .span12

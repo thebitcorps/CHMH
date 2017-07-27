@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+	def check_for_devise
+		return "wo-nav" if request.path == "/users/sign_in"
+	end
+
 	def NameMonth(month)
 		names = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 		 names[month.to_i - 1]

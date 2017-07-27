@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.9'
 
 #gem 'sqlite3'
-gem 'pg', '= 0.20.0'
+gem 'pg'
 gem 'simple_form'
 gem 'jquery-rails'
 gem 'turbolinks'
