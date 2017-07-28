@@ -17,7 +17,13 @@ class AccessPolicy
     #
     role :admin, proc { |user| user.admin? } do
         can :manage, Area
+        can :manage, Dashboard
         can :manage, User
+    end
+
+    role :intern, proc { |user| user.intern? } do
+        can :read, Area
+        can :read, User
     end
     # role :admin, proc { |user| user.admin? } do
     #   can :destroy, User
