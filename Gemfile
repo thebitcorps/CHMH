@@ -30,6 +30,7 @@ gem 'rails_12factor'
 gem 'react-rails', '~> 1.0'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
+gem 'access-granted', '~> 1.1.0'
 group :development do
   gem 'pry-rails'
   gem 'spring'

@@ -24,7 +24,7 @@
         = f.label "Fecha de nacimiento: "
         %br
         = f.date_select :birthday, :start_year => Time.now.year - 14, :end_year => 1900, :order => [:day, :month, :year],:html=>{:class => "form-control"}
-      - if current_user != @user && current_user.role == "Admin" && @user.role != "Admin"
+      - if current_user != @user && current_user.admin? && @user.role != "Admin"
         .form-group
           = f.label "Rol: "
           %br

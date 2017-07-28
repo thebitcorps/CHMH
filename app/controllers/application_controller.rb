@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
+  rescue_from "AccessGranted::AccessDenied" do |exception|
+    redirect_to root_path, alert: "Acceso negado."
+  end
+
   protected
 
   def configure_permitted_parameters

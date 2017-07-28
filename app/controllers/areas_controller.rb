@@ -2,24 +2,14 @@ class AreasController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_area, only: [:show, :edit, :update, :destroy]
 
-  # GET /areas/1
-  # GET /areas/1.json
   def show
     @surgeries = JSON.parse @area.surgeries.to_json
   end
 
-  # GET /areas/new
   def new
-    if user_signed_in?
-      if current_user.role == "Admin"
-        @area = Area.new
-        @users = User.where(:role => "1")
-      else
-        redirect_to root_path, :alert => "Acceso denegado."
-      end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
+    authorize! :create, Area
+    @area = Area.new
+    @users = User.head_of_area
   end
 
   # GET /areas/1/edit
@@ -78,7 +68,7 @@ class AreasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_area
       if user_signed_in?
-        if current_user.role == "Admin"
+        if current_user.admin?
           @area = Area.find(params[:id])
         else
           if current_user.role == "1"

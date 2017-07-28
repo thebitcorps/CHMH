@@ -20,7 +20,7 @@ class SurgeriesController < ApplicationController
   # GET /surgeries/new
   def new
     if user_signed_in?
-      if current_user.role == "Admin"
+      if current_user.admin?
         @surgery = Surgery.new(:area_id => params[:area_id])
       else
         if current_user.role == "1"
@@ -89,7 +89,7 @@ class SurgeriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_surgery
       if user_signed_in?
-        if current_user.role == "Admin"
+        if current_user.admin?
           @surgery = Surgery.find(params[:id])
         else
           if current_user.role == "1" or current_user.role == "2"

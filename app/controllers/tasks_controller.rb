@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     if user_signed_in?
-      if current_user.role == "Admin"
+      if current_user.admin?
         @task = Task.new(:surgery_id => params[:surgery_id])
       else
         if current_user.role == "1"

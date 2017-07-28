@@ -6,7 +6,7 @@ class SeasonsController < ApplicationController
   # GET /seasons.json
   def index
     if user_signed_in?
-      if current_user.role == "Admin"
+      if current_user.admin?
         @seasons = Season.all.reverse
       else
         redirect_to root_path, :alert => "Acceso denegado."
@@ -24,7 +24,7 @@ class SeasonsController < ApplicationController
   # GET /seasons/new
   def new
     if user_signed_in?
-      if current_user.role == "Admin"
+      if current_user.admin?
         @season = Season.new
       else
         redirect_to root_path, :alert => "Acceso denegado."
@@ -82,7 +82,7 @@ class SeasonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_season
       if user_signed_in?
-        if current_user.role == "Admin"
+        if current_user.admin?
           @season = Season.find(params[:id])
         else
           redirect_to root_path, :alert => "Acceso denegado."

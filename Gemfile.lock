@@ -10,6 +10,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    access-granted (1.1.2)
     actionmailer (4.2.9)
       actionpack (= 4.2.9)
       actionview (= 4.2.9)
@@ -317,6 +318,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  access-granted (~> 1.1.0)
   airbrussh
   better_errors
   binding_of_caller
