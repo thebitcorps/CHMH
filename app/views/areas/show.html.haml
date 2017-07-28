@@ -11,19 +11,19 @@
         Jefe de area:
         = link_to @area.user.fullname, user_path(@area.user)
       %li
-        Numero de residentes:
-        = @area.number_of_residents
+        Número de residentes:
+        = @area.interns.count
       %li
-        Numero de tutores:
-        = @area.number_of_tutors
+        Número de tutores:
+        = @area.tutors.count
       %li
-        Numero de notas:
+        Número de notas:
         = @area.number_of_notes
       %li
         Tiempo total:
         =  show_in_hours_and_minutes @area.all_resident_notes_hours
       %li
-        Numero total de logins:
+        Número total de logins:
         = @area.logins_count
   .btn-group
     = link_to "Editar área", edit_area_path(@area), :class => "btn btn-warning"

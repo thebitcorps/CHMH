@@ -1,16 +1,15 @@
 class Area < ActiveRecord::Base
-	validates :name, :presence => true
-	validates :description, :presence => true
-	belongs_to :user
+	validates :name, :description, presence: true
+	belongs_to :user #manager
 	has_many :users,  dependent: :nullify
 	has_many :surgeries, dependent: :destroy
 
 	def area_residents
-		User.where(role: '3',area_id: self.id)
+		users.interns
 	end
 
 	def find_area_tutors
-		User.where(role: '2',area_id: self.id)
+		users.tutors
 	end
 
 	def number_of_tutors
@@ -22,11 +21,7 @@ class Area < ActiveRecord::Base
 	end
 
 	def all_resident_notes_hours
-		count = 0
-		area_residents.each  do |resident|
-			count += resident.minutes if resident.minutes
-		end
-		count
+		area_residents.sum(:minutes)
 	end
 
 
@@ -50,41 +45,20 @@ class Area < ActiveRecord::Base
 	end
 
 	def procedures
-		procedures = []
-		area_residents.each  do |resident|
-			resident.procedures.each do |procedure|
-				procedures << procedure
-			end
-		end
-		procedures
+		Procedure.where(user: users.interns)
 	end
 
 	def number_of_notes
-		count = 0
-		area_residents.each  do |resident|
-			count += resident.procedures.count
-		end
-		count
+		users.interns.joins(:procedures).count
 	end
 
 	def logins_count
-		users = User.where(area_id: self.id)
-		count = 0
-		users.each do |user|
-			count += user.sign_in_count
-		end
-		count
+		users.sum(:sign_in_count)
 	end
 
 
-	def all_notes_last_month(since_month)
-	  area_residents
-		procedures_count = 0
-		since_month = 1 	if since_month == nil
-		area_residents.each do |user|
-			procedures_count += user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
-		end
-		procedures_count
+	def all_notes_last_month(since_month = 1)
+		Procedure.where('created_at BETWEEN ? AND ?', since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).where(user: users.interns).count
 	end
 
 
@@ -93,9 +67,13 @@ class Area < ActiveRecord::Base
 	end
 
 	def self.resident_more_notes_monthly(since_month)
-		users = User.where(role: '3')
-		user_with_more_notes = users.first
-		users.each do |user|
+		# n = User.residents.joins(:procedures).group('users.id').count + sort
+		# n.sort_by { |_key, value| value }.last
+		# User.find(n[0])
+
+		usrs = User.residents
+		user_with_more_notes = usrs.first
+		usrs.each do |user|
 			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
 				user_with_more_notes = user
 			end

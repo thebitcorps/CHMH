@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-	validates :name, :presence => true
-	validates :lastname, :presence => true
+	validates :name, presence: true
+	validates :lastname, presence: true
 	# validates_presence_of :password_confirmation
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
@@ -8,23 +8,24 @@ class User < ActiveRecord::Base
 	has_many :procedures, dependent: :destroy
   has_many :examineds, dependent: :destroy
 
-	def self.residents
-		User.where(role: "3")
-	end
+  enum access_level: [:inactive, :intern, :tutor, :head_of_area, :admin]
+  enum sex: [:female, :male]
 
 	def last_month_notes(since_month)
-		self.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
+    procedures.where('created_at BETWEEN ? AND ? ', since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month)
 	end
 
-  scope :tutors_from_area, ->(area_id) {where(role: '2',area_id: area_id).order('name')}
-  scope :tutors, -> {where(role: '2').order('name')}
-  scope :head_area, -> {where(role: '1').order('name')}
-  scope :interns, -> {where role: '3'}
-  scope :interns_from_area, ->(area_id) {where role: '3',area_id: area_id}
-  scope :active_interns_from_area, ->(area_id) {interns.where(:season_id => Season.last.id,area_id: area_id).order('name')}
-  scope :active_interns, -> {interns.where(:season_id => Season.last.id).order('name')}
-  scope :inactive_interns_from_area, ->(area_id) {interns_from_area(area_id).where.not(season_id: Season.last.id).order('name')}
-  scope :inactive_interns, -> {interns.where.not(season_id: Season.last.id).order('name')}
+  scope :from_area, ->(area_id) { where(area_id: area_id) }
+  scope :tutors_from_area, ->(area_id) { where(access_level: '2', area_id: area_id).order('name') }
+  scope :tutors, -> { where(access_level: '2').order('name') }
+  # scope :head_area, -> { where(access_level: '3').order('name') }
+  scope :interns, -> { where access_level: '1' }
+  scope :residents, -> { where access_level: '1' }
+  scope :interns_from_area, ->(area_id) { where role: '3', area_id: area_id }
+  scope :active_interns_from_area, -> (area_id) { interns.where(season: Season.last, area_id: area_id).order('name') }
+  scope :active_interns, -> { interns.where(season: Season.last).order('name') }
+  scope :inactive_interns_from_area, ->(area_id) { interns_from_area(area_id).where.not(season: Season.last).order('name') }
+  scope :inactive_interns, -> { interns.where.not(season: Season.last).order('name') }
 
 
   def month_procedure_count
@@ -40,38 +41,38 @@ class User < ActiveRecord::Base
     procedures.group(:donedate).count
   end
 
-  def admin?
-    role == 'Admin'
-  end
+  # def admin?
+  #   role == 'Admin'
+  # end
 
-  def intern?
-    role == '3'
-  end
+  # def intern?
+  #   role == '3'
+  # end
 
-  def tutor?
-    role == '2'
-  end
+  # def tutor?
+  #   role == '2'
+  # end
 
-  def head_of_area?
-    role == '1'
-  end
+  # def head_of_area?
+  #   role == '1'
+  # end
 
   def doctor_gender
-    self.gender == '0' ? "Dr." : "Dra."
+    male? ? 'Dra.' : 'Dr.'
+    # self.gender == '0' ? "Dr." : "Dra."
   end
 
   def fullname
-    self.name + ' ' + self.lastname
+    [name, lastname].join(" ")
   end
 
   def is_active?
-    self.season == Season.last
+    season == Season.last
   end
 
 
   def examined_notes_of(owner_id)
-
-    Examined.where(user_id: self.id,owner_id: owner_id)
+    Examined.where(user: id, owner_id: owner_id)
   end
 
 
