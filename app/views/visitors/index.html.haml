@@ -81,7 +81,7 @@
 								%td
 									= link_to area.name, area_path(area)
 								%td
-									= link_to area.user.name + " " + area.user.lastname, user_path(area.user)
+									= link_to area.manager.fullname, user_path(area.manager)
 								%td 
 									= area.surgeries.count
 

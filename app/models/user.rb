@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	# validates_presence_of :password_confirmation
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
-	belongs_to :area
+  has_one :area
 	has_many :procedures, dependent: :destroy
   has_many :examineds, dependent: :destroy
 

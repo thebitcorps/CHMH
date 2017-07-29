@@ -1,27 +1,20 @@
 class Area < ActiveRecord::Base
 	validates :name, :description, presence: true
-	belongs_to :user #manager
+	belongs_to :manager, class_name: "User", foreign_key: "user_id"
+	# belongs_to :user #manager
 	has_many :users,  dependent: :nullify
 	has_many :surgeries, dependent: :destroy
 
-	def area_residents
+	def residents
 		users.interns
 	end
 
-	def find_area_tutors
+	def tutors
 		users.tutors
 	end
 
-	def number_of_tutors
-		find_area_tutors.count
-	end
-
-	def number_of_residents
-		area_residents.count
-	end
-
 	def all_resident_notes_hours
-		area_residents.sum(:minutes)
+		residents.sum(:minutes)
 	end
 
 
@@ -36,7 +29,7 @@ class Area < ActiveRecord::Base
 
 	def last_resident_notes_hours(since_month)
 		count = 0
-		area_residents.each  do |resident|
+		residents.each  do |resident|
 			resident.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).each do |procedure|
 				count += procedure.minutes
 			end
@@ -63,7 +56,7 @@ class Area < ActiveRecord::Base
 
 
 	def resident_more_notes_monthly(since_monthly)
-		Area.best_resident_monthly(area_residents,since_monthly)
+		Area.best_resident_monthly(residents,since_monthly)
 	end
 
 	def self.resident_more_notes_monthly(since_month)
@@ -87,7 +80,7 @@ class Area < ActiveRecord::Base
 	end
 
 	def resident_with_more_notes
-		Area.best_resident(area_residents)
+		Area.best_resident(residents)
 	end
 
 	def self.best_resident_monthly(users,since_month)

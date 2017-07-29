@@ -20,11 +20,7 @@ class AreasController < ApplicationController
   def create
     @area = Area.new(area_params)
     @area.name = @area.name.titleize
-    # user = @area.user
-    # user.area = @area
-    # @users = User.where(:role => "1")
 
-    # user.save
     respond_to do |format|
       if @area.save
         format.html { redirect_to @area, notice: 'Se ha creado el área correctamente.' }

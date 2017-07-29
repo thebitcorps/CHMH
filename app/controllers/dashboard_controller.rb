@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_areas
   def index
-    authorize! :read, Dashboard
+    authorize! :read, DashboardController
   end
 
   def monthly
