@@ -1,10 +1,8 @@
 class User < ActiveRecord::Base
 	validates :name, presence: true
 	validates :lastname, presence: true
-	# validates_presence_of :password_confirmation
 	devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
 	belongs_to :season
-  # has_one :managed_area, class_name: 'Area'#, foreign_key: 'area_id'
   belongs_to :area
   has_many :managements
   has_many :managed_areas, through: :management
@@ -62,7 +60,6 @@ class User < ActiveRecord::Base
 
   def doctor_gender
     male? ? 'Dra.' : 'Dr.'
-    # self.gender == '0' ? "Dr." : "Dra."
   end
 
   def fullname
@@ -73,31 +70,8 @@ class User < ActiveRecord::Base
     season == Season.last
   end
 
-
   def examined_notes_of(owner_id)
     Examined.where(user: id, owner_id: owner_id)
-  end
-
-
-  def role_name
-    if role == "Admin"
-      'Administrador'
-    elsif role == "1"
-      'Jefe de área'
-    elsif role == "2"
-      'Tutor'
-    elsif role == "3"
-      'Interno'
-    end
-  end
-
-
-  def human_genre
-    if gender == "0"
-      'Masculino'
-    else
-      'Femenino'
-    end
   end
 
   def last_login

@@ -37,7 +37,7 @@ class Procedure < ActiveRecord::Base
   end
 
   def examineds_color
-    examineds.zero? ?  "label-info" : "label-success"
+    examineds.empty? ?  "label-info" : "label-success"
   end
 
 

@@ -6,20 +6,20 @@ module ApplicationHelper
 
 	def NameMonth(month)
 		names = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-		 names[month.to_i - 1]
+		names[month.to_i - 1]
 	end
 
 	def DateWow(date)
-		 date.day.to_s + "/" + NameMonth(date.month.to_s) + "/" + date.year.to_s
+		 [date.day, NameMonth(date.month), date.year].join("/")
 	end
 
 	def show_in_hours_and_minutes(minutes)
-		(minutes/60).to_s + " horas y " + (minutes%60).to_s+ " minutos."
+		(minutes/60).to_s + " horas y " + (minutes%60).to_s + " minutos."
 	end
 
-	def capitalize_and_humanazie(frase)
+	def capitalize_and_humanize(frase)
 		words = frase.split(" ")
-		words.each_with_index do  |word,index|
+		words.each_with_index do  |word, index|
 			word.humanize!
 			word.capitalize! if index == 0
 		end

@@ -6,19 +6,19 @@
   %h4
     %ul
       %li
-        %b Area de pertenencia:
+        %b Área de pertenencia:
         = link_to @user.area.name,area_path(@user.area) if @user.area
       %li
         %b Fecha de nacimiento:
         = DateWow(@user.birthday)
       %li
-        %b Genero:
-        = @user.human_genre
+        %b Género:
+        = @user.male? ? 'masculino' : 'femenino'
       %li
         %b Correo electrónico (e-mail):
         = @user.email
       %li
-        %b Ultimo login:
+        %b Último login:
         = @user.last_login
       %li
         %b Cuenta de logins:
@@ -41,4 +41,4 @@
     #header.panel-heading
       = render 'procedures/header', active: 1
     #procedures.panel-body
-      = render 'procedures/notes',procedure: @user.procedures
+      = render 'procedures/notes', procedure: @user.procedures

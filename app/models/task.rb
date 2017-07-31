@@ -1,8 +1,4 @@
 class Task < ActiveRecord::Base
-	validates :name, :presence => true
-	validates :description, :presence => true
+	validates :name, :description, presence: true
 	belongs_to :surgery
-
-
-
 end
