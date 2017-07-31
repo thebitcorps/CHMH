@@ -1,7 +1,7 @@
 class Area < ActiveRecord::Base
 	validates :name, :description, presence: true
-	has_one :management
-	has_one :manager, through: :management, class_name: 'User'
+	has_many :managements
+	has_many :managers, through: :managements, class_name: 'User'
 	has_many :users,  dependent: :nullify
 	has_many :surgeries, dependent: :destroy
 
