@@ -1,7 +1,7 @@
 class Area < ActiveRecord::Base
 	validates :name, :description, presence: true
-	belongs_to :manager, class_name: "User", foreign_key: "user_id"
-	# belongs_to :user #manager
+	has_one :management
+	has_one :manager, through: :management, class_name: 'User'
 	has_many :users,  dependent: :nullify
 	has_many :surgeries, dependent: :destroy
 
@@ -67,7 +67,7 @@ class Area < ActiveRecord::Base
 		usrs = User.residents
 		user_with_more_notes = usrs.first
 		usrs.each do |user|
-			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
+			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ', since_month.month.ago.beginning_of_month, since_month.month.ago.end_of_month).count
 				user_with_more_notes = user
 			end
 		end
@@ -83,7 +83,7 @@ class Area < ActiveRecord::Base
 		Area.best_resident(residents)
 	end
 
-	def self.best_resident_monthly(users,since_month)
+	def self.best_resident_monthly(users, since_month)
 		user_with_more_notes = users.first
 		users.each do |user|
 			if user.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count > user_with_more_notes.procedures.where('created_at BETWEEN ? AND ? ',since_month.month.ago.beginning_of_month , since_month.month.ago.end_of_month).count
@@ -102,6 +102,4 @@ class Area < ActiveRecord::Base
 		end
 		user_with_more_notes
 	end
-
-
 end

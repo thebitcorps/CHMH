@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 	belongs_to :season
   # has_one :managed_area, class_name: 'Area'#, foreign_key: 'area_id'
   belongs_to :area
+  has_many :managements
+  has_many :managed_areas, through: :management
 	has_many :procedures, dependent: :destroy
   has_many :examineds, dependent: :destroy
 
