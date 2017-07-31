@@ -3,22 +3,22 @@ class Procedure < ActiveRecord::Base
   belongs_to :surgery
   has_many :task_procedures
   has_many :examineds, dependent: :destroy
-  validates :folio,:donedate  ,presence: true
-  validates :minutes, numericality: {greater_than: 0}
+  validates :folio, :donedate, presence: true
+  validates :minutes, numericality: { greater_than: 0 }
   validate :donedate_less_than_today
   validate :donedate_less_this_month
 
 
-  scope :from_user,  -> (user_id){
-      where(user_id: user_id).order('surgery_id DESC')
+  scope :from_user,  -> (user){
+    where(user: user).order('surgery_id DESC')
   }
 
-  scope :by_user,  -> (user_id){
-      includes(:examineds).where(user_id: user_id).order('surgery_id DESC')
+  scope :by_user,  -> (user){
+    includes(:examineds).where(user: user).order('surgery_id DESC')
   }
 
   def last_month_notes
-    Procedure.where('created_at BETWEEN ? AND ? ',1.month.ago.beginning_of_month , 1.month.ago.end_of_month)
+    Procedure.where('created_at BETWEEN ? AND ? ', 1.month.ago.beginning_of_month, 1.month.ago.end_of_month)
   end
 
   def donedate_less_than_today
@@ -26,18 +26,18 @@ class Procedure < ActiveRecord::Base
   end
 
   def donedate_less_this_month
-    errors.add(:donedate, 'Solo se pueden registrar fechas dentro de los pasados 15 dias. ') if (Date.today - donedate).to_i > 15
+    errors.add(:donedate, 'Solo se pueden registrar fechas dentro de los pasados 15 días. ') if (Date.today - donedate).to_i > 15
   end
 
-  def create_procedure_tasks(task_ids)
-    return unless task_ids
-    for task_id in task_ids
-      task_procedures << TaskProcedure.new(task_id: task_id.to_i)
+  def create_procedure_tasks(tasks)
+    return unless tasks
+    for task in tasks
+      task_procedures << TaskProcedure.new(task: task)
     end
   end
 
   def examineds_color
-    examineds.count == 0 ?  "label-info" : "label-success"
+    examineds.zero? ?  "label-info" : "label-success"
   end
 
 

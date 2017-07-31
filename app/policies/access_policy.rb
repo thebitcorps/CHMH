@@ -5,11 +5,18 @@ class AccessPolicy
     role :admin, proc { |user| user.admin? } do
         can :manage, Area
         can :manage, DashboardController
+        can :manage, Season
+        can :manage, Surgery
         can :manage, User
+    end
+
+    role :head_of_area, proc { |user| user.head_of_area? } do
+        can :manage, Surgery
     end
 
     role :intern, proc { |user| user.intern? } do
         can :read, Area
+        can :create, Procedure # its own
         can :read, User
     end
 

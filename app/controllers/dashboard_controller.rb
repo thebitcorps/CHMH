@@ -11,6 +11,7 @@ class DashboardController < ApplicationController
   end
 
   def chart
+    authorize! :read, DashboardController
     @since = params[:month].to_i
   end
 

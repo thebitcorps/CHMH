@@ -1,17 +1,9 @@
 class VisitorsController < ApplicationController
-	before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
-	def index
-    if user_signed_in?
-		@role = current_user.role
-		if @role == "Admin"
-			@season = Season.last
-		end
-		if @role.to_i <= 2
-			@area = current_user.area
-		end
-    else
-      redirect_to new_user_session_path, :alert => "Acceso denegado."
-    end
+  def index
+    @role = current_user.access_level
+    @season = Season.last if current_user.admin?
+    @area = current_user.area if ['head_of_area', 'tutor'].include? @role
   end
 end
