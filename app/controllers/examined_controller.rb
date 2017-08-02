@@ -51,7 +51,7 @@ class ExaminedController < ApplicationController
     respond_to do |format|
       if examined.save
         format.js {  @procedure = procedure}
-        format.html { redirect_to session.delete(:return_to), notice: 'Nota revisada.' }
+        format.html { redirect_to :back, notice: 'Nota revisada.' }
       else
         format.html { redirect_to procedure, notice: 'Error nota no revisada.' }
       end

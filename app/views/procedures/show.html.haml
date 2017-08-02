@@ -4,9 +4,10 @@
 		= @procedure.folio
 	- if current_user.admin? or current_user.tutor? or current_user.head_of_area?
 		- if Examined.was_examined_by(current_user.id, @procedure.id)
-			= link_to "Revisar", examined_create_path(procedure_id: @procedure.id), method: :post, class: "btn btn-primary", remote: false, id: "examined-button"
+			= link_to "Revisar", examined_create_path(procedure_id: @procedure.id), method: :post, class: "btn btn-primary", remote: true, id: "examined-button"
 		- else
-			= link_to "Quitar Revision", examined_destroy_path(:procedure_id => @procedure.id), method: :delete, :class => "btn btn-warning",remote: false, id: "examined-button"
+			= link_to "Quitar Revision", examined_destroy_path(procedure_id: @procedure.id), method: :delete, class: "btn btn-warning", remote: true, id: "examined-button"
+	= link_to("Regresar", 'javascript:history.back()', class: 'btn btn-primary')
 %ul.list-group
 	%li.list-group-item
 		%b Procedimiento realizado por:
@@ -23,7 +24,7 @@
 	%li.list-group-item
 		%b Actividades realizadas:
 		- if @procedure.task_procedures.count == 0
-			= link_to "Agregar", task_procedures_path(:procedure_id => @procedure.id), :class => "btn btn-primary"
+			= link_to "Agregar", task_procedures_path(:procedure_id => @procedure.id), class: "btn btn-primary"
 		-else
 			- @procedure.task_procedures.each do |task_procedure|
 				%label.label.label-primary= task_procedure.task.name if task_procedure.task

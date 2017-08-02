@@ -33,7 +33,7 @@ class ProceduresController < ApplicationController
   # GET /procedures/1
   # GET /procedures/1.json
   def show
-    session[:return_to] ||= request.referer
+    # session[:return_to] ||= request.referer
   end
 
   # GET /procedures/new
