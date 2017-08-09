@@ -26,8 +26,8 @@
         Numero total de logins:
         = @area.logins_count
   .btn-group
-    = link_to "Editar área", edit_area_path(@area), :class => "btn btn-warning"
-    = link_to "Borrar área", area_path, method: :delete,  :class => "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
+    = link_to "Editar área", edit_area_path(@area), class: "btn btn-warning"
+    = link_to "Borrar área", area_path, method: :delete,  class: "btn btn-danger", data: { confirm: '¿Deseas borrar área?'}
 
 = react_component 'TableCRUD',displayName: "Procedimientos dentro de #{@area.name}",list: @surgeries,modelNamePlural: 'surgeries',modelNameSingular: 'surgery',parentId: @area.id,parentName: 'area'
 
@@ -38,6 +38,6 @@
 -#		%ul.list-group
 -#			- @area.surgeries.order('name').each do |surgery|
 -#				%li.list-item
--#					= link_to surgery.name, surgery_path(surgery),  :class => "list-group-item"
+-#					= link_to surgery.name, surgery_path(surgery),  class: "list-group-item"
 -#		.btn-group.btn-group-justified
--#			= link_to "Crear nuevo", new_surgery_path(:area_id => @area.id), :class => "btn btn-primary"
+-#			= link_to "Crear nuevo", new_surgery_path(:area_id => @area.id), class: "btn btn-primary"
