@@ -8,6 +8,7 @@
 		- else
 			= link_to "Quitar Revision", examined_destroy_path(procedure_id: @procedure.id), method: :delete, class: "btn btn-warning", remote: true, id: "examined-button"
 	= link_to("Regresar", 'javascript:history.back()', class: 'btn btn-primary')
+%div
 %ul.list-group
 	%li.list-group-item
 		%b Procedimiento realizado por:

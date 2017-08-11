@@ -34,6 +34,8 @@ class ProceduresController < ApplicationController
   # GET /procedures/1.json
   def show
     # session[:return_to] ||= request.referer
+    @user = @procedure.user
+    @unchecked_procedures = Procedure.unexamined(@user)
   end
 
   # GET /procedures/new

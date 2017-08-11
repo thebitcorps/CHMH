@@ -3,6 +3,7 @@
   %head
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+    %meta(http-equiv="Cache-control" content="No-Cache")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
     %title= content_for?(:title) ? yield(:title) : "Departamento de enseñanza e investigación C.H.M.H."
     = csrf_meta_tags
@@ -18,7 +19,7 @@
     = javascript_include_tag "application"
 
 
-  %body
+  %body(onunload="")
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
@@ -62,3 +63,8 @@
           %br
           - if current_user
             = "ID de usuario: " + current_user.id.to_s
+  :javascript
+    if (!!window.performance && window.performance.navigation.type === 2) {
+      console.log('Reloading');
+      window.location.reload();
+    }

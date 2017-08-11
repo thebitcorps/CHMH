@@ -3,7 +3,7 @@ class Procedure < ActiveRecord::Base
   belongs_to :surgery
   has_many :task_procedures
   has_many :examineds, dependent: :destroy
-  validates :folio,:donedate  ,presence: true
+  validates :folio, :donedate  ,presence: true
   validates :minutes, numericality: {greater_than: 0}
   validate :donedate_less_than_today
   validate :donedate_less_this_month
@@ -15,6 +15,10 @@ class Procedure < ActiveRecord::Base
 
   scope :by_user,  -> (user_id){
       includes(:examineds).where(user_id: user_id).order('surgery_id DESC')
+  }
+
+  scope :unexamined, -> (user){
+    includes(:examineds).where(user: user, examineds: {procedure: nil}).order('procedures.created_at DESC')
   }
 
   def last_month_notes

@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 	belongs_to :season
 	belongs_to :area
 	has_many :procedures, dependent: :destroy
-  has_many :examineds, dependent: :destroy
+  has_many :examineds, through: :procedures, dependent: :destroy
 
 	def self.residents
 		User.where(role: "3")
