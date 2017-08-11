@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  namespace :admin do
+    get 'reviews/index'
+    get 'reviews/show'
+  end
+
   post 'examined/create'
   get 'examined/not_examined'
   delete 'examined/destroy'
