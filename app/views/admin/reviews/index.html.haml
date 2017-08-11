@@ -1,2 +1,5 @@
-%h1 Admin::Reviews#index
-%p Find me in app/views/admin/reviews/index.html.haml
+%table
+  %tr
+    %th Nombre
+    %th Procedimientos
+  = render partial: 'admin/reviews/intern', collection: @interns

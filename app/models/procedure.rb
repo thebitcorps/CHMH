@@ -21,6 +21,11 @@ class Procedure < ActiveRecord::Base
     includes(:examineds).where(user: user, examineds: {procedure: nil}).order('procedures.created_at DESC')
   }
 
+  scope :floating_around, -> {
+    includes(:examineds).where(examineds: {procedure: nil})
+  }
+
+
   def last_month_notes
     Procedure.where('created_at BETWEEN ? AND ? ',1.month.ago.beginning_of_month , 1.month.ago.end_of_month)
   end
@@ -42,6 +47,14 @@ class Procedure < ActiveRecord::Base
 
   def examineds_color
     examineds.count == 0 ?  "label-info" : "label-success"
+  end
+
+  def not_yet_examined
+    examineds.empty?
+  end
+
+  def promote_examination(user)
+    examineds.create(user: user)
   end
 
 

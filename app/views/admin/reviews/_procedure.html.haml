@@ -1,0 +1,7 @@
+%p= link_to procedure.id, procedure
+%p= procedure.surgery.name
+%p= procedure.notes
+%p
+  Revisar
+  =check_box_tag('name', value = "1", checked = false, options = {})
+%hr
