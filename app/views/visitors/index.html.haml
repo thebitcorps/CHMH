@@ -1,5 +1,5 @@
 - if current_user.admin?
-	%h2 #{current_user.gender == "0" ? "Bienvenido Dr. " : "Bienvenida Dra. " } #{current_user.name}
+	%h2= welcome(current_user)
 	.panel.panel-default
 		.panel-heading
 			- if Season.count == 0

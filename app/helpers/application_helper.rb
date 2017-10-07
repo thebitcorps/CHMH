@@ -24,5 +24,10 @@ module ApplicationHelper
 			word.capitalize! if index == 0
 		end
 	end
+
+	def welcome(user)
+		vocal = user.male? ? 'o', 'a'
+		message = ["Bienvenid#{vocal}", user.name].join(" ")
+	end
 end
 

@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   scope :from_area, ->(area_id) { where(area_id: area_id) }
   scope :tutors_from_area, ->(area_id) { where(access_level: '2', area_id: area_id).order('name') }
-  scope :tutors, -> { where(access_level: '2').order('name') }
+  scope :tutors, -> { tutor.all.order('name') }
   # scope :head_area, -> { where(access_level: '3').order('name') }
   scope :interns, -> { where access_level: '1' }
   scope :residents, -> { where access_level: '1' }
@@ -70,8 +70,8 @@ class User < ActiveRecord::Base
     season == Season.last
   end
 
-  def examined_notes_of(owner_id)
-    Examined.where(user: id, owner_id: owner_id)
+  def examined_notes_of(owner)
+    examineds.where(owner: owner)
   end
 
   def last_login
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
     if sign_in_count
       sign_in_count
     else
-      "No ha ingresado"
+      'No ha ingresado'
     end
   end
 end
